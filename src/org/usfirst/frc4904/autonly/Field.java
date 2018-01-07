@@ -1,6 +1,8 @@
 package org.usfirst.frc4904.autonly;
 
 
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 public class Field {
 	public Piece ourSwitch;
 	public Piece scale;
@@ -25,9 +27,5 @@ public class Field {
 			right = team;
 			left = Alliance.values()[1 - team.ordinal()];
 		}
-	}
-
-	public enum Alliance {
-		RED, BLUE
 	}
 }
