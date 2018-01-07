@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.subsytems.PistonIntake;
 
 public class RobotMap {
 	public static class Port {
@@ -8,18 +9,25 @@ public class RobotMap {
 			public static final int xboxController = 1;
 		}
 
-		public static class CANMotor {}
+		public static class CANMotor {
+			public static final int pistonIntakeRoller = 2;
+		}
 
 		public static class PWM {}
 
 		public static class CAN {}
 
-		public static class Pneumatics {}
+		public static class Pneumatics {
+			public static final int pistonIntakeUp = 3;
+			public static final int pistonIntakeDown = 4;
+		}
 	}
 
 	public static class Metrics {}
 
-	public static class Component {}
+	public static class Component {
+		public static PistonIntake pistonintake;
+	}
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
