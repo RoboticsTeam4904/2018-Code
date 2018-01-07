@@ -20,7 +20,7 @@ public class RobotMap {
 
 	public static class Component {}
 	
-	public RobotMap() {
-	
-	}
+	static {}
+
+	private RobotMap(){}
 }
