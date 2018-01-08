@@ -11,6 +11,12 @@ public class Lifter extends Subsystem {
 	public Lifter(Motor extender) {
 		this.extender = extender;
 	}
+
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
