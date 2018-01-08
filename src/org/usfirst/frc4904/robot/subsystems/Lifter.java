@@ -1,14 +1,14 @@
 package org.usfirst.frc4904.robot.subsystems;
 
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lifter extends Subsystem {
-	public final Motor extender;
-	public static final double SUPPORT_MOTOR_OUT_SPEED = 1;
-	public static final double SUPPORT_MOTOR_IN_SPEED = -1;
+	public final DoubleSolenoid extender;
+	public static final DoubleSolenoid.Value SUPPORT_SOLENOID_RAISED = DoubleSolenoid.Value.kReverse;
+	public static final DoubleSolenoid.Value SUPPORT_SOLENOID_LOWERED = DoubleSolenoid.Value.kForward;
 
-	public Lifter(Motor extender) {
+	public Lifter(DoubleSolenoid extender) {
 		this.extender = extender;
 	}
 

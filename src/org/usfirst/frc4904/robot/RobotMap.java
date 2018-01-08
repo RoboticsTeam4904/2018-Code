@@ -1,7 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.subsystems.Lifter;
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class RobotMap {
 	public static class Port {
@@ -10,22 +10,23 @@ public class RobotMap {
 			public static final int xboxController = 1;
 		}
 
-		public static class CANMotor {
-			public static int liftMover = 0;
-		}
+		public static class CANMotor {}
 
 		public static class PWM {}
 
 		public static class CAN {}
 
-		public static class Pneumatics {}
+		public static class Pneumatics {
+			public static int liftSupportOut = 0;
+			public static int liftSupportIn = 1;
+		}
 	}
 
 	public static class Metrics {}
 
 	public static class Component {
 		public static Lifter lifter;
-		public static Motor liftMotor;
+		public static DoubleSolenoid liftPiston;
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that
@@ -33,8 +34,8 @@ public class RobotMap {
 	 */
 	static {
 		//Lifter
-		Component.liftMotor = new Motor ("Lift Motor", new CANTalon(Port.CANMotor.liftMover));
-		Component.lifter = new Lifter(Component.liftMotor);
+		Component.liftPiston = new DoubleSolenoid (Port.Pneumatics.liftSupportOut, Port.Pneumatics.liftSupportIn);
+		Component.lifter = new Lifter(Component.liftPiston);
 	}
 
 	/**
