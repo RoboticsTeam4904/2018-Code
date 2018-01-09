@@ -2,7 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.autonly.Field;
-import org.usfirst.frc4904.robot.humaninterface.drivers.DefaultGain;
+import org.usfirst.frc4904.robot.humaninterface.drivers.SkrtSkrt;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
-		driverChooser.addDefault(new DefaultGain());
+		driverChooser.addDefault(new SkrtSkrt());
 	}
 
 	@Override
