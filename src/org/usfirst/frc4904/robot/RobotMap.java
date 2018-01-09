@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.subsystems.Arm;
 
 public class RobotMap {
 	public static class Port {
@@ -8,7 +9,13 @@ public class RobotMap {
 			public static final int xboxController = 1;
 		}
 
-		public static class CANMotor {}
+		public static class CANMotor {
+			public static final int elbowMotorA = 1; //TODO: change this motor port numbers when we know what they are
+			public static final int elbowMotorB = 2;
+			
+			public static final int wristMotorA = 3;
+			public static final int wristMotorB = 4;
+		}
 
 		public static class PWM {}
 
@@ -19,7 +26,9 @@ public class RobotMap {
 
 	public static class Metrics {}
 
-	public static class Component {}
+	public static class Component {
+		public static Arm boxio;
+	}
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
