@@ -3,7 +3,7 @@ package org.usfirst.frc4904.robot;
 import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsytems.PistonIntake;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
-import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class RobotMap {
@@ -37,8 +37,7 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
-		//TODO: @quialst replace CANTalon
-		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", new Motor("PistonIntakeRoller", new CANTalon(Port.CANMotor.pistonIntakeRoller));
+		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", new TalonSRX(Port.CANMotor.pistonIntakeRoller));
 		pistonIntakeRoller.setInverted(true);
 		DoubleSolenoid pistonIntakePiston = new DoubleSolenoid(Port.Pneumatics.pistonIntakeUp, Port.Pneumatics.pistonIntakeDown);
 		Component.pistonIntake = new PistonIntake(pistonIntakeRoller, pistonIntakePiston);
