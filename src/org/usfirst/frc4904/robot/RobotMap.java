@@ -40,8 +40,7 @@ public class RobotMap {
 	static {
 		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", new TalonSRX(Port.CANMotor.pistonIntakeRoller));
 		pistonIntakeRoller.setInverted(true);
-		DoubleSolenoid pistonIntakePistonRight = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
-		DoubleSolenoid pistonIntakePistonLeft = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
+		DoubleSolenoid pistonIntakePiston = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
 		Component.pistonIntake = new PistonIntake(pistonIntakeRoller, pistonIntakePiston);
 	}
 
