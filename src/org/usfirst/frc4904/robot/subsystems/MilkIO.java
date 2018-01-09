@@ -20,7 +20,6 @@ public class MilkIO extends Subsystem {
 	}
 
 	private void set(double atRest) {
-		// TODO Auto-generated method stub
 		
 	}
 

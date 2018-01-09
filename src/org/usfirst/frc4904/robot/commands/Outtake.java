@@ -4,13 +4,13 @@ import org.usfirst.frc4904.robot.subsystems.MilkIO;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class Intake extends Command {
+public class Outtake extends Command {
 	
 	protected void execCommand() {
-		set(MilkIO.INTAKE_SPEED);
+		set(MilkIO.OUTTAKE_SPEED);
 	}
 
-	private void set(double intakeSpeed) {
+	private void set(double outtakeSpeed) {
 		
 	}
 
