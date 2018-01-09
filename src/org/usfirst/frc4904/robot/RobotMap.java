@@ -32,7 +32,7 @@ public class RobotMap {
 		}
 	}
 
-	public static class Metrics {
+	public static class Metrics { //TODO: Check in later with design to confirm these metrics.
 		public static final double WHEEL_DIAMETER_INCHES = 4;
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
