@@ -2,14 +2,10 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsystems.Arm;
-<<<<<<< HEAD
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
-=======
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
->>>>>>> 76bbb2e28a906ac280b281505cd83dc582d14c1a
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
-import com.ctre.CANTalon;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class RobotMap {
 	public static class Port {
@@ -66,15 +62,15 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
-		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalon(Port.CANMotor.floorioRoller)); //use TalonSRX when we have it
-		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalon(Port.CANMotor.floorioRoller));
-		Motor wristMotorA = new Motor("wristMotorA", new CANTalon(Port.CANMotor.floorioRoller));
-		Motor wristMotorB = new Motor("wristMotorB", new CANTalon(Port.CANMotor.floorioRoller));
+		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //use TalonSRX when we have it
+		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
+		Motor wristMotorA = new Motor("wristMotorA", new CANTalonSRX(Port.CANMotor.wristMotorA));
+		Motor wristMotorB = new Motor("wristMotorB", new CANTalonSRX(Port.CANMotor.wristMotorB));
 		
-		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new TalonSRX(Port.CANEncoder.elbowEncoderA));
-		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new TalonSRX(Port.CANEncoder.elbowEncoderB));
-		CANTalonEncoder wristEncoderA = new CANTalonEncoder("wristEncoderA", new TalonSRX(Port.CANEncoder.wristEncoderA));
-		CANTalonEncoder wristEncoderB = new CANTalonEncoder("wristEncoderB", new TalonSRX(Port.CANEncoder.wristEncoderB));
+		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new CANTalonSRX(Port.CANEncoder.elbowEncoderA));
+		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new CANTalonSRX(Port.CANEncoder.elbowEncoderB));
+		CANTalonEncoder wristEncoderA = new CANTalonEncoder("wristEncoderA", new CANTalonSRX(Port.CANEncoder.wristEncoderA));
+		CANTalonEncoder wristEncoderB = new CANTalonEncoder("wristEncoderB", new CANTalonSRX(Port.CANEncoder.wristEncoderB));
 		
 		Component.boxio = new Arm(elbowMotorA, elbowMotorB, wristMotorA, wristMotorB,
 			elbowEncoderA, elbowEncoderB, wristEncoderA, wristEncoderB);
