@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class MilkIO extends Subsystem {
 
-	public final Motor roller;
+	public static Motor roller;
 	public static final double INTAKE_SPEED = 1.0;
 	public static final double OUTTAKE_SPEED = -1.0;
 	public static final double AT_REST = 0.0;

@@ -12,6 +12,8 @@ public class Outtake extends Command {
 
 	private void set(double outtakeSpeed) {
 		
+		MilkIO.roller.set(outtakeSpeed);
+		
 	}
 
 	@Override

@@ -12,6 +12,8 @@ public class Intake extends Command {
 
 	private void set(double intakeSpeed) {
 		
+		MilkIO.roller.set(intakeSpeed);
+		
 	}
 
 	@Override
