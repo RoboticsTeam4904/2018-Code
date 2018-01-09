@@ -1,13 +1,12 @@
 package org.usfirst.frc4904.robot;
 
-<<<<<<< HEAD
 import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsytems.PistonIntake;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
-=======
+
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -15,7 +14,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
->>>>>>> master
+
 
 public class RobotMap {
 	public static class Port { //TODO: Correct Ports
@@ -38,13 +37,11 @@ public class RobotMap {
 		public static class CAN {}
 
 		public static class Pneumatics {
-<<<<<<< HEAD
+
 			public static final int pistonIntakeGrab = 3;
 			public static final int pistonIntakeRelease = 4;
-=======
 			public static final int shifterUp = -1;
 			public static final int shifterDown = -1;
->>>>>>> master
 		}
 	}
 
@@ -56,9 +53,7 @@ public class RobotMap {
 	}
 
 	public static class Component {
-<<<<<<< HEAD
 		public static PistonIntake pistonIntake;
-=======
 		public static PDP pdp;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
@@ -66,19 +61,16 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
->>>>>>> master
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
 	 */
 	static {
-<<<<<<< HEAD
-		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", new TalonSRX(Port.CANMotor.pistonIntakeRoller));
+		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", (SpeedController) new TalonSRX(Port.CANMotor.pistonIntakeRoller));
 		pistonIntakeRoller.setInverted(true);
 		DoubleSolenoid pistonIntakePiston = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
 		Component.pistonIntake = new PistonIntake(pistonIntakeRoller, pistonIntakePiston);
-=======
 		Component.pdp = new PDP();
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
@@ -90,7 +82,6 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
->>>>>>> master
 	}
 
 	/**
