@@ -20,21 +20,21 @@ public class RobotMap {
 		public static class CANMotor {}
 
 		public static class PWM {
-			public static final int leftDriveA = 1;
-			public static final int leftDriveB = 2;
-			public static final int rightDriveA = 3;
-			public static final int rightDriveB = 4;
+			public static final int leftDriveA = -1;
+			public static final int leftDriveB = -1;
+			public static final int rightDriveA = -1;
+			public static final int rightDriveB = -1;
 		}
 
 		public static class CAN {}
 
 		public static class Pneumatics {
-			public static final int shifterUp = 4;
-			public static final int shifterDown = 5;
+			public static final int shifterUp = -1;
+			public static final int shifterDown = -1;
 		}
 	}
 
-	public static class Metrics {
+	public static class Metrics { //TODO: Check in later with design to confirm these metrics.
 		public static final double WHEEL_DIAMETER_INCHES = 4;
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
