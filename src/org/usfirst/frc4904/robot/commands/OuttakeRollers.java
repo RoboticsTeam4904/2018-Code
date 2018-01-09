@@ -1,18 +1,18 @@
 package org.usfirst.frc4904.robot.commands;
 
-import org.usfirst.frc4904.robot.subsystems.MilkIO;
+import org.usfirst.frc4904.robot.subsystems.CubeIO;
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class OuttakeRollers extends Command {
 	
 	protected void execCommand() {
-		set(MilkIO.OUTTAKE_SPEED);
+		set(CubeIO.OUTTAKE_SPEED);
 	}
 
 	private void set(double outtakeSpeed) {
 		
-		MilkIO.roller.set(outtakeSpeed);
+		CubeIO.roller.set(outtakeSpeed);
 		
 	}
 
