@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class NearSwitchTime extends CommandGroup {
-	public static final double TIME_APPROACH_SWITCH = 1.5;
+	public static final double TIME_APPROACH_SWITCH = -1;
 
     public NearSwitchTime() { //TODO: Add rest of code.
         addSequential(new ChassisConstant(RobotMap.Component.chassis, 0, AutonConfig.DEAD_RECKON_DRIVE_SPEED, 0,
