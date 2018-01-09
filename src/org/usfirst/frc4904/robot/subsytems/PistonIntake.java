@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class PistonIntake extends Subsystem {
 	public final Motor roller;
 	public final DoubleSolenoid piston;
-	public static final DoubleSolenoid.Value LOWERED = DoubleSolenoid.Value.kReverse;
-	public static final DoubleSolenoid.Value RAISED = DoubleSolenoid.Value.kForward;
+	public static final DoubleSolenoid.Value RELEASED = DoubleSolenoid.Value.kReverse;
+	public static final DoubleSolenoid.Value GRABBED = DoubleSolenoid.Value.kForward;
 	public static final double INTAKE_SPEED = -0.55;
 	public static final double OUTTAKE_SPEED = 0.45;
 	public static final double SECURE_CUBE_SPEED = -1;
@@ -21,6 +21,6 @@ public class PistonIntake extends Subsystem {
 	
 	@Override
 	public void initDefaultCommand(){
-		setDefaultCommand(new PistonIntakeRest());
+		setDefaultCommand(new PistonIntakeTransport());
 	}
 }

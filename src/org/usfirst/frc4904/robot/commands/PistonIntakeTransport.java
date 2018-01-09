@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PistonIntakeTransport extends CommandGroup {
 	public PistonIntakeTransport(){
 		requires(RobotMap.Component.pistonIntake);
-		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, 0.33));
-		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.RAISED)));
+		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, 0));
+		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.GRABBED)));
 	}
 }
