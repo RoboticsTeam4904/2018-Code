@@ -5,6 +5,7 @@ import org.usfirst.frc4904.robot.subsytems.PistonIntake;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 
 public class RobotMap {
 	public static class Port {
@@ -22,8 +23,8 @@ public class RobotMap {
 		public static class CAN {}
 
 		public static class Pneumatics {
-			public static final int pistonIntakeUp = 3;
-			public static final int pistonIntakeDown = 4;
+			public static final int pistonIntakeGrab = 3;
+			public static final int pistonIntakeRelease = 4;
 		}
 	}
 
@@ -39,7 +40,8 @@ public class RobotMap {
 	static {
 		Motor pistonIntakeRoller = new Motor("PistonIntakeRoller", new TalonSRX(Port.CANMotor.pistonIntakeRoller));
 		pistonIntakeRoller.setInverted(true);
-		DoubleSolenoid pistonIntakePiston = new DoubleSolenoid(Port.Pneumatics.pistonIntakeUp, Port.Pneumatics.pistonIntakeDown);
+		DoubleSolenoid pistonIntakePistonRight = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
+		DoubleSolenoid pistonIntakePistonLeft = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
 		Component.pistonIntake = new PistonIntake(pistonIntakeRoller, pistonIntakePiston);
 	}
 
