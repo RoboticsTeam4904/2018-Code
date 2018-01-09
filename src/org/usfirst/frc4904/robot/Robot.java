@@ -55,7 +55,6 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void testExecute() {
 		// TODO Auto-generated method stub
-		// We need to make wheels spin
 
 	}
 

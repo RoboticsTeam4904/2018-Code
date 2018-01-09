@@ -4,7 +4,7 @@ import org.usfirst.frc4904.robot.subsystems.MilkIO;
 import edu.wpi.first.wpilibj.command.Command;
 
 
-public class Intake extends Command {
+public class IntakeRollers extends Command {
 	
 	protected void execCommand() {
 		set(MilkIO.INTAKE_SPEED);
