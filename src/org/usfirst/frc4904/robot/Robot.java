@@ -11,7 +11,6 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new SkrtSkrt());
-		logger.start();
 	}
 
 	@Override
