@@ -2,8 +2,10 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class RobotMap {
 	public static class Port {
@@ -19,6 +21,15 @@ public class RobotMap {
 			public static final int wristMotorA = 3;
 			public static final int wristMotorB = 4;
 		}
+		
+		public static class CANEncoder {
+			public static final int elbowEncoderA = 1;
+			public static final int elbowEncoderB = 2;
+			
+			public static final int wristEncoderA = 3;
+			public static final int wristEncoderB = 4;
+		}
+		
 
 		public static class PWM {}
 
@@ -42,7 +53,13 @@ public class RobotMap {
 		Motor wristMotorA = new Motor("wristMotorA", new CANTalon(Port.CANMotor.floorioRoller));
 		Motor wristMotorB = new Motor("wristMotorB", new CANTalon(Port.CANMotor.floorioRoller));
 		
-		Component.boxio = new Arm(elbowMotorA, elbowMotorB, wristMotorA, wristMotorB);
+		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new TalonSRX(Port.CANEncoder.elbowEncoderA));
+		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new TalonSRX(Port.CANEncoder.elbowEncoderB));
+		CANTalonEncoder wristEncoderA = new CANTalonEncoder("wristEncoderA", new TalonSRX(Port.CANEncoder.wristEncoderA));
+		CANTalonEncoder wristEncoderB = new CANTalonEncoder("wristEncoderB", new TalonSRX(Port.CANEncoder.wristEncoderB));
+		
+		Component.boxio = new Arm(elbowMotorA, elbowMotorB, wristMotorA, wristMotorB,
+			elbowEncoderA, elbowEncoderB, wristEncoderA, wristEncoderB);
 	}
 
 	/**
