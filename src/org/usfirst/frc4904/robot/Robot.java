@@ -2,18 +2,22 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.autonly.Field;
+import org.usfirst.frc4904.robot.humaninterface.drivers.SkrtSkrt;
 import org.usfirst.frc4904.standard.CommandRobotBase;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
+		driverChooser.addDefault(new SkrtSkrt());
+		logger.start();
 	}
 
 	@Override
 	public void teleopInitialize() {
-		// TODO Auto-generated method stub
+		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
+		teleopCommand.start();
 	}
 
 	@Override
@@ -23,7 +27,6 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
-		// TODO Auto-generated method stub
 		String fmsData;
 		fmsData = DriverStation.getInstance().getGameSpecificMessage();
 		Field gamefield = new Field(DriverStation.getInstance().getAlliance(), fmsData);

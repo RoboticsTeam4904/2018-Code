@@ -7,6 +7,8 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
+import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
+import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 
 public class RobotMap {
 	public static class Port { //TODO: Correct Ports
@@ -47,6 +49,8 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
+		public static CustomJoystick operatorStick;
+		public static CustomXbox driverXbox;
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that

@@ -1,17 +1,9 @@
 package org.usfirst.frc4904.robot.humaninterface.drivers;
 
 
-import org.usfirst.frc4904.robot.ChassisControllerGroup;
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.autonomous.strategies.WiggleApproach;
-import org.usfirst.frc4904.robot.commands.Climb;
-import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
-import org.usfirst.frc4904.standard.commands.Cancel;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisShift;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
 import org.usfirst.frc4904.standard.humaninput.Driver;
-import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SkrtSkrt extends Driver {
