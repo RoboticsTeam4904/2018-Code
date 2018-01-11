@@ -7,10 +7,14 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
+import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 
 public class RobotMap {
+	
+	public static Field gamefield;
+	
 	public static class Port { //TODO: Correct Ports
 		public static class HumanInput {
 			public static final int joystick = 0;

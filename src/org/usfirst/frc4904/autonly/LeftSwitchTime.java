@@ -2,6 +2,8 @@ package org.usfirst.frc4904.autonly;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
+import org.usfirst.frc4904.standard.commands.Noop;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -13,5 +15,7 @@ public class LeftSwitchTime extends CommandGroup {
     public LeftSwitchTime() { //TODO: Add rest of code.
         addSequential(new ChassisConstant(RobotMap.Component.chassis, 0, AutonConfig.DEAD_RECKON_DRIVE_SPEED, 0,
 			LeftSwitchTime.TIME_APPROACH_SWITCH));
+        addSequential(new RunIf(new Noop(), () -> RobotMap.gamefield.ourSwitch.left == RobotMap.gamefield.ourTeam)); //TODO: Replace with outtake.
     }
+
 }
