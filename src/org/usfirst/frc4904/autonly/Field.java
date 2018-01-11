@@ -7,11 +7,13 @@ public class Field {
 	public Piece ourSwitch;
 	public Piece scale;
 	public Piece theirSwitch;
+	public Alliance ourTeam;
 
 	public Field(Alliance team, String posConfig) {
 		ourSwitch = new Piece(team, posConfig.charAt(0));
 		scale = new Piece(team, posConfig.charAt(1));
 		theirSwitch = new Piece(team, posConfig.charAt(2));
+		ourTeam = team;
 	}
 
 	public class Piece {
