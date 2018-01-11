@@ -1,18 +1,19 @@
 package org.usfirst.frc4904.robot.commands;
 
-import org.usfirst.frc4904.robot.subsystems.CubeIO;
+import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import edu.wpi.first.wpilibj.command.Command;
 
 
 public class RollersIntake extends Command {
 	
 	protected void execute() {
-		set(CubeIO.INTAKE_SPEED);
+		set(CrateIO.INTAKE_SPEED);
 	}
 
 	private void set(double intakeSpeed) {
 		
-		CubeIO.roller.set(intakeSpeed);
+		RobotMap.Component.CubeIOroller.set(intakeSpeed);
 		
 	}
 
