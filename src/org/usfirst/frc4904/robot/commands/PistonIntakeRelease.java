@@ -12,8 +12,4 @@ public class PistonIntakeRelease extends CommandGroup{
 		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, 0));
 		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.RELEASED)));
 	}
-	@Override
-	protected boolean isFinished() {
-		return super.isFinished() || isTimedOut();
-	}
 }
