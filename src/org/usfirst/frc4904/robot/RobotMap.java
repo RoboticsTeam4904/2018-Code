@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.RobotMap.Port;
+import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -77,11 +78,12 @@ public class RobotMap {
 
 		
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
-		HumanInput.Driver.xbox.setDeadZone(Constant.HumanInput.XBOX_MINIMUM_THRESHOLD);
+		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
-		HumanInput.Operator.leftStick.setDeadzone(deadzone);
+		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
+		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
 	}
 
 	/**
