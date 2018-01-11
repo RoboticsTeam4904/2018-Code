@@ -3,6 +3,7 @@ package org.usfirst.frc4904.robot;
 import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
@@ -10,9 +11,9 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 public class RobotMap {
 	public static class Port {
 		public static class HumanInput {
-			public static final int joystick = 0;
+			public static final int leftStick = 0;
 			public static final int xboxController = 1;
-			
+			public static final int rightStick = 2;
 		}
 
 		public static class CANMotor {
@@ -49,14 +50,13 @@ public class RobotMap {
 		public static class Driver {
 			public static CustomXbox xbox;
 		}
-		
-	}
-	
-	public static class Constant {
-		public static class HumanInput {
-			public static final double XBOX_MINIMUM_THRESHOLD = 0.1;
+		public static class Operator{
+			public static CustomJoystick leftStick;
+			public static CustomJoystick rightStick;
 		}
 	}
+	
+
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
@@ -78,6 +78,10 @@ public class RobotMap {
 		
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(Constant.HumanInput.XBOX_MINIMUM_THRESHOLD);
+		
+		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
+		HumanInput.Operator.leftStick.setDeadzone(deadzone);
+		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
 	}
 
 	/**
