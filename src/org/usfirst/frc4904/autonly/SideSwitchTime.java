@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class SwitchTime extends CommandGroup {
+public class SideSwitchTime extends CommandGroup {
 	public static final double TIME_APPROACH_SWITCH = -1; // TODO: Replace with real time
 
-    public SwitchTime(Alliance switchSideAlliance) { //TODO: Add rest of code.
+    public SideSwitchTime(Alliance switchSideAlliance) { //TODO: Add rest of code.
         addSequential(new ChassisConstant(RobotMap.Component.chassis, 0, AutonConfig.DEAD_RECKON_DRIVE_SPEED, 0,
-			SwitchTime.TIME_APPROACH_SWITCH));
+			SideSwitchTime.TIME_APPROACH_SWITCH));
         addSequential(new RunIf(new Noop(), () -> switchSideAlliance == RobotMap.gamefield.ourTeam)); //TODO: Replace with outtake.
     }
 }
