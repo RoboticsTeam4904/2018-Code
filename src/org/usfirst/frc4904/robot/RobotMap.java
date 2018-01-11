@@ -1,6 +1,5 @@
 package org.usfirst.frc4904.robot;
 
-import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsytems.PistonIntake;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -10,7 +9,6 @@ import edu.wpi.first.wpilibj.SpeedController;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
