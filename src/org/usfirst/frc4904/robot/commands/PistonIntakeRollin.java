@@ -13,4 +13,8 @@ public class PistonIntakeRollin extends CommandGroup {
 		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.GRABBED)));
 		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, PistonIntake.INTAKE_SPEED));
 	}
+	@Override
+	protected boolean isFinished() {
+		return super.isFinished() || isTimedOut();
+	}
 }
