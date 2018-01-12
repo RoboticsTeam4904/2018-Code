@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 
 public class RobotMap {
 	
@@ -52,8 +53,12 @@ public class RobotMap {
 			public static final double DISTANCE_FRONT_BACK = 27.373;
 			public static final double DISTANCE_SIDE_SIDE = 24.5;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES / Metrics.Wheel.TICKS_PER_REVOLUTION;
+			public static final int driveP = 0; //TODO: Replace with real PID values.
+			public static final int driveI = 0;
+			public static final int driveD = 0;
 		}
 	}
+	
 
 	public static class Component {
 		public static PDP pdp;
@@ -68,6 +73,7 @@ public class RobotMap {
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
+		public static CustomPIDController drivePID;
 	}
 
 	/**
@@ -90,6 +96,7 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD, Component.chassisEncoders);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 	}
 
