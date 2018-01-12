@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -8,6 +9,9 @@ import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.Acceleration
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
 import org.usfirst.frc4904.autonly.Field;
+import org.usfirst.frc4904.robot.RobotMap.Component;
+import org.usfirst.frc4904.robot.RobotMap.Metrics;
+import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 
@@ -30,7 +34,10 @@ public class RobotMap {
 			public static final int rightDriveB = -1;
 		}
 
-		public static class CAN {}
+		public static class CAN {
+
+			public static final int leftEncoder = -1;
+			public static final int rightEncoder = -1;
 
 		public static class Pneumatics {
 			public static final int shifterUp = -1;
@@ -46,6 +53,7 @@ public class RobotMap {
 			public static final double TICKS_PER_INCH = Metrics.Wheel.TICKS_PER_REVOLUTION / Metrics.Wheel.CIRCUMFERENCE_INCHES;
 			public static final double DISTANCE_FRONT_BACK = 27.373;
 			public static final double DISTANCE_SIDE_SIDE = 24.5;
+			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES / Metrics.Wheel.TICKS_PER_REVOLUTION;
 		}
 	}
 
@@ -59,6 +67,8 @@ public class RobotMap {
 		public static EnableableModifier leftWheelAccelerationCap;
 		public static CustomJoystick operatorStick;
 		public static CustomXbox driverXbox;
+		public static CANEncoder leftWheelEncoder;
+		public static CANEncoder rightWheelEncoder;
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that
@@ -66,6 +76,10 @@ public class RobotMap {
 	 */
 	static {
 		Component.pdp = new PDP();
+		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
+		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
