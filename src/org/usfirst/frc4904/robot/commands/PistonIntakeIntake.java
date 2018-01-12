@@ -6,11 +6,10 @@ import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PistonIntakeRollin extends CommandGroup {
-	public PistonIntakeRollin() {
-		setTimeout(PistonIntake.ROLLIN_TIMEOUT_SEC);
+public class PistonIntakeIntake extends CommandGroup{
+	public PistonIntakeIntake() {
 		requires(RobotMap.Component.pistonIntake);
-		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.GRABBED)));
 		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, PistonIntake.INTAKE_SPEED));
+		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.GRABBED)));
 	}
 }

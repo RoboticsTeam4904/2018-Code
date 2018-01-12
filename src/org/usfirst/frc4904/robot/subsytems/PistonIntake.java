@@ -14,7 +14,6 @@ public class PistonIntake extends Subsystem {
 	public static final double OUTTAKE_SPEED = 0.45;
 	public static final double ROLLOUT_DELAY_SEC = 0.1;
 	public static final double ROLLIN_TIMEOUT_SEC = 1;
-	public static final double SECURE_CUBE_SPEED = -1;
 	
 	public PistonIntake(Motor roller, DoubleSolenoid piston) {
 		this.roller = roller;
