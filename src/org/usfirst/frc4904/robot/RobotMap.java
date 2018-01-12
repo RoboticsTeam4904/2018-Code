@@ -1,5 +1,7 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -15,7 +17,9 @@ public class RobotMap {
 			public static final int xboxController = 1;
 		}
 
-		public static class CANMotor {}
+		public static class CANMotor {
+			public static final int crateIORollerMotor = -1;
+		}
 
 		public static class PWM {
 			public static final int leftDriveA = -1;
@@ -44,10 +48,11 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
-		public static Motor CubeIOroller;
+		public static Motor crateIORoller;
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
+		public static CrateIO crateIO;
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that
@@ -65,6 +70,8 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Component.crateIORoller = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotor));
+		Component.crateIO = new CrateIO(Component.crateIORoller);
 	}
 
 	/**
