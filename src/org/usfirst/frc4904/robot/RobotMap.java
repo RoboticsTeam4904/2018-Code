@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -9,9 +10,6 @@ import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.Acceleration
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
 import org.usfirst.frc4904.autonly.Field;
-import org.usfirst.frc4904.robot.RobotMap.Component;
-import org.usfirst.frc4904.robot.RobotMap.Metrics;
-import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 
@@ -38,7 +36,7 @@ public class RobotMap {
 
 			public static final int leftEncoder = -1;
 			public static final int rightEncoder = -1;
-
+		}
 		public static class Pneumatics {
 			public static final int shifterUp = -1;
 			public static final int shifterDown = -1;
@@ -69,7 +67,9 @@ public class RobotMap {
 		public static CustomXbox driverXbox;
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
+		public static EncoderPair chassisEncoders;
 	}
+
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
@@ -89,6 +89,7 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 	}
 
