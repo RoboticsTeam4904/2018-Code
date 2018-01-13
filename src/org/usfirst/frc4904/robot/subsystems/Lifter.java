@@ -16,7 +16,6 @@ public class Lifter extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		setDefaultCommand(new Idle(RobotMap.Component.lifter));
 	}
 	
