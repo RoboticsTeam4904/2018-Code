@@ -1,5 +1,7 @@
 package org.usfirst.frc4904.robot.subsystems;
 
+import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.commands.Idle;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,7 +17,7 @@ public class Lifter extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+		setDefaultCommand(new Idle(RobotMap.Component.lifter));
 	}
 	
 	

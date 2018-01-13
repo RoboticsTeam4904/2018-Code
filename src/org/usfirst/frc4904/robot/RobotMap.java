@@ -17,8 +17,8 @@ public class RobotMap {
 		public static class CAN {}
 
 		public static class Pneumatics {
-			public static int liftSupportOut = 0;
-			public static int liftSupportIn = 1;
+			public static int liftSupportOut = -1;
+			public static int liftSupportIn = -1;
 		}
 	}
 
@@ -34,7 +34,7 @@ public class RobotMap {
 	 */
 	static {
 		//Lifter
-		Component.liftPiston = new DoubleSolenoid (Port.Pneumatics.liftSupportOut, Port.Pneumatics.liftSupportIn);
+		Component.liftPiston = new DoubleSolenoid(Port.Pneumatics.liftSupportOut, Port.Pneumatics.liftSupportIn);
 		Component.lifter = new Lifter(Component.liftPiston);
 	}
 
