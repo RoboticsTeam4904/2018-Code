@@ -78,7 +78,7 @@ public class RobotMap {
 		public static class Driver {
 			public static CustomXbox xbox;
 		}
-		public static class Operator{
+		public static class Operator {
 			public static CustomJoystick leftStick;
 			public static CustomJoystick rightStick;
 		}

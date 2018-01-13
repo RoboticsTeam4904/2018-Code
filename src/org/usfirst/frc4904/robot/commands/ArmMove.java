@@ -17,11 +17,14 @@ public class ArmMove extends CommandGroup{
 	
 	@Override
 	protected void execute() {
-		RobotMap.Component.boxio.elbowMotorA.set(RobotMap.HumanInput.Operator.leftStick.getY());
-		RobotMap.Component.boxio.elbowMotorB.set(RobotMap.HumanInput.Operator.leftStick.getY()*-1);//either *-1, or invert one motor in setup
+		double leftStickY = RobotMap.HumanInput.Operator.leftStick.getY();
+		double rightStickY = RobotMap.HumanInput.Operator.rightStick.getY();
+		
+		RobotMap.Component.boxio.elbowMotorA.set(leftStickY);
+		RobotMap.Component.boxio.elbowMotorB.set(leftStickY*-1);//either *-1, or invert one motor in setup
 		//TODO: is there a less ghetto way of setting both motors? Theoretically the xbox input could change in between and mess stuff up
-		RobotMap.Component.boxio.wristMotorA.set(RobotMap.HumanInput.Operator.rightStick.getY());
-		RobotMap.Component.boxio.wristMotorB.set(RobotMap.HumanInput.Operator.rightStick.getY()*-1);
+		RobotMap.Component.boxio.wristMotorA.set(rightStickY);
+		RobotMap.Component.boxio.wristMotorB.set(rightStickY*-1);
 		
 	}
 	
