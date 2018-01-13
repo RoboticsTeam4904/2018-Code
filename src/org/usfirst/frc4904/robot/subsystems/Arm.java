@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot.subsystems;
 
+import org.usfirst.frc4904.standard.commands.Idle;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
@@ -39,7 +40,7 @@ public class Arm extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub. Do whatever we want to do when we turn the robot on
-		
+		setDefaultCommand(new Idle(RobotMap.Component.boxio));
 	}
 	
 	

@@ -1,6 +1,5 @@
 package org.usfirst.frc4904.robot;
 
-import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
@@ -8,6 +7,13 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+
+import org.usfirst.frc4904.standard.custom.sensors.PDP;
+import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
+import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
+import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
+import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
 	public static class Port {
@@ -18,33 +24,53 @@ public class RobotMap {
 		}
 
 		public static class CANMotor {
-			public static final int elbowMotorA = 1; //TODO: change this motor port numbers when we know what they are
-			public static final int elbowMotorB = 2;
+			public static final int elbowMotorA = -1; //TODO: change this motor port numbers when we know what they are
+			public static final int elbowMotorB = -1;
 			
-			public static final int wristMotorA = 3;
-			public static final int wristMotorB = 4;
+			public static final int wristMotorA = -1;
+			public static final int wristMotorB = -1;
 		}
 		
 		public static class CANEncoder {
-			public static final int elbowEncoderA = 1;
-			public static final int elbowEncoderB = 2;
+			public static final int elbowEncoderA = -1;
+			public static final int elbowEncoderB = -1;
 			
-			public static final int wristEncoderA = 3;
-			public static final int wristEncoderB = 4;
+			public static final int wristEncoderA = -1;
+			public static final int wristEncoderB = -1;
 		}
 		
 
-		public static class PWM {}
+		public static class PWM {
+			public static final int leftDriveA = -1;
+			public static final int leftDriveB = -1;
+			public static final int rightDriveA = -1;
+			public static final int rightDriveB = -1;
+		}
 
 		public static class CAN {}
 
-		public static class Pneumatics {}
+		public static class Pneumatics {
+			public static final int shifterUp = -1;
+			public static final int shifterDown = -1;
+		}
 	}
 
-	public static class Metrics {}
+	public static class Metrics {
+		public static final double WHEEL_DIAMETER_INCHES = 4;
+		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
+		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
+		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+	}
 
 	public static class Component {
 		public static Arm boxio;
+		public static PDP pdp;
+		public static TankDriveShifting chassis;
+		public static Motor leftWheel;
+		public static Motor rightWheel;
+		public static SolenoidShifters shifter;
+		public static EnableableModifier rightWheelAccelerationCap;
+		public static EnableableModifier leftWheelAccelerationCap;
 	}
 	
 	public static class HumanInput {
@@ -56,6 +82,7 @@ public class RobotMap {
 			public static CustomJoystick rightStick;
 		}
 	}
+	
 	
 
 	/**
@@ -84,6 +111,18 @@ public class RobotMap {
 		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
 		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
+		
+		Component.pdp = new PDP();
+		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
+		Component.leftWheelAccelerationCap.enable();
+		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
+		Component.rightWheelAccelerationCap.enable();
+		Component.leftWheel = new Motor("LeftWheel", Component.leftWheelAccelerationCap,
+			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
+		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
+			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 	}
 
 	/**
