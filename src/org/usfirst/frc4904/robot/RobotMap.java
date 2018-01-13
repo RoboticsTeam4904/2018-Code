@@ -11,12 +11,13 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
+
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
-	public static class Port {
+	public static class Port { //TODO: Correct Ports
 		public static class HumanInput {
 			public static final int leftStick = 0;
 			public static final int xboxController = 1;
@@ -82,14 +83,13 @@ public class RobotMap {
 			public static CustomJoystick rightStick;
 		}
 	}
-	
-	
 
 	/**
 	 * The static initializer runs exactly once and ensures that
 	 * the variables are properly initialized.
 	 */
 	static {
+
 		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //use TalonSRX when we have it
 		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
 		Motor wristMotorA = new Motor("wristMotorA", new CANTalonSRX(Port.CANMotor.wristMotorA));
