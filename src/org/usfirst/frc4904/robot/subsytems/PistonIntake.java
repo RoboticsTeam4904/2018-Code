@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class PistonIntake extends Subsystem {
-	public final Motor roller;
+	public final Motor rightRoller;
+	public final Motor leftRoller;
 	public final DoubleSolenoid piston;
 	public static final DoubleSolenoid.Value RELEASED = DoubleSolenoid.Value.kReverse;
 	public static final DoubleSolenoid.Value GRABBED = DoubleSolenoid.Value.kForward;
@@ -15,8 +16,9 @@ public class PistonIntake extends Subsystem {
 	public static final double ROLLOUT_DELAY_SEC = 0.1;
 	public static final double ROLLIN_TIMEOUT_SEC = 1;
 	
-	public PistonIntake(Motor roller, DoubleSolenoid piston) {
-		this.roller = roller;
+	public PistonIntake(Motor rightRoller, Motor leftRoller, DoubleSolenoid piston) {
+		this.rightRoller = rightRoller;
+		this.leftRoller = leftRoller;
 		this.piston = piston;
 	}
 	

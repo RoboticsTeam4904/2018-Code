@@ -10,8 +10,9 @@ public class PistonIntakeRollin extends CommandGroup {
 	public PistonIntakeRollin() {
 		setTimeout(PistonIntake.ROLLIN_TIMEOUT_SEC);
 		requires(RobotMap.Component.pistonIntake);
+		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.rightRoller, PistonIntake.INTAKE_SPEED));
+		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.leftRoller, PistonIntake.INTAKE_SPEED));
 		addParallel(new SingleOp(() -> RobotMap.Component.pistonIntake.piston.set(PistonIntake.GRABBED)));
-		addParallel(new MotorConstant(RobotMap.Component.pistonIntake.roller, PistonIntake.INTAKE_SPEED));
 	}
 	@Override
 	protected boolean isFinished() {
