@@ -6,8 +6,11 @@ import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class PistonIntakeRelease extends CommandGroup{
-	public PistonIntakeRelease(){
+/**
+ * Releases a power cube from the pistons, setting it down.
+ */
+public class PistonIntakeRelease extends CommandGroup {
+	public PistonIntakeRelease() {
 		requires(RobotMap.Component.pistonIntake);
 		addParallel(new MotorIdle(RobotMap.Component.pistonIntake.rightRoller));
 		addParallel(new MotorIdle(RobotMap.Component.pistonIntake.leftRoller));

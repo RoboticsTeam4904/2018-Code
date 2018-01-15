@@ -6,6 +6,9 @@ import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * Intakes a cube by spinning the rollers and clamping it with the pistons. 
+ */
 public class PistonIntakeRollin extends CommandGroup {
 	public PistonIntakeRollin() {
 		setTimeout(PistonIntake.ROLLIN_TIMEOUT_SEC);

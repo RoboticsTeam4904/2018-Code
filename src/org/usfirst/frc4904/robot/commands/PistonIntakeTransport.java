@@ -6,8 +6,11 @@ import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+/**
+ * Squeezes a cube with the pistons while the robot is transporting it to prevent the cube from slipping out
+ */
 public class PistonIntakeTransport extends CommandGroup {
-	public PistonIntakeTransport(){
+	public PistonIntakeTransport() {
 		requires(RobotMap.Component.pistonIntake);
 		addParallel(new MotorIdle(RobotMap.Component.pistonIntake.rightRoller));
 		addParallel(new MotorIdle(RobotMap.Component.pistonIntake.leftRoller));
