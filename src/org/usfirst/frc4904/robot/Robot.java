@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
