@@ -27,9 +27,9 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
-		String fmsData;
-		fmsData = DriverStation.getInstance().getGameSpecificMessage();
-		RobotMap.gamefield = new Field(DriverStation.getInstance().getAlliance(), fmsData);
+		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(), DriverStation.getInstance().getGameSpecificMessage());
+		LogKitten.wtf(RobotMap.gameField);
+		((Strategy) autoChooser.getSelected()).setup();
 	}
 
 	@Override
