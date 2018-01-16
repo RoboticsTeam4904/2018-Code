@@ -2,12 +2,14 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
+import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.VictorSP;
 import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -73,7 +75,9 @@ public class RobotMap {
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
+		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
+		public static NavX navx;
 	}
 
 	/**
@@ -98,6 +102,15 @@ public class RobotMap {
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD, Component.chassisEncoders);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		//Sensors
+		Component.navx = new NavX(SerialPort.Port.kMXP);
+		//Motion Controllers
+		//TODO: All these numbers are straight out of 2017, so these might need new numbers
+		Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
+		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
+		Component.chassisTurnMC.setInputRange(-180, 180);
+		Component.chassisTurnMC.setContinuous(true);
+		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
 	}
 
 	/**
