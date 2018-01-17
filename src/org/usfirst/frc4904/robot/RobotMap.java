@@ -1,12 +1,16 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.subsytems.PistonIntake;
+import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.VictorSP;
+
 
 public class RobotMap {
 	public static class Port { //TODO: Correct Ports
@@ -15,7 +19,9 @@ public class RobotMap {
 			public static final int xboxController = 1;
 		}
 
-		public static class CANMotor {}
+		public static class CANMotor {
+			public static final int pistonIntakeRollers = -1;
+		}
 
 		public static class PWM {
 			public static final int leftDriveA = -1;
@@ -27,6 +33,9 @@ public class RobotMap {
 		public static class CAN {}
 
 		public static class Pneumatics {
+
+			public static final int pistonIntakeGrab = -1;
+			public static final int pistonIntakeRelease = -1;
 			public static final int shifterUp = -1;
 			public static final int shifterDown = -1;
 		}
@@ -40,6 +49,7 @@ public class RobotMap {
 	}
 
 	public static class Component {
+		public static PistonIntake pistonIntake;
 		public static PDP pdp;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
@@ -53,6 +63,10 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
+		Motor pistonIntakeRollerRight = new Motor("PistonIntakeRollerRight", new CANTalonSRX(Port.CANMotor.pistonIntakeRollers));
+		Motor pistonIntakeRollerLeft = new Motor("PistonIntakeRollerLeft", new CANTalonSRX(Port.CANMotor.pistonIntakeRollers));
+		DoubleSolenoid pistonIntakePiston = new DoubleSolenoid(Port.Pneumatics.pistonIntakeGrab, Port.Pneumatics.pistonIntakeRelease);
+		Component.pistonIntake = new PistonIntake(pistonIntakeRollerRight, pistonIntakeRollerLeft, pistonIntakePiston);
 		Component.pdp = new PDP();
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
