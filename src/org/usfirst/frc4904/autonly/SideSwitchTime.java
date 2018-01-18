@@ -3,9 +3,6 @@ package org.usfirst.frc4904.autonly;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 
-/**
- *
- */
 public class SideSwitchTime extends Strategy {
 	public static final double TIME_APPROACH_SWITCH = 3; // TODO: Replace with real time
 	
