@@ -18,7 +18,7 @@ import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController
 
 public class RobotMap {
 	
-	public static Field gameField;
+	public static Field gamefield;
 	
 	public static class Port { //TODO: Correct Ports
 		public static class HumanInput {

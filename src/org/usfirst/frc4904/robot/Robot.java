@@ -1,7 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Strategy;
+import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
@@ -27,8 +27,9 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
-		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(), DriverStation.getInstance().getGameSpecificMessage());
-		((Strategy) autoChooser.getSelected()).setup();
+		String fmsData;
+		fmsData = DriverStation.getInstance().getGameSpecificMessage();
+		RobotMap.gamefield = new Field(DriverStation.getInstance().getAlliance(), fmsData);
 	}
 
 	@Override
