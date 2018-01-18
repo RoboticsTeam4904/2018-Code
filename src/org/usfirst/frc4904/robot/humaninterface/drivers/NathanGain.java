@@ -9,8 +9,6 @@ public class NathanGain extends Driver {
 	public static final double SPEED_EXP = 2;
 	public static final double TURN_GAIN = 1;
 	public static final double TURN_EXP = 2;
-	public static final double CLIMB_GAIN = 1;
-	public static final double CLIMB_EXP = 2;
 	public static final double Y_SPEED_SCALE = 1;
 	public static final double TURN_SPEED_SCALE = 1;
 	public static final double PASSIVE_CLIMBER_SPIN_SPEED = 0.07;
