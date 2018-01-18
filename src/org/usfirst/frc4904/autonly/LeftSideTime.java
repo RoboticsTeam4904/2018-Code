@@ -9,7 +9,7 @@ import org.usfirst.frc4904.standard.commands.RunIf;
 public class LeftSideTime extends SideSwitchTime {
 	public LeftSideTime () {
     	addSequential(new RunIf(new Noop(), () -> {
-    		return RobotMap.gameField.ourSwitch.left == RobotMap.gameField.team;
+    		return RobotMap.gameField.ourSwitch.isLeftOurs();
     	}));
     }
 }
