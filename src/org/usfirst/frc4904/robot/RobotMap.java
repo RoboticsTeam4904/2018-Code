@@ -18,23 +18,19 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class RobotMap {
 	public static class Port { // TODO: Correct Ports
 		public static class HumanInput {
-			public static final int leftStick = 0;
-			public static final int xboxController = 1;
-			public static final int rightStick = 2;
+			public static final int leftStick = -1;
+			public static final int xboxController = -1;
+			public static final int rightStick = -1;
 		}
 
 		public static class CANMotor {
 			public static final int elbowMotorA = -1; // TODO: change this motor port numbers when we know what they are
-			public static final int elbowMotorB = -1;
-			public static final int wristMotorA = -1;
-			public static final int wristMotorB = -1;
+			public static final int elbowMotorB = -1; 
 		}
 
 		public static class CANEncoder {
 			public static final int elbowEncoderA = -1;
 			public static final int elbowEncoderB = -1;
-			public static final int wristEncoderA = -1;
-			public static final int wristEncoderB = -1;
 		}
 
 		public static class PWM {
@@ -85,16 +81,11 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
-		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); // use TalonSRX when we have it
+		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //TODO: change these to positionsensormotors
 		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
-		Motor wristMotorA = new Motor("wristMotorA", new CANTalonSRX(Port.CANMotor.wristMotorA));
-		Motor wristMotorB = new Motor("wristMotorB", new CANTalonSRX(Port.CANMotor.wristMotorB));
 		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new CANTalonSRX(Port.CANEncoder.elbowEncoderA));
 		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new CANTalonSRX(Port.CANEncoder.elbowEncoderB));
-		CANTalonEncoder wristEncoderA = new CANTalonEncoder("wristEncoderA", new CANTalonSRX(Port.CANEncoder.wristEncoderA));
-		CANTalonEncoder wristEncoderB = new CANTalonEncoder("wristEncoderB", new CANTalonSRX(Port.CANEncoder.wristEncoderB));
-		Component.boxio = new Arm(elbowMotorA, elbowMotorB, wristMotorA, wristMotorB,
-			elbowEncoderA, elbowEncoderB, wristEncoderA, wristEncoderB);
+		Component.boxio = new Arm(elbowMotorA, elbowMotorB, elbowEncoderA, elbowEncoderB);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
