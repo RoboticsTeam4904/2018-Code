@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.autonly;
 
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class Field {
@@ -65,6 +66,13 @@ public class Field {
 		@Override
 		public String toString() {
 			return "Piece{L:'" + left.name() + "' R:'"+ right.name() +"'}";
+		}
+		
+		public boolean isLeftOurs(){
+			return (DriverStation.getInstance().getAlliance() == this.left) ? true : false;
+		}
+		public boolean isRightOurs(){
+			return (DriverStation.getInstance().getAlliance() == this.right) ? true : false;
 		}
 	}
 }
