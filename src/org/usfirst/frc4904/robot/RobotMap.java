@@ -53,14 +53,16 @@ public class RobotMap {
 			public static final double CIRCUMFERENCE_INCHES = Metrics.Wheel.DIAMETER_INCHES * Math.PI;
 			public static final double TICKS_PER_INCH = Metrics.Wheel.TICKS_PER_REVOLUTION
 				/ Metrics.Wheel.CIRCUMFERENCE_INCHES;
-			public static final double DISTANCE_FRONT_BACK = 27.373;
-			public static final double DISTANCE_SIDE_SIDE = 24.5;
+			public static final double DISTANCE_FRONT_BACK = 27.37;
+			public static final double DISTANCE_SIDE_SIDE = 25.21;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
 				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
 			public static final int driveP = 0; // TODO: Replace with real PID values.
 			public static final int driveI = 0;
 			public static final int driveD = 0;
 		}
+		public static final double LENGTH = 32.75;
+		public static final double WIDTH = 27.75;
 	}
 
 	public static class Component {
