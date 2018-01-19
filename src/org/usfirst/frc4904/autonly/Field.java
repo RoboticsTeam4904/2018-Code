@@ -129,7 +129,8 @@ public class Field {
 		 * @return true if the left side is ours, false if it is not.
 		 */
 		public boolean isLeftOurs() {
-			return (DriverStation.getInstance().getAlliance() == this.left) ? true : false;
+			Alliance currentAlliance = DriverStation.getInstance().getAlliance();
+			return currentAlliance != Alliance.Invalid && currentAlliance == this.left;
 		}
 
 		/**
@@ -138,7 +139,8 @@ public class Field {
 		 * @return true if the right side is ours, false if it is not.
 		 */
 		public boolean isRightOurs() {
-			return (DriverStation.getInstance().getAlliance() == this.right) ? true : false;
+			Alliance currentAlliance = DriverStation.getInstance().getAlliance();
+			return currentAlliance != Alliance.Invalid && currentAlliance == this.right;
 		}
 	}
 }
