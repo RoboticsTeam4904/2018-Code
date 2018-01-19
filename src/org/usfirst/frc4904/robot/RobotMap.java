@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
@@ -8,6 +9,7 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
@@ -19,6 +21,7 @@ public class RobotMap {
 
 		public static class CANMotor {
 			public static final int crateIORollerMotor = -1;
+			public static final int rollyBOIRollerMotor = -1;
 		}
 
 		public static class PWM {
@@ -33,6 +36,8 @@ public class RobotMap {
 		public static class Pneumatics {
 			public static final int shifterUp = -1;
 			public static final int shifterDown = -1;
+			public static final int rollyBOIArmIn = -1;
+			public static final int rollyBOIArmOut = -1;
 		}
 	}
 
@@ -49,10 +54,13 @@ public class RobotMap {
 		public static Motor leftWheel;
 		public static Motor rightWheel;
 		public static Motor crateIORoller;
+		public static Motor rollyBOIRoller;
 		public static SolenoidShifters shifter;
+		public static DoubleSolenoid rollyBOIArms;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
 		public static CrateIO crateIO;
+		public static RollyBOI rollyBOI;
 	}
 	/**
 	 * The static initializer runs exactly once and ensures that
@@ -72,6 +80,9 @@ public class RobotMap {
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.crateIORoller = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotor));
 		Component.crateIO = new CrateIO(Component.crateIORoller);
+		Component.rollyBOIRoller = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotor));
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRoller);
+		Component.rollyBOIArms = new DoubleSolenoid(Port.Pneumatics.rollyBOIArmIn, Port.Pneumatics.rollyBOIArmOut);
 	}
 
 	/**
