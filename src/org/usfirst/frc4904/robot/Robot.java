@@ -8,7 +8,8 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class Robot extends CommandRobotBase {
-	
+	private RobotMap map = new RobotMap();
+
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
@@ -27,7 +28,8 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
-		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(), DriverStation.getInstance().getGameSpecificMessage());
+		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
+			DriverStation.getInstance().getGameSpecificMessage());
 		((Strategy) autoChooser.getSelected()).setup();
 	}
 
