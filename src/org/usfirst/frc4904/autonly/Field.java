@@ -9,11 +9,14 @@ public class Field {
 	public Piece scale;
 	public Piece theirSwitch;
 	public Alliance team;
-	
-	/** The full constructor of the field.
+
+	/**
+	 * The full constructor of the field.
 	 * 
-	 * @param team Our team as an Alliance Class.
-	 * @param posConfig The three character position String provided over FMS.
+	 * @param team
+	 *        Our team as an Alliance Class.
+	 * @param posConfig
+	 *        The three character position String provided over FMS.
 	 */
 	public Field(Alliance team, String posConfig) {
 		ourSwitch = new Piece(team, posConfig.charAt(0));
@@ -21,9 +24,12 @@ public class Field {
 		theirSwitch = new Piece(team, posConfig.charAt(2));
 		this.team = team;
 	}
-	/** A partial field constructor for when we don't know the orientation of the switches. Orientation should always be sent later.
+
+	/**
+	 * A partial field constructor for when we don't know the orientation of the switches. Orientation should always be sent later.
 	 * 
-	 * @param team Our team as an Alliance Class.
+	 * @param team
+	 *        Our team as an Alliance Class.
 	 */
 	public Field(Alliance team) {
 		ourSwitch = new Piece(Alliance.Invalid, Alliance.Invalid);
@@ -31,40 +37,48 @@ public class Field {
 		theirSwitch = new Piece(Alliance.Invalid, Alliance.Invalid);
 		this.team = team;
 	}
-	
-	/** An empty constructor that should always be updated later with our alliance and the position data.
+
+	/**
+	 * An empty constructor that should always be updated later with our alliance and the position data.
 	 * 
 	 */
-	public Field(){
+	public Field() {
 		this(Alliance.Invalid);
 	}
-	
-	/** Updates the field object with our team and the switch orientation as a string.
+
+	/**
+	 * Updates the field object with our team and the switch orientation as a string.
 	 * 
-	 * @param team Our team as an Alliance Class.
-	 * @param posConfig The three character position String provided over FMS.
+	 * @param team
+	 *        Our team as an Alliance Class.
+	 * @param posConfig
+	 *        The three character position String provided over FMS.
 	 */
-	public void update(Alliance team, String posConfig){
+	public void update(Alliance team, String posConfig) {
 		this.team = team;
 		this.update(posConfig);
 	}
-	
-	/** Updates the orientation of the switches from the String provided over FMS.
+
+	/**
+	 * Updates the orientation of the switches from the String provided over FMS.
 	 * 
-	 * @param posConfig The three character position String provided over FMS.
+	 * @param posConfig
+	 *        The three character position String provided over FMS.
 	 */
-	public void update(String posConfig){
+	public void update(String posConfig) {
 		ourSwitch = new Piece(team, posConfig.charAt(0));
 		scale = new Piece(team, posConfig.charAt(1));
 		theirSwitch = new Piece(team, posConfig.charAt(2));
 	}
-		
+
 	@Override
 	public String toString() {
-		return "Field{Team:'"+team.name()+"' OurSwitch:'" + ourSwitch.toString() + "' Scale:'" + scale.toString() + "' TheirSwitch:'"+theirSwitch.toString()+"'}";
+		return "Field{Team:'" + team.name() + "' OurSwitch:'" + ourSwitch.toString() + "' Scale:'" + scale.toString()
+			+ "' TheirSwitch:'" + theirSwitch.toString() + "'}";
 	}
 
-	/** The piece object, which is either a switch or the scale. Contains the alliances of both the left and right side of the piece from the position of our alliance.
+	/**
+	 * The piece object, which is either a switch or the scale. Contains the alliances of both the left and right side of the piece from the position of our alliance.
 	 * 
 	 * @author bilpier
 	 *
@@ -73,10 +87,13 @@ public class Field {
 		public Alliance left;
 		public Alliance right;
 
-		/** Constructs the piece based on our team and the side of the position which is ours.
+		/**
+		 * Constructs the piece based on our team and the side of the position which is ours.
 		 * 
-		 * @param team Our team as an Alliance Class.
-		 * @param reference The side of the switch which is ours, represented through the character of either 'L' or 'R'.
+		 * @param team
+		 *        Our team as an Alliance Class.
+		 * @param reference
+		 *        The side of the switch which is ours, represented through the character of either 'L' or 'R'.
 		 */
 		public Piece(Alliance team, char reference) {
 			if (reference == 'L') {
@@ -87,35 +104,40 @@ public class Field {
 			right = team;
 			left = Alliance.values()[1 - team.ordinal()];
 		}
-		
-		/** Constructs the piece based on the actual left and right alliances.
+
+		/**
+		 * Constructs the piece based on the actual left and right alliances.
 		 * 
-		 * @param left The alliance on the left side of this piece.
-		 * @param right The alliance on the right side of this piece.
+		 * @param left
+		 *        The alliance on the left side of this piece.
+		 * @param right
+		 *        The alliance on the right side of this piece.
 		 */
-		public Piece(Alliance left, Alliance right) { 
+		public Piece(Alliance left, Alliance right) {
 			this.left = left;
 			this.right = right;
 		}
-		
+
 		@Override
 		public String toString() {
-			return "Piece{L:'" + left.name() + "' R:'"+ right.name() +"'}";
+			return "Piece{L:'" + left.name() + "' R:'" + right.name() + "'}";
 		}
-		
-		/** Tells us if the left side of the pieces is ours.
+
+		/**
+		 * Tells us if the left side of the pieces is ours.
 		 * 
 		 * @return true if the left side is ours, false if it is not.
 		 */
-		public boolean isLeftOurs(){
+		public boolean isLeftOurs() {
 			return (DriverStation.getInstance().getAlliance() == this.left) ? true : false;
 		}
-		
-		/** Tells us if the right side of the pieces is ours.
+
+		/**
+		 * Tells us if the right side of the pieces is ours.
 		 * 
 		 * @return true if the right side is ours, false if it is not.
 		 */
-		public boolean isRightOurs(){
+		public boolean isRightOurs() {
 			return (DriverStation.getInstance().getAlliance() == this.right) ? true : false;
 		}
 	}
