@@ -13,8 +13,8 @@ public class Field {
 		robots = new ArrayList<Robot>();
 	}
 	
-	public void addCube(int x, int y) {
-		cubes.add(new Cube());
+	public void addCube(double x, double y, int confidence) {
+		cubes.add(new Cube(x, y, confidence));
 	}
 	
 	public void addRobot(int x, int y) {
@@ -32,7 +32,6 @@ public class Field {
 	 * @param textSize how big the bumper text is, in pixels
 	 */
 	public void addCube(int robotX, int robotY, int viewLocation, int textSize) {
-		addCube(robotX, robotY);
 	}
 	
 	//find the cube closest to us, but also on the way to our next destination

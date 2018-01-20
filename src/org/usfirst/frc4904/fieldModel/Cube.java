@@ -1,5 +1,8 @@
 package org.usfirst.frc4904.fieldModel;
 
+import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.vision.AligningCamera;
+
 public class Cube {
 
 	//position of the cube
@@ -14,11 +17,11 @@ public class Cube {
 		this.x = x;
 		this.y = y;
 		this.confidence = confidence;
-		frameSeen = AligningCamera.getFrame(); //TODO: merge branch vision-tables (it has AligningCamera)
+		frameSeen = RobotMap.Component.cubeCamera.getFrameNumber();
 	}
 	
 	public int getAge() {
-		return AligningCamera.getFrame() - frameSeen;
+		return RobotMap.Component.cubeCamera.getFrameNumber() - frameSeen;
 	}
 	
 	public double getX() {

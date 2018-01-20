@@ -28,8 +28,6 @@ public class AligningCamera implements PIDSensor {
 		this(PIDSourceType.kDisplacement, AligningCamera.TABLE_NAME);
 	}
 
-	
-	
 	public double[] getDegrees() {
 		return cameraTable.getEntry(FIELD_DEGREES).getDoubleArray(DEFAULT_RESPONSE);
 	}
