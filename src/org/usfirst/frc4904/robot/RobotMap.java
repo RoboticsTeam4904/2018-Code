@@ -26,11 +26,13 @@ public class RobotMap {
 		public static class CANMotor {
 			public static final int elbowMotorA = -1; // TODO: change this motor port numbers when we know what they are
 			public static final int elbowMotorB = -1; 
+			public static final int elbowMotorC = -1;
 		}
 
 		public static class CANEncoder {
 			public static final int elbowEncoderA = -1;
 			public static final int elbowEncoderB = -1;
+			public static final int elbowEncoderC = -1;
 		}
 
 		public static class PWM {
@@ -83,9 +85,11 @@ public class RobotMap {
 	static {
 		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //TODO: change these to positionsensormotors
 		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
+		Motor elbowMotorC = new Motor("elbowMotorC", new CANTalonSRX(Port.CANMotor.elbowMotorC));
 		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new CANTalonSRX(Port.CANEncoder.elbowEncoderA));
 		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new CANTalonSRX(Port.CANEncoder.elbowEncoderB));
-		Component.boxio = new Arm(elbowMotorA, elbowMotorB, elbowEncoderA, elbowEncoderB);
+		CANTalonEncoder elbowEncoderC = new CANTalonEncoder("elbowEncoderC", new CANTalonSRX(Port.CANEncoder.elbowEncoderC));
+		Component.boxio = new Arm(elbowMotorA, elbowMotorB, elbowMotorC, elbowEncoderA, elbowEncoderB, elbowEncoderC);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);

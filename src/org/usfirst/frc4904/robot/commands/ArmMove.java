@@ -17,6 +17,7 @@ public class ArmMove extends CommandGroup {
 		double rightStickY = RobotMap.HumanInput.Operator.rightStick.getY();
 		RobotMap.Component.boxio.elbowMotorA.set(rightStickY);
 		RobotMap.Component.boxio.elbowMotorB.set(rightStickY * -1);// either *-1, or invert one motor in setup
+		RobotMap.Component.boxio.elbowMotorC.set(rightStickY);
 	}
 
 	@Override
