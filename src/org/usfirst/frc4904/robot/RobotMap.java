@@ -77,6 +77,7 @@ public class RobotMap {
 
 	public RobotMap() {
 		Component.pdp = new PDP();
+		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
 		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
@@ -89,8 +90,12 @@ public class RobotMap {
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
+		// Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		// Controllers
+		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
+		Component.driverXbox.setDeadZone(0.1);
 	}
 }
