@@ -81,12 +81,6 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
-		/*Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //TODO: change these to positionsensormotors
-		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
-		Motor elbowMotorC = new Motor("elbowMotorC", new CANTalonSRX(Port.CANMotor.elbowMotorC));
-		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new CANTalonSRX(Port.CANEncoder.elbowEncoderA));
-		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new CANTalonSRX(Port.CANEncoder.elbowEncoderB));
-		CANTalonEncoder elbowEncoderC = new CANTalonEncoder("elbowEncoderC", new CANTalonSRX(Port.CANEncoder.elbowEncoderC));*/
 		CANEncoder armEncoder = new CANEncoder(-1);//TODO: get the real id from electronics
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
