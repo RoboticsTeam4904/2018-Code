@@ -6,7 +6,8 @@ import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
-import org.usfirst.frc4904.standard.custom.sensors.CANTalonEncoder;
+import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
+import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -24,15 +25,12 @@ public class RobotMap {
 		}
 
 		public static class CANMotor {
-			public static final int elbowMotorA = -1; // TODO: change this motor port numbers when we know what they are
-			public static final int elbowMotorB = -1; 
-			public static final int elbowMotorC = -1;
+			public static final int armMotorA = -1;
+			public static final int armMotorB = -1; 
 		}
 
 		public static class CANEncoder {
-			public static final int elbowEncoderA = -1;
-			public static final int elbowEncoderB = -1;
-			public static final int elbowEncoderC = -1;
+			public static final int armEncoder = -1;
 		}
 
 		public static class PWM {
@@ -58,7 +56,7 @@ public class RobotMap {
 	}
 
 	public static class Component {
-		public static Arm boxio;
+		public static Arm arm;
 		public static PDP pdp;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
@@ -83,13 +81,14 @@ public class RobotMap {
 	 * the variables are properly initialized.
 	 */
 	static {
-		Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //TODO: change these to positionsensormotors
+		/*Motor elbowMotorA = new Motor("elbowMotorA", new CANTalonSRX(Port.CANMotor.elbowMotorA)); //TODO: change these to positionsensormotors
 		Motor elbowMotorB = new Motor("elbowMotorB", new CANTalonSRX(Port.CANMotor.elbowMotorB));
 		Motor elbowMotorC = new Motor("elbowMotorC", new CANTalonSRX(Port.CANMotor.elbowMotorC));
 		CANTalonEncoder elbowEncoderA = new CANTalonEncoder("elbowEncoderA", new CANTalonSRX(Port.CANEncoder.elbowEncoderA));
 		CANTalonEncoder elbowEncoderB = new CANTalonEncoder("elbowEncoderB", new CANTalonSRX(Port.CANEncoder.elbowEncoderB));
-		CANTalonEncoder elbowEncoderC = new CANTalonEncoder("elbowEncoderC", new CANTalonSRX(Port.CANEncoder.elbowEncoderC));
-		Component.boxio = new Arm(elbowMotorA, elbowMotorB, elbowMotorC, elbowEncoderA, elbowEncoderB, elbowEncoderC);
+		CANTalonEncoder elbowEncoderC = new CANTalonEncoder("elbowEncoderC", new CANTalonSRX(Port.CANEncoder.elbowEncoderC));*/
+		CANEncoder armEncoder = new CANEncoder(-1);//TODO: get the real id from electronics
+		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
