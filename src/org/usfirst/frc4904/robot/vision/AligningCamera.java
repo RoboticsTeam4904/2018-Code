@@ -12,6 +12,10 @@ public class AligningCamera implements PIDSensor {
 	public static final String FIELD_DEGREES = "degrees";
 	public static final String FIELD_DISTANCE = "distance";
 	public static final String FIELD_FRAME = "frameNumber";
+	//These might be temporary
+	public static final String FIELD_X = "x";
+	public static final String FIELD_Y = "y";
+	
 	protected NetworkTable cameraTable;
 	private PIDSourceType sourceType;
 	
@@ -34,6 +38,14 @@ public class AligningCamera implements PIDSensor {
 
 	public double[] getDistance() {
 		return cameraTable.getEntry(FIELD_DISTANCE).getDoubleArray(DEFAULT_RESPONSE);
+	}
+	//Might be temporary
+	public double[] getX() {
+		return cameraTable.getEntry(FIELD_X).getDoubleArray(DEFAULT_RESPONSE);
+	}
+	//Might be temporary
+	public double[] getY() {
+		return cameraTable.getEntry(FIELD_Y).getDoubleArray(DEFAULT_RESPONSE);
 	}
 	
 	public int getFrameNumber() {

@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.fieldModel;
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.vision.AligningCamera;
 
 public class Cube {
 
@@ -19,7 +18,7 @@ public class Cube {
 		this.confidence = confidence;
 		frameSeen = RobotMap.Component.cubeCamera.getFrameNumber();
 	}
-	
+
 	public int getAge() {
 		return RobotMap.Component.cubeCamera.getFrameNumber() - frameSeen;
 	}
