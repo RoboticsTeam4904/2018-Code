@@ -21,22 +21,8 @@ public class Field {
 		robots.add(new Robot());
 	}
 	
-	/**
-	 * idk if this is where we want to do the actual calculations, but we need to be able
-	 * to convert all the data taken into this method into absolute field coordinates to
-	 * use in the model.
-	 * 
-	 * @param robotX where our robot is at the time of viewing
-	 * @param robotY where our robot is at the time of viewing
-	 * @param viewLocation the pixel location on the camera input of the object
-	 * @param textSize how big the bumper text is, in pixels
-	 */
-	public void addCube(int robotX, int robotY, int viewLocation, int textSize) {
-	}
-	
 	//find the cube closest to us, but also on the way to our next destination
 	public Cube getClosestCube(int targetX, int targetY) {
-		return cubes.get(0);
-		
+		return cubes.get(0); //TODO: make this real
 	}
 }
