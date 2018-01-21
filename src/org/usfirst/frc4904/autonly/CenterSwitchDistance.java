@@ -27,6 +27,15 @@ public class CenterSwitchDistance extends Strategy {
 		addSequential(
 			new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_MID_SWITCH,
 				RobotMap.Component.drivePID));
+		//The following orients the robot to be perpendicular with the switch again. May not be necessary
+		addSequential(new RunIfElse(
+			new ChassisTurn(RobotMap.Component.chassis, -DEGREES_TURN_LEFT, RobotMap.Component.navx,
+				RobotMap.Component.chassisTurnMC),
+			new ChassisTurn(RobotMap.Component.chassis, -DEGREES_TURN_RIGHT, RobotMap.Component.navx,
+				RobotMap.Component.chassisTurnMC),
+			() -> {
+				return RobotMap.gameField.ourSwitch.isLeftOurs();
+			}));
 	}
 
 	@Override
