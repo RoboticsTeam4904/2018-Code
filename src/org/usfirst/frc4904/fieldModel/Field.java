@@ -1,6 +1,5 @@
 package org.usfirst.frc4904.fieldModel;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 public class Field {
@@ -19,10 +18,5 @@ public class Field {
 	
 	public void addRobot(int x, int y) {
 		robots.add(new Robot());
-	}
-	
-	//find the cube closest to us, but also on the way to our next destination
-	public Cube getClosestCube(int targetX, int targetY) {
-		return cubes.get(0); //TODO: make this real
 	}
 }
