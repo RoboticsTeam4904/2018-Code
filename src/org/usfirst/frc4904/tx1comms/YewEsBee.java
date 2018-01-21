@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.tx1comms;
 
+
 import java.util.List;
 import javax.usb.UsbClaimException;
 import javax.usb.UsbConfiguration;
@@ -12,9 +13,9 @@ import javax.usb.UsbHub;
 import javax.usb.UsbInterface;
 import javax.usb.UsbNotActiveException;
 import javax.usb.UsbPipe;
+import javax.usb.UsbHub;
 
 public class YewEsBee {
-	
 	public YewEsBee() {
 
 		short a = 0;
@@ -42,24 +43,19 @@ public class YewEsBee {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public UsbDevice findDevice(UsbHub hub, short vendorId, short productId)
-	{
-		
+}
+
+	public UsbDevice findDevice(UsbHub hub, short vendorId, short productId) {
 		List<UsbDevice> foo = hub.getAttachedUsbDevices();
-		
-		for(int i = 0; i < foo.size(); i++)
-	    {
+		for (int i = 0; i < foo.size(); i++) {
 			UsbDevice device = foo.get(i);
-	        UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
-	        if (desc.idVendor() == vendorId && desc.idProduct() == productId) return device;
-	        if (device.isUsbHub())
-	        {
-	            device = findDevice((UsbHub) device, vendorId, productId);
-	            if (device != null) return device;
-	        }
-	    }
-	    return null;
+			UsbDeviceDescriptor desc = device.getUsbDeviceDescriptor();
+			if (desc.idVendor() == vendorId && desc.idProduct() == productId) return device;
+			if (device.isUsbHub()) {
+				device = findDevice((UsbHub) device, vendorId, productId);
+				if (device != null) return device;
+			}
+		}
+		return null;
 	}
 }
