@@ -82,7 +82,7 @@ public class RobotMap {
 	 */
 	static {
 		CANEncoder armEncoder = new CANEncoder(-1);//TODO: get the real id from electronics
-		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
+		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder, new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
