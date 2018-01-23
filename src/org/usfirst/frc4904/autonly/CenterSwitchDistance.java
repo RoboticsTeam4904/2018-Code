@@ -7,9 +7,9 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 
 public class CenterSwitchDistance extends Strategy {
-	public static final double DISTANCE_APPROACH_MID = -1; // TODO: real values
-	public static final double DISTANCE_MID_SWITCH = -1;
-	public static final double DEGREES_TURN = -1;
+	public static final double DISTANCE_APPROACH_MID = 60 - RobotMap.Metrics.LENGTH; // TODO: real values
+	public static final double DISTANCE_MID_SWITCH = 97; // sqrt((140-DISTANCE_APPROACH_MID)^2 + 54^2)
+	public static final double DEGREES_TURN = 34; // arctan(54/(140-DISTANCE_APPROACH_MID))
 
 	public CenterSwitchDistance() {
 		addSequential(
