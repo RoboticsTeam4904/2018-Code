@@ -25,10 +25,10 @@ public class RobotMap {
 		public static class CANMotor {}
 
 		public static class PWM {
-			public static final int leftDriveA = 0;
-			public static final int leftDriveB = 1;
-			public static final int rightDriveA = 2;
-			public static final int rightDriveB = 3;
+			public static final int leftDriveA = 2;
+			public static final int leftDriveB = 3;
+			public static final int rightDriveA = 0;
+			public static final int rightDriveB = 1;
 		}
 
 		public static class CAN {
