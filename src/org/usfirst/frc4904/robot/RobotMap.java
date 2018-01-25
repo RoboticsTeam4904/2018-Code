@@ -97,6 +97,6 @@ public class RobotMap {
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
 		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
-		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
+		HumanInput.Operator.rightStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
 	}
 }

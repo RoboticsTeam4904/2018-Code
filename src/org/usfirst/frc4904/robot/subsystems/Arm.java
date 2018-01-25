@@ -1,22 +1,18 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
-import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.Util;
-import org.usfirst.frc4904.standard.commands.Idle;
+import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.MotionController;
 import org.usfirst.frc4904.standard.custom.sensors.CustomEncoder;
-import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ELBOW_MULTIPLIER = 1.0;
-	public final Motor elbowMotorA;
-	public final Motor elbowMotorB;
 	public final CustomEncoder encoder;
-	public final MotionController elbowMotionController;
-	public final Util.Range range;
+	public static final Util.Range motorAngelRange = 
+		new Util.Range(ArmState.ARM_POSITION_INTAKE.position, ArmState.ARM_POSITION_SCALE.position);
 	
 	public enum ArmState {
 		ARM_POSITION_INTAKE(-1), ARM_POSITION_SWITCH(-1), ARM_POSITION_SCALE(-1); //TODO: real values
@@ -27,18 +23,14 @@ public class Arm extends PositionSensorMotor {
 		}
 	}
 
-	public Arm(MotionController motionController, CustomEncoder encoder, SpeedController elbowControllerA, SpeedController elbowControllerB) {
-		super("Arm", motionController, elbowControllerA, elbowControllerB);
-		this.elbowMotorA = new Motor(elbowControllerA);
-		this.elbowMotorB = new Motor(elbowControllerB);
-		this.elbowMotionController = motionController;
+	public Arm(MotionController motionController, CustomEncoder encoder, SpeedController... elbowControllers) {
+		super("Arm", motionController, elbowControllers);
 		this.encoder = encoder;
-		range = new Util.Range(ArmState.ARM_POSITION_INTAKE.position, ArmState.ARM_POSITION_SCALE.position);
 	}
 	
 	@Override
 	public void setPosition(double position) {
-		double safePosition = range.limitValue(position);
+		double safePosition = motorAngelRange.limitValue(position);
 		super.setPosition(safePosition);
 	}
 	
@@ -48,7 +40,7 @@ public class Arm extends PositionSensorMotor {
 	
 	@Override
 	public void set(double speed) {
-		if (encoder.getDistance() > ArmState.ARM_POSITION_SCALE.position && speed < 0) {
+		if (encoder.getDistance() > ArmState.ARM_POSITION_SWITCH.position && speed < 0) {
 			super.set(0);
 			return;
 		}
@@ -61,6 +53,6 @@ public class Arm extends PositionSensorMotor {
 	
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Idle(RobotMap.Component.arm));
+		setDefaultCommand(new MotorIdle(this));
 	}
 }
