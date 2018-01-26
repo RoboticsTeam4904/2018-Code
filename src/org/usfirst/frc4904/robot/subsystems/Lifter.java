@@ -16,7 +16,7 @@ public class Lifter extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new Idle(RobotMap.Component.lifter));
+		setDefaultCommand(new Idle(RobotMap.Component.lifterLeft));
 	}
 	
 	

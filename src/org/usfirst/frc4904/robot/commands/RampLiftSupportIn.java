@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RampLiftSupportIn extends Command {
 	public RampLiftSupportIn() {
-		requires(RobotMap.Component.lifter);	
+		requires(RobotMap.Component.lifterLeft);	
 	}
 	
 	@Override
 	protected void initialize() {
-		RobotMap.Component.lifter.extender.set(Lifter.SUPPORT_SOLENOID_LOWERED);
+		RobotMap.Component.lifterLeft.extender.set(Lifter.SUPPORT_SOLENOID_LOWERED);
 	}
 
 	@Override
