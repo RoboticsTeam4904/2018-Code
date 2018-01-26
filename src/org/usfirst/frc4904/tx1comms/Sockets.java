@@ -9,7 +9,10 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import org.json.*;
+import org.usfirst.frc4904.standard.custom.sensors.IMU;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 public class Sockets {
@@ -42,8 +45,27 @@ public class Sockets {
 		}
 	}
 	
-	public void sendData(Object data) {
-		String message = JSONObject.valueToString(data);
+	public void sendEncoderData() {
+
+		int leftBack = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
+		int leftFront = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
+		int rightBack = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
+		int rightFront = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
+		String message = JSONObject.valueToString(leftBack);
 		sendMessage(message);
+	}
+	
+	public void sendIMUData() {
+		IMU imu = null; //RobotMap.Component.IMU (but it doesn't exist yet)
+		
+		String message = JSONObject.valueToString(imu);
+		sendMessage(message);
+	}
+	
+	public static void main(String[] args) {
+		HashMap<String, Integer> foo = new HashMap<String, Integer>();	
+		foo.put("encoder1", 5);
+		foo.put("encoder2", 7);
+		System.out.println(JSONObject.valueToString(foo));
 	}
 }
