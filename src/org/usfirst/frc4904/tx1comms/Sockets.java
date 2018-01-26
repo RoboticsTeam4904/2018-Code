@@ -14,7 +14,6 @@ import org.json.*;
 import org.usfirst.frc4904.standard.custom.sensors.IMU;
 import edu.wpi.first.wpilibj.Encoder;
 
-
 public class Sockets {
 	
 	public static int PORT_NUMBER = 5002;
@@ -61,10 +60,22 @@ public class Sockets {
 		return message;
 	}
 	
+	
 	public String getIMUData() {
 		IMU imu = null; //RobotMap.Component.IMU (but it doesn't exist yet)
 		
 		String message = JSONObject.valueToString(imu);
 		return message;
+	}
+	
+	public static void main(String[] args) {
+		Sockets s = new Sockets();
+		while(true) {
+			try {
+				Thread.sleep(20);
+			}
+			catch (InterruptedException e) {e.printStackTrace();}
+			s.sendData();
+		}
 	}
 }
