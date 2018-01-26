@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class Arm extends PositionSensorMotor {
 	public static final double ELBOW_MULTIPLIER = 1.0;
 	public final CustomEncoder encoder;
-	public static final Util.Range motorAngelRange = 
-		new Util.Range(ArmState.ARM_POSITION_INTAKE.position, ArmState.ARM_POSITION_SCALE.position);
-	
+	public static final Util.Range motorAngelRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
+		ArmState.ARM_POSITION_SCALE.position);
+
 	public enum ArmState {
-		ARM_POSITION_INTAKE(-1), ARM_POSITION_SWITCH(-1), ARM_POSITION_SCALE(-1); //TODO: real values
+		ARM_POSITION_INTAKE(-1), ARM_POSITION_SWITCH(-1), ARM_POSITION_SCALE(-1); // TODO: real values
 		public final double position;
-		
+
 		private ArmState(double position) {
 			this.position = position;
 		}
@@ -27,17 +27,17 @@ public class Arm extends PositionSensorMotor {
 		super("Arm", motionController, elbowControllers);
 		this.encoder = encoder;
 	}
-	
+
 	@Override
 	public void setPosition(double position) {
 		double safePosition = motorAngelRange.limitValue(position);
 		super.setPosition(safePosition);
 	}
-	
+
 	public void setPosition(Arm.ArmState state) {
 		setPosition(state.position);
 	}
-	
+
 	@Override
 	public void set(double speed) {
 		if (encoder.getDistance() > ArmState.ARM_POSITION_SWITCH.position && speed < 0) {
@@ -46,11 +46,11 @@ public class Arm extends PositionSensorMotor {
 		}
 		super.set(speed);
 	}
-	
+
 	public void setOverride(double speed) {
 		super.set(speed);
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdle(this));
