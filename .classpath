@@ -10,5 +10,9 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar" sourcepath="USERLIBS_DIR/navx_frc-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/caseymanning/Downloads/javax.usb.jar"/>
 	<classpathentry kind="lib" path="/Users/caseymanning/Downloads/json-20171018.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib-javadoc.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

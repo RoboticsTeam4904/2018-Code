@@ -29,10 +29,9 @@ public class TestClient {
 			/* Continuously read messages from the source. */
 			while (true) {
 				currentline = input.readLine();
-				if (currentline == null) break;
-
-				System.out.println("Client got " + currentline);
-				
+				if (currentline != null) {
+					System.out.println("Client got " + currentline);
+				}
 				
 			}
 		} catch (IOException e) {
