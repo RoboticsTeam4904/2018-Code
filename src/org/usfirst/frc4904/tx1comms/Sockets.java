@@ -45,27 +45,26 @@ public class Sockets {
 		}
 	}
 	
-	public void sendEncoderData() {
-
-		int leftBack = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
-		int leftFront = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
-		int rightBack = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
-		int rightFront = ((Encoder) null/*RobotMap.Component.encoder1*/).get();
-		String message = JSONObject.valueToString(leftBack);
-		sendMessage(message);
+	public void sendData() {
+		sendMessage("{" + getEncoderData() + ", " + getIMUData() + "}");
 	}
 	
-	public void sendIMUData() {
+	public String getEncoderData() {
+		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
+		encoders.put("leftBack", ((Encoder) null).get());
+		encoders.put("leftFront", ((Encoder) null).get());
+		encoders.put("rightBack", ((Encoder) null).get());
+		encoders.put("rightFront", ((Encoder) null).get());
+
+		String message = JSONObject.valueToString(encoders);
+		//sendMessage(message);
+		return message;
+	}
+	
+	public String getIMUData() {
 		IMU imu = null; //RobotMap.Component.IMU (but it doesn't exist yet)
 		
 		String message = JSONObject.valueToString(imu);
-		sendMessage(message);
-	}
-	
-	public static void main(String[] args) {
-		HashMap<String, Integer> foo = new HashMap<String, Integer>();	
-		foo.put("encoder1", 5);
-		foo.put("encoder2", 7);
-		System.out.println(JSONObject.valueToString(foo));
+		return message;
 	}
 }
