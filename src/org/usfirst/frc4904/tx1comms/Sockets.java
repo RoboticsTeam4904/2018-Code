@@ -9,6 +9,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import org.json.*;
+
 
 public class Sockets {
 	
@@ -38,5 +40,10 @@ public class Sockets {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendData(Object data) {
+		String message = JSONObject.valueToString(data);
+		sendMessage(message);
 	}
 }
