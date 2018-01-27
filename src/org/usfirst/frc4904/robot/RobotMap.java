@@ -29,20 +29,22 @@ public class RobotMap {
 		public static class CANMotor {}
 
 		public static class PWM {
-			public static final int leftDriveA = -1;
-			public static final int leftDriveB = -1;
-			public static final int rightDriveA = -1;
-			public static final int rightDriveB = -1;
+			public static final int leftDriveA = 2;
+			public static final int leftDriveB = 3;
+			public static final int rightDriveA = 0;
+			public static final int rightDriveB = 1;
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = -1;
-			public static final int rightEncoder = -1;
+			// Source: https://github.com/RoboticsTeam4904/2017-Teensys/blob/one-board/OneBoard/OneBoard.ino#L121
+			public static final int leftEncoder = 0x610;
+			// Source: https://github.com/RoboticsTeam4904/2017-Teensys/blob/one-board/OneBoard/OneBoard.ino#L134
+			public static final int rightEncoder = 0x611;
 		}
 
 		public static class Pneumatics {
-			public static final int shifterUp = -1;
-			public static final int shifterDown = -1;
+			public static final int shifterUp = 0;
+			public static final int shifterDown = 1;
 		}
 	}
 

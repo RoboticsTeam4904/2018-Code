@@ -1,11 +1,11 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import edu.wpi.first.wpilibj.DriverStation;
+import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -13,6 +13,9 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
+		autoChooser.addDefault("Chassis", new ChassisConstant(RobotMap.Component.chassis, 0, 0.5, 0, 0));
+		autoChooser.addObject("Left", new MotorConstant(RobotMap.Component.leftWheel, 0.5));
+		autoChooser.addObject("Right", new MotorConstant(RobotMap.Component.rightWheel, 0.5));
 	}
 
 	@Override
@@ -28,9 +31,9 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
-		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
-			DriverStation.getInstance().getGameSpecificMessage());
-		((Strategy) autoChooser.getSelected()).setup();
+		// RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
+		// DriverStation.getInstance().getGameSpecificMessage());
+		// ((Strategy) autoChooser.getSelected()).setup();
 	}
 
 	@Override
