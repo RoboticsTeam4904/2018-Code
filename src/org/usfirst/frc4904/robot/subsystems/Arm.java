@@ -6,10 +6,13 @@ import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.MotionController;
 import org.usfirst.frc4904.standard.custom.sensors.CustomEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ELBOW_MULTIPLIER = 1.0;
+	public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
+	public static DoubleSolenoid.Value BRAKE_DISABLED = DoubleSolenoid.Value.kReverse;
 	public final CustomEncoder encoder;
 	public static final Util.Range motorAngelRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);

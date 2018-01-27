@@ -1,32 +1,22 @@
 package org.usfirst.frc4904.robot.commands;
 
 
-/*
- * ArmSet is similar to MotorPositionConstant
- * but takes an ArmState instead of an absolute position.
- */
-import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.Arm;
-import org.usfirst.frc4904.standard.commands.motor.MotorPositionConstant;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class ArmSet extends MotorPositionConstant {
-	protected final Arm.ArmState state;
-
-	public ArmSet(Arm.ArmState state, boolean endOnArrival) {
-		super(RobotMap.Component.arm, state.position, endOnArrival);
-		this.state = state;
-	}
-
-	/**
-	 * @see #ArmSet
-	 *      endOnArrival defaults to true
-	 */
+/**
+ * 
+ * Once ArmMove puts the arm into
+ * the desired position, the boolean
+ * endOnArrival is true, causing
+ * the 'on' value in ArmBrakeSet to
+ * change to true, extending the
+ * piston and stopping the arm.
+ *
+ */
+public class ArmSet extends CommandGroup {
 	public ArmSet(Arm.ArmState state) {
-		super(RobotMap.Component.arm, state.position);
-		this.state = state;
-	}
-
-	public Arm.ArmState getState() {
-		return state;
+		addSequential(new ArmMove(state, true));
+		addSequential(new ArmBrakeSet(true));
 	}
 }

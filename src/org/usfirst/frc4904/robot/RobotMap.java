@@ -14,6 +14,7 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
@@ -43,6 +44,8 @@ public class RobotMap {
 		public static class CAN {}
 
 		public static class Pneumatics {
+			public static int diskBrakeIn = -1;
+			public static int diskBrakeOut = -1;
 			public static final int shifterUp = -1;
 			public static final int shifterDown = -1;
 		}
@@ -61,6 +64,7 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
+		public static DoubleSolenoid diskBrake;
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
@@ -92,6 +96,7 @@ public class RobotMap {
 		CANEncoder armEncoder = new CANEncoder(-1);// TODO: get the real id from electronics
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
 			new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
+		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeIn, Port.Pneumatics.diskBrakeOut);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
