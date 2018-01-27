@@ -1,44 +1,11 @@
 package org.usfirst.frc4904.tx1comms;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.HashMap;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
-public class Sockets {
+public class TX1Comms {
 	
-	public static int PORT_NUMBER = 5202;
-	public static final String HOSTNAME = "127.0.0.1";   
-	
-	public ServerSocket listener;
-	BufferedReader in;
-	PrintWriter out;
-	
-	public Sockets() {
-		try {
-			listener = new ServerSocket(PORT_NUMBER, 100, InetAddress.getByName(HOSTNAME));
-			Socket sock = listener.accept();
-			in = new BufferedReader(new InputStreamReader(
-				sock.getInputStream()));
-			out = new PrintWriter(sock.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendMessage(String message) {
-		out.println(message);
-		out.flush();
-	}
-	
-	public void sendData() {
-		sendMessage("{" + getEncoderData() + ", " + getIMUData() + "}");
-	}
+	public static final boolean usingSockets = true;
 	
 	public String getEncoderData() {
 		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
@@ -67,13 +34,18 @@ public class Sockets {
 	public static void main(String[] args) {
 		System.out.println("sending data");
 		Sockets s = new Sockets();
+		YewEsBee usb = new YewEsBee();
 		while(true) {
 			System.out.println("sending data");
 			try {
 				Thread.sleep(20);
 			}
 			catch (InterruptedException e) {e.printStackTrace();}
-			s.sendData();
+			if(usingSockets) {
+				s.sendData();
+			} else {
+				
+			}
 		}
 	}
 }
