@@ -8,8 +8,19 @@
 	<classpathentry kind="var" path="wpiutil" sourcepath="wpiutil.sources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar" sourcepath="USERLIBS_DIR/navx_frc-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/caseymanning/Downloads/javax.usb.jar"/>
 	<classpathentry kind="lib" path="/Users/caseymanning/Downloads/json-20171018.jar"/>
+	<classpathentry kind="lib" path="commons-lang3-3.0.jar"/>
+	<classpathentry kind="lib" path="jsr80-1.0.1.jar"/>
+	<classpathentry kind="lib" path="usb4java-1.2.0.jar"/>
+	<classpathentry kind="lib" path="usb4java-javax-1.2.0.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-linux-arm.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-linux-x86.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-osx-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-osx-x86.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0-windows-x86.jar"/>
+	<classpathentry kind="lib" path="src/libusb4java-1.2.0.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib-javadoc.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
