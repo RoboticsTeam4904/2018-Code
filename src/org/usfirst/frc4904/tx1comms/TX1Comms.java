@@ -25,8 +25,8 @@ public class TX1Comms {
 	
 	
 	public String getIMUData() {
-		//IMU imu =  new IMU(); //RobotMap.Component.IMU (but it doesn't exist yet)
-		
+		// IMU imu = new IMU(); //RobotMap.Component.IMU (but it doesn't exist yet)
+		// message = JSONObject.valueToString(imu.getYaw());
 		String message = JSONObject.valueToString(5);
 		return message;
 	}
@@ -40,7 +40,9 @@ public class TX1Comms {
 			try {
 				Thread.sleep(20);
 			}
-			catch (InterruptedException e) {e.printStackTrace();}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			if(usingSockets) {
 				s.sendData();
 			} else {
