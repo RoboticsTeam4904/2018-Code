@@ -7,7 +7,7 @@ public class TX1Comms {
 	
 	public static final boolean usingSockets = true;
 	
-	public String getEncoderData() {
+	public static String getEncoderData() {
 		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
 //		encoders.put("leftBack", ((Encoder) null).get());
 //		encoders.put("leftFront", ((Encoder) null).get());
@@ -24,7 +24,7 @@ public class TX1Comms {
 	}
 	
 	
-	public String getIMUData() {
+	public static String getIMUData() {
 		//IMU imu =  new IMU(); //RobotMap.Component.IMU (but it doesn't exist yet)
 		
 		String message = JSONObject.valueToString(5);
@@ -39,12 +39,13 @@ public class TX1Comms {
 			System.out.println("sending data");
 			try {
 				Thread.sleep(20);
-			}
-			catch (InterruptedException e) {e.printStackTrace();}
+			} catch (InterruptedException e) {e.printStackTrace();}
+			
+			String message = "{ \"encoders:\" " + getEncoderData() + ", \"IMU\": " + getIMUData() + "}";
 			if(usingSockets) {
-				s.sendData();
+				s.sendData(message);
 			} else {
-				
+				usb.sendData(message);
 			}
 		}
 	}

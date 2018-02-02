@@ -40,8 +40,8 @@ public class Sockets {
 		out.flush();
 	}
 	
-	public void sendData() {
-		sendMessage("{" + getEncoderData() + ", " + getIMUData() + "}");
+	public void sendData(String message) {
+		sendMessage(message);
 	}
 	
 	public String getEncoderData() {
@@ -66,18 +66,5 @@ public class Sockets {
 		
 		String message = JSONObject.valueToString(5);
 		return message;
-	}
-	
-	public static void main(String[] args) {
-		System.out.println("sending data");
-		Sockets s = new Sockets();
-		while(true) {
-			System.out.println("sending data");
-			try {
-				Thread.sleep(20);
-			}
-			catch (InterruptedException e) {e.printStackTrace();}
-			s.sendData();
-		}
 	}
 }
