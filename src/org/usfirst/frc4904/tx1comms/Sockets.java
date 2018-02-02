@@ -3,16 +3,12 @@ package org.usfirst.frc4904.tx1comms;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import org.json.*;
-import org.usfirst.frc4904.standard.custom.sensors.IMU;
-import edu.wpi.first.wpilibj.Encoder;
+import org.json.simple.JSONObject;
 
 public class Sockets {
 	
