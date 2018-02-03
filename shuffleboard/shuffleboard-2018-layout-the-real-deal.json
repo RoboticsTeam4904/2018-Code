@@ -1,0 +1,125 @@
+{
+  "dividerPosition": 0.004172461752433936,
+  "tabPane": [
+    {
+      "title": "Competition",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 100.0,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              10,
+              7
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_title": "Camera Stream"
+            }
+          },
+          "10,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_title": "Auton Routine Selector"
+            }
+          },
+          "10,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_title": "Subsystem Overview"
+            }
+          },
+          "10,5": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_title": "Arm Angle",
+              "minValue": 0.0,
+              "maxValue": 100.0,
+              "valueVisible": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Test",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "",
+      "widgetPane": {
+        "gridSize": 75.0,
+        "hgap": 16.0,
+        "vgap": 16.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              13,
+              8
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_title": "Camera Stream"
+            }
+          },
+          "13,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_title": "Auton Routine Selector"
+            }
+          },
+          "13,0": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Network Table Tree",
+              "_title": "Subsystem Overview"
+            }
+          },
+          "13,5": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "PID Controller",
+              "_title": "PID Controller"
+            }
+          },
+          "13,3": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Simple Dial",
+              "_title": "Arm Angle",
+              "minValue": 0.0,
+              "maxValue": 100.0,
+              "valueVisible": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}
