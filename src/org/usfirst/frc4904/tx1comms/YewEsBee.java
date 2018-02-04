@@ -12,8 +12,8 @@ import javax.usb.UsbHub;
 import javax.usb.UsbServices;
 
 public class YewEsBee {
-	static short VENDOR_ID = 5;
-	static short PRODUCT_ID = 10;
+	static short VENDOR_ID = 1452;
+	static short PRODUCT_ID = -32112;
 
     public void sendData(String message) {
     	
