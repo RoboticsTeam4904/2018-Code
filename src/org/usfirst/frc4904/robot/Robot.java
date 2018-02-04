@@ -2,6 +2,8 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.standard.CommandRobotBase;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap robotMap = new RobotMap();
@@ -53,6 +55,15 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
+		putSBSubsystemSummary();
 		// TODO Auto-generated method stub
+	}
+	
+	void putSBSubsystemSummary() {
+		String summary = "";
+		for (Subsystem subsystem : RobotMap.Component.mainSubsystems) {
+			summary += "{" + subsystem.getName() + "} running command {" + subsystem.getCurrentCommand() + "}\n";
+		}
+		SmartDashboard.putString("Subsystem summary", summary);
 	}
 }
