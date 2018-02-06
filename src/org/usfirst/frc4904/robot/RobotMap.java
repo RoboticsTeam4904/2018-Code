@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
+import org.usfirst.frc4904.standard.RobotModeKitten;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
@@ -49,6 +50,12 @@ public class RobotMap {
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
 	}
+	
+	public static class Kittens {
+		public static RobotModeKitten autonKitten;
+		public static RobotModeKitten teleopKitten;
+		
+	}
 
 	public RobotMap() {
 		Component.pdp = new PDP();
@@ -62,5 +69,7 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Kittens.autonKitten = new RobotModeKitten("auton", "AUTONOMOUS");
+		Kittens.teleopKitten = new RobotModeKitten("teleop", "TELEOPERATED");
 	}
 }
