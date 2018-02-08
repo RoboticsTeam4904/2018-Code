@@ -2,8 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 public enum ShuffleboardKey {
-	SUBSYSTEM_SUMMARY("Subsystem summary"), VISION_AUTOCALIBRATION("Autocalibration"), VISION_AUTOCALIBRATION_COMPLETE(
-		"Autocalibration complete");
+	SUBSYSTEM_SUMMARY("Subsystem summary");
 	public final String key;
 
 	private ShuffleboardKey(String key) {
