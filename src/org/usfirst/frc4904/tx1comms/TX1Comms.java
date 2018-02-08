@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class TX1Comms {
 	
-	public static final boolean usingSockets = true;
+	public static final boolean usingSockets = false;
 	
 	public static String getEncoderData() {
 		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
