@@ -14,7 +14,7 @@ public class Arm extends PositionSensorMotor {
 	public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
 	public static DoubleSolenoid.Value BRAKE_DISABLED = DoubleSolenoid.Value.kReverse;
 	public final CustomEncoder encoder;
-	public static final Util.Range motorAngelRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
+	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
 
 	public enum ArmState {
@@ -33,7 +33,7 @@ public class Arm extends PositionSensorMotor {
 
 	@Override
 	public void setPosition(double position) {
-		double safePosition = motorAngelRange.limitValue(position);
+		double safePosition = motorAngleRange.limitValue(position);
 		super.setPosition(safePosition);
 	}
 
