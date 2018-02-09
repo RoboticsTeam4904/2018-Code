@@ -2,13 +2,16 @@ package org.usfirst.frc4904.robot.commands;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
-public class RollersOuttake extends MotorConstant {
+public class RollersOuttake extends CommandGroup {
 
 	public RollersOuttake() {
-		super(RobotMap.Component.crateIO.roller, CrateIO.OUTTAKE_SPEED);
+		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerLeft, CrateIO.OUTTAKE_SPEED));
+		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerRight, CrateIO.OUTTAKE_SPEED));
 	}
 	
 
