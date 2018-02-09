@@ -11,21 +11,24 @@ public class RollyBOI extends Subsystem {
 	public static final double OUTTAKE_SPEED = -0.5;
 	public static final boolean ARMS_IN = true;
 	public static final boolean ARMS_OUT = false;
-	public Motor roller;
+	public Motor rollerLeft;
+	public Motor rollerRight;
 	public DoubleSolenoid arm;
 	
-	public RollyBOI(Motor roller) {
-		this.roller = roller;
+	public RollyBOI(Motor rollerLeft, Motor rollerRight) {
+		this.rollerLeft = rollerLeft;
+		this.rollerRight = rollerRight;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdle(roller));
+//		setDefaultCommand(new MotorIdle(roller));
 		
 	}
 	
 	public void set(double speed) {
-		roller.set(speed);
+		rollerLeft.set(speed);
+		rollerRight.set(speed);
 	}
 	
 	

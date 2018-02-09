@@ -1,7 +1,10 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.RobotMap.Component;
+import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
+import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
@@ -20,8 +23,10 @@ public class RobotMap {
 		}
 
 		public static class CANMotor {
-			public static final int crateIORollerMotor = -1;
-			public static final int rollyBOIRollerMotor = -1;
+			public static final int crateIORollerMotorLeft = -1;
+			public static final int crateIORollerMotorRight = -1;
+			public static final int rollyBOIRollerMotorLeft = -1;
+			public static final int rollyBOIRollerMotorRight = -1;
 		}
 
 		public static class PWM {
@@ -53,17 +58,21 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
-		public static Motor crateIORoller;
-		public static Motor rollyBOIRoller;
+		public static Motor crateIORollerLeft;
+		public static Motor crateIORollerRight;
+		public static Motor rollyBOIRollerLeft;
+		public static Motor rollyBOIRollerRight;
 		public static SolenoidShifters shifter;
 		public static DoubleSolenoid rollyBOIArms;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
 		public static CrateIO crateIO;
 		public static RollyBOI rollyBOI;
+		public static CustomJoystick joystick;
 	}
 
 	public RobotMap() {
+		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
@@ -75,10 +84,12 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		Component.crateIORoller = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotor));
-		Component.crateIO = new CrateIO(Component.crateIORoller);
-		Component.rollyBOIRoller = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotor));
-		Component.rollyBOI = new RollyBOI(Component.rollyBOIRoller);
+		Component.crateIORollerLeft = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
+		Component.crateIORollerRight = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight);
 		Component.rollyBOIArms = new DoubleSolenoid(Port.Pneumatics.rollyBOIArmIn, Port.Pneumatics.rollyBOIArmOut);
 	}
 }
