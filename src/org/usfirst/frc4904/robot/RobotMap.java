@@ -63,7 +63,7 @@ public class RobotMap {
 		public static Motor rollyBOIRollerLeft;
 		public static Motor rollyBOIRollerRight;
 //		public static SolenoidShifters shifter;
-		public static DoubleSolenoid rollyBOIArms;
+		public static DoubleSolenoid rollyBOIGrabber;
 //		public static EnableableModifier rightWheelAccelerationCap;
 //		public static EnableableModifier leftWheelAccelerationCap;
 		public static CrateIO crateIO;
@@ -89,7 +89,7 @@ public class RobotMap {
 		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
 		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight);
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight, Component.rollyBOIGrabber);
 //		Component.rollyBOIArms = new DoubleSolenoid(Port.Pneumatics.rollyBOIArmIn, Port.Pneumatics.rollyBOIArmOut);
 	}
 }

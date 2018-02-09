@@ -10,6 +10,8 @@ public class IndexerRollersIntake extends CommandGroup {
 
 	public IndexerRollersIntake() {
 		super("IndexerRollersIntake");
+		requires(RobotMap.Component.rollyBOI.rollerLeft);
+		requires(RobotMap.Component.rollyBOI.rollerRight);
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerLeft, RollyBOI.INTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerRight, RollyBOI.INTAKE_SPEED));
 	}

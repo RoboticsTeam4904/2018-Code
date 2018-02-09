@@ -9,15 +9,16 @@ public class RollyBOI extends Subsystem {
 	
 	public static final double INTAKE_SPEED = 0.5;
 	public static final double OUTTAKE_SPEED = -0.5;
-	public static final boolean ARMS_IN = true;
-	public static final boolean ARMS_OUT = false;
-	public Motor rollerLeft;
-	public Motor rollerRight;
-	public DoubleSolenoid arm;
+	public static final DoubleSolenoid.Value RELEASED = DoubleSolenoid.Value.kReverse;
+	public static final DoubleSolenoid.Value CLASPED = DoubleSolenoid.Value.kForward;
+	public final Motor rollerLeft;
+	public final Motor rollerRight;
+	public final DoubleSolenoid grabber;
 	
-	public RollyBOI(Motor rollerLeft, Motor rollerRight) {
+	public RollyBOI(Motor rollerLeft, Motor rollerRight, DoubleSolenoid grabber) {
 		this.rollerLeft = rollerLeft;
 		this.rollerRight = rollerRight;
+		this.grabber = grabber;
 	}
 
 	@Override
