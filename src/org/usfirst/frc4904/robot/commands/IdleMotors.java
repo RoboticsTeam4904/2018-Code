@@ -20,6 +20,7 @@ public class IdleMotors extends CommandGroup{
 	 * @param motors
 	 */
 	public IdleMotors(Subsystem subsystem, Motor[] motors) {
+		super("IdleMotors");
 		requires(subsystem);
 		for (int i=0; i<motors.length; i++) {
 			requires(motors[i]);
@@ -35,6 +36,7 @@ public class IdleMotors extends CommandGroup{
 	 * @param motor2
 	 */
 	public IdleMotors(Subsystem subsystem, Motor motor1, Motor motor2) {
+		super("IdleMotors");
 		requires(subsystem);
 		requires(motor1);
 		requires(motor2);

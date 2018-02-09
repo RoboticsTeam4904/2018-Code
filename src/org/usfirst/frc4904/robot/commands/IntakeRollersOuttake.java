@@ -7,9 +7,10 @@ import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
-public class RollersOuttake extends CommandGroup {
+public class IntakeRollersOuttake extends CommandGroup {
 
-	public RollersOuttake() {
+	public IntakeRollersOuttake() {
+		super("IntakeRollersOuttake");
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerLeft, CrateIO.OUTTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerRight, CrateIO.OUTTAKE_SPEED));
 	}
