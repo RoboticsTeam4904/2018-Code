@@ -23,7 +23,7 @@ public class RollyBOI extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new IdleMotors(rollerLeft, rollerRight));		
+		setDefaultCommand(new IdleMotors(this, rollerLeft, rollerRight));		
 	}
 	
 	public void set(double speed) {
