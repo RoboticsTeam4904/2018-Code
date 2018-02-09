@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 import org.usfirst.frc4904.robot.commands.IdleMotors;
-import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
