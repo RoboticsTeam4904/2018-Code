@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot.subsystems;
 
+import org.usfirst.frc4904.robot.commands.IdleMotors;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -22,8 +23,7 @@ public class RollyBOI extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-//		setDefaultCommand(new MotorIdle(roller));
-		
+		setDefaultCommand(new IdleMotors(rollerLeft, rollerRight));		
 	}
 	
 	public void set(double speed) {
