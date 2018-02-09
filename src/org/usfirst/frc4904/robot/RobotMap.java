@@ -1,7 +1,10 @@
 package org.usfirst.frc4904.robot;
 
+import org.usfirst.frc4904.robot.RobotMap.Component;
+import org.usfirst.frc4904.robot.RobotMap.Port;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
+import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
@@ -65,9 +68,11 @@ public class RobotMap {
 		public static EnableableModifier leftWheelAccelerationCap;
 		public static CrateIO crateIO;
 		public static RollyBOI rollyBOI;
+		public static CustomJoystick joystick;
 	}
 
 	public RobotMap() {
+		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
