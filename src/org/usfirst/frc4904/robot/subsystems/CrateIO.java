@@ -26,7 +26,7 @@ public class CrateIO extends Subsystem {
 	 *        and outtaking cubes.
 	 * @param rollerRight
 	 *        The motor object corresponding
-	 *        to the left motors for intaking
+	 *        to the right motors for intaking
 	 *        and outtaking cubes.
 	 */
 	public CrateIO(Motor rollerLeft, Motor rollerRight) {
