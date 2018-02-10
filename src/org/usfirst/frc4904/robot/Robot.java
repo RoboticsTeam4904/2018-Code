@@ -25,7 +25,9 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void autonomousInitialize() {}
+	public void autonomousInitialize() {
+		// TODO Auto-generated method stub
+	}
 
 	@Override
 	public void autonomousExecute() {
