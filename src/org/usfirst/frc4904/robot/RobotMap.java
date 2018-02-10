@@ -33,7 +33,7 @@ public class RobotMap {
 		}
 
 		public static class CANEncoder {
-			public static final int armEncoder = -1;
+			public static final int armEncoderPort = -1;
 		}
 
 		public static class PWM {
@@ -125,7 +125,8 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		CANEncoder armEncoder = new CANEncoder(-1);// TODO: get the real id from electronics
+		// Arm
+		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
 			new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
 		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeIn, Port.Pneumatics.diskBrakeOut);
