@@ -24,7 +24,7 @@ public class RobotMap {
 		public static class HumanInput {
 			public static final int leftStick = 0;
 			public static final int xboxController = 1;
-			public static final int rightStick = -1;//DEPRECATED
+			public static final int rightStick = -1;//DEPRECATED?
 		}
 
 		public static class CANMotor {
