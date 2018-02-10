@@ -43,7 +43,7 @@ public class Arm extends PositionSensorMotor {
 
 	@Override
 	public void set(double speed) {
-		if (encoder.getDistance() > ArmState.ARM_POSITION_SWITCH.position && speed < 0) {
+		if (encoder.getDistance() > ArmState.ARM_POSITION_INTAKE.position && speed < 0) {
 			super.set(0);
 			return;
 		}
