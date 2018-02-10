@@ -10,8 +10,9 @@ public class IntakeRollersOuttake extends CommandGroup {
 
 	public IntakeRollersOuttake() {
 		super("IntakeRollersOuttake");
-		requires(RobotMap.Component.crateIO.rollerLeft);
-		requires(RobotMap.Component.crateIO.rollerRight);
+		requires(RobotMap.Component.crateIO);
+		// requires(RobotMap.Component.crateIO.rollerLeft);
+		// requires(RobotMap.Component.crateIO.rollerRight);
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerLeft, CrateIO.OUTTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerRight, CrateIO.OUTTAKE_SPEED));
 	}

@@ -35,8 +35,8 @@ public class RobotMap {
 		public static class Pneumatics {
 			// public static final int shifterUp = -1;
 			// public static final int shifterDown = -1;
-			// public static final int rollyBOIArmIn = -1;
-			// public static final int rollyBOIArmOut = -1;
+			public static final int rollyBOIArmIn = 2;
+			public static final int rollyBOIArmOut = 3;
 		}
 	}
 
@@ -81,10 +81,13 @@ public class RobotMap {
 		Component.crateIORollerLeft = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
 		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
-		// Component.rollyBOIRollerLeft = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
-		// Component.rollyBOIRollerRight = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		// Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
-		// Component.rollyBOIGrabber);
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerLeft.setInverted(true);
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOIGrabber = new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIArmIn,
+			RobotMap.Port.Pneumatics.rollyBOIArmOut);
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
+			Component.rollyBOIGrabber);
 		// Component.rollyBOIArms = new DoubleSolenoid(Port.Pneumatics.rollyBOIArmIn, Port.Pneumatics.rollyBOIArmOut);
 	}
 }
