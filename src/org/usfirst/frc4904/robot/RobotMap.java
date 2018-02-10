@@ -8,6 +8,8 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
+import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
 import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
@@ -35,19 +37,22 @@ public class RobotMap {
 		}
 
 		public static class PWM {
-			public static final int leftDriveA = -1;
-			public static final int leftDriveB = -1;
-			public static final int rightDriveA = -1;
-			public static final int rightDriveB = -1;
+			public static final int leftDriveA = 2;
+			public static final int leftDriveB = 3;
+			public static final int rightDriveA = 0;
+			public static final int rightDriveB = 1;
 		}
 
-		public static class CAN {}
+		public static class CAN {
+			public static final int leftEncoder = -1;
+			public static final int rightEncoder = -1;
+		}
 
 		public static class Pneumatics {
 			public static int diskBrakeIn = -1;
 			public static int diskBrakeOut = -1;
-			public static final int shifterUp = -1;
-			public static final int shifterDown = -1;
+			public static final int shifterUp = 0;
+			public static final int shifterDown = 1;
 		}
 	}
 
@@ -56,6 +61,19 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+		public static class Wheel {
+			public static final double TICKS_PER_REVOLUTION = 256;
+			public static final double DIAMETER_INCHES = 4;
+			public static final double CIRCUMFERENCE_INCHES = Metrics.Wheel.DIAMETER_INCHES * Math.PI;
+			public static final double TICKS_PER_INCH = Metrics.Wheel.TICKS_PER_REVOLUTION
+				/ Metrics.Wheel.CIRCUMFERENCE_INCHES;
+			public static final double DISTANCE_FRONT_BACK = 27.37;
+			public static final double DISTANCE_SIDE_SIDE = 25.21;
+			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
+				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
+		}
+		public static final double LENGTH = 32.75;
+		public static final double WIDTH = 27.75;
 	}
 
 	public static class Component {
@@ -68,6 +86,13 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
+		public static CustomJoystick operatorStick;
+		public static CustomXbox driverXbox;
+		public static CANEncoder leftWheelEncoder;
+		public static CANEncoder rightWheelEncoder;
+		public static EncoderPair chassisEncoders;
+		public static CustomPIDController chassisTurnMC;
+		public static NavX navx;
 	}
 
 	public static class HumanInput {
@@ -83,6 +108,11 @@ public class RobotMap {
 
 	public RobotMap() {
 		Component.pdp = new PDP();
+		// Wheels
+		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
+		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
@@ -91,7 +121,9 @@ public class RobotMap {
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
+		// Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		CANEncoder armEncoder = new CANEncoder(-1);// TODO: get the real id from electronics
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
@@ -103,5 +135,8 @@ public class RobotMap {
 		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
 		HumanInput.Operator.rightStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
+		// Controllers
+		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
+		Component.driverXbox.setDeadZone(0.1);
 	}
 }
