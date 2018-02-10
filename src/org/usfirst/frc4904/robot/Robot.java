@@ -16,10 +16,6 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void teleopInitialize() {
 		// TODO Auto-generated method stub
-		// LogKitten.wtf("teleopIniting");
-		// teleopCommand = new IntakeRollersIntake();
-		// teleopCommand.start();
-		// LogKitten.wtf("command run");
 	}
 
 	@Override
