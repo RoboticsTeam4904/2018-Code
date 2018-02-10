@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class RobotMap {
 	public static class Port { // TODO: Correct Ports
 		public static class HumanInput {
-			public static final int leftStick = -1;
-			public static final int xboxController = -1;
-			public static final int rightStick = -1;
+			public static final int leftStick = 0;
+			public static final int xboxController = 1;
+			public static final int rightStick = -1;//DEPRECATED
 		}
 
 		public static class CANMotor {
