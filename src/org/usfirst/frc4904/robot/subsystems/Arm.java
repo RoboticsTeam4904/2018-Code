@@ -57,7 +57,11 @@ public class Arm extends PositionSensorMotor {
 	public void setOverride(double speed) {
 		super.set(speed);
 	}
-
+	
+	public double getAngle() {
+		return encoder.getDistance() + TICK_OFFSET;
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdle(this));
