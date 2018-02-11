@@ -1,6 +1,8 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -31,6 +33,12 @@ public class RobotMap {
 			public static final int crateIORollerMotorRight = 7;
 			public static final int rollyBOIRollerMotorLeft = 11;
 			public static final int rollyBOIRollerMotorRight = 3;
+			public static final int armMotorA = 9;
+			public static final int armMotorB = 14;
+		}
+
+		public static class CANEncoder {
+			public static final int armEncoderPort = -1;
 		}
 
 		public static class PWM {
@@ -46,6 +54,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
+			public static int diskBrakeOn = 7;
+			public static int diskBrakeOff = 6;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
 			public static final int rollyBOIGrabberClasped = 2;
@@ -54,6 +64,11 @@ public class RobotMap {
 	}
 
 	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
+		public static final double WHEEL_DIAMETER_INCHES = 4;
+		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
+		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
+		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
@@ -70,6 +85,7 @@ public class RobotMap {
 	}
 
 	public static class Component {
+		public static Arm arm;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
 		public static Motor crateIORollerRight;
@@ -82,16 +98,26 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
+		public static DoubleSolenoid diskBrake;
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
-		public static CustomJoystick operatorStick;
 		public static CustomXbox driverXbox;
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static NavX navx;
+	}
+
+	public static class HumanInput {
+		public static class Driver {
+			public static CustomXbox xbox;
+		}
+
+		public static class Operator {
+			public static CustomJoystick joystick;
+		}
 	}
 
 	public RobotMap() {
@@ -108,7 +134,6 @@ public class RobotMap {
 			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased);
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
-
 		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
@@ -126,6 +151,18 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		// Arm
+		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
+			armA, armB);
+		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeOn, Port.Pneumatics.diskBrakeOff);
+		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
+		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
+		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
