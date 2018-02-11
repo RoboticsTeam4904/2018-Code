@@ -3,6 +3,7 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -15,7 +16,8 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void teleopInitialize() {
-
+		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
+		teleopCommand.start();
 	}
 
 	@Override
@@ -24,7 +26,6 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-
 	public void autonomousInitialize() {
 		// TODO Auto-generated method stub
 	}
