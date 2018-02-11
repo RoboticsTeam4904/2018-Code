@@ -6,11 +6,11 @@ import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class IndexerRollersIntake extends CommandGroup {
-	public IndexerRollersIntake() {
+public class IndexerIntake extends CommandGroup {
+	public IndexerIntake() {
 		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IndexerGrabberRelease());
-		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerLeft, RollyBOI.INTAKE_SPEED));
-		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerRight, RollyBOI.INTAKE_SPEED));
+		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerLeft, RollyBOI.INTAKE_SPEED));
+		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerRight, RollyBOI.INTAKE_SPEED));
 	}
 }

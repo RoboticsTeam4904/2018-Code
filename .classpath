@@ -10,6 +10,5 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar" sourcepath="USERLIBS_DIR/navx_frc-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar" sourcepath="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
-	<classpathentry kind="lib" path="/Users/niksure/wpilib/user/java/lib/navx_frc-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

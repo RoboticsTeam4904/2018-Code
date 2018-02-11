@@ -11,6 +11,6 @@ public class IntakeSquared extends CommandGroup {
 		requires(RobotMap.Component.crateIO);
 		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IntakeRollersIntake());
-		addParallel(new IndexerRollersIntake());
+		addParallel(new IndexerGrabberRelease());
 	}
 }

@@ -48,8 +48,8 @@ public class RobotMap {
 		public static class Pneumatics {
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
-			public static final int rollyBOIArmIn = 2;
-			public static final int rollyBOIArmOut = 3;
+			public static final int rollyBOIGrabberClasped = 2;
+			public static final int rollyBOIGrabberReleased = 3;
 		}
 	}
 
@@ -97,14 +97,15 @@ public class RobotMap {
 	public RobotMap() {
 		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
-		Component.crateIORollerLeft = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
-		Component.crateIORollerRight = new Motor("CrateIORollers", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
+		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
+		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
 		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
-		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
 		Component.rollyBOIRollerLeft.setInverted(true);
-		Component.rollyBOIRollerRight = new Motor("RollyBOIRollers", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIArmIn,
-			RobotMap.Port.Pneumatics.rollyBOIArmOut);
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
+			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOIGrabber = new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
+			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased);
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
 

@@ -3,10 +3,7 @@ package org.usfirst.frc4904.robot.commands;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
-import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.KittenCommand;
-import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This command allows the rollers in
@@ -14,14 +11,20 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * towards the robot, allowing it to
  * intake cubes that are in front of it.
  */
-public class IntakeRollersIntake extends CommandGroup {
+public class IntakeRollersIntake extends Command {
+
 	public IntakeRollersIntake() {
 		super("IntakeRollersIntake");
 		requires(RobotMap.Component.crateIO);
-		// requires(RobotMap.Component.crateIO.rollerLeft);
-		// requires(RobotMap.Component.crateIO.rollerRight);
-		addParallel(new KittenCommand("We is intaking boios", LogKitten.KittenLevel.WTF));
-		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerLeft, CrateIO.INTAKE_SPEED));
-		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerRight, CrateIO.INTAKE_SPEED));
+	}
+
+	@Override
+	protected void initialize() {
+		RobotMap.Component.crateIO.set(CrateIO.INTAKE_SPEED);
+	}
+
+	@Override
+	protected boolean isFinished() {
+		return false;
 	}
 }

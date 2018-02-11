@@ -10,7 +10,7 @@ public class OuttakeSquared extends CommandGroup {
 		super("OuttakeSquared");
 		requires(RobotMap.Component.crateIO);
 		requires(RobotMap.Component.rollyBOI);
-		addParallel(new IndexerRollersOuttake());
+		addParallel(new IndexerOuttake());
 		addParallel(new IntakeRollersOuttake());
 	}
 }

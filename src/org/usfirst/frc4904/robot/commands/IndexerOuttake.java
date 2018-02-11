@@ -6,9 +6,9 @@ import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 
-public class IndexerRollersOuttake extends CommandGroup {
+public class IndexerOuttake extends CommandGroup {
 
-	public IndexerRollersOuttake() {
+	public IndexerOuttake() {
 		super("IndexerRollersOuttake");
 		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IndexerGrabberRelease());
