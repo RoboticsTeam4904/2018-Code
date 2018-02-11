@@ -54,6 +54,10 @@ public class MotorIdleGroup extends CommandGroup{
 			}
 		}
 	}
+
+	public MotorIdleGroup(String name, Subsystem subsystem, Motor... motors) {
+		this(name, subsystem, false, motors);
+	}
 }
 	
 
