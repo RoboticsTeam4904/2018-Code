@@ -14,20 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class MotorIdleGroup extends CommandGroup{
-	// protected final SpeedController[] motors;
 	
-	/**
-	 * Run MotorIdle (from WPILib) in parallel on every motor
-	 * from a list of motors with unrestricted size.
-	 * Logs the names of all motors that are being idled
-	 *
-	 * @param subsystem
-	 * @param motors
-	 */
-	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
-		this("Idling Motors", subsystem, motors);
-	}
-
 	/**
 	 * Run MotorIdle (from WPILib) in parallel on every motor
 	 * from a list of motors with unrestricted size.
@@ -65,6 +52,18 @@ public class MotorIdleGroup extends CommandGroup{
 	 */
 	public MotorIdleGroup(String name, Subsystem subsystem, Motor... motors) {
 		this(name, subsystem, false, motors);
+	}
+
+	/**
+	 * Run MotorIdle (from WPILib) in parallel on every motor
+	 * from a list of motors with unrestricted size.
+	 * Logs the names of all motors that are being idled
+	 *
+	 * @param subsystem
+	 * @param motors
+	 */
+	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
+		this("Idling Motors", subsystem, motors);
 	}
 }
 	
