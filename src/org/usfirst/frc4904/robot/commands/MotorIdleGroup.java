@@ -1,8 +1,6 @@
 package org.usfirst.frc4904.robot.commands;
 
 
-import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.KittenCommand;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -26,19 +24,9 @@ public class MotorIdleGroup extends CommandGroup{
 	public MotorIdleGroup(String name, Subsystem subsystem,  boolean isDebug, Motor... motors) {
 		super(name);
 		requires(subsystem);
-		String logMessage = "";
 		for (Motor motor : motors) {
 			requires(motor);
 			addParallel(new MotorIdle(motor));
-			if (isDebug){
-				if (motor.getName() != null) {
-					logMessage += motor.getName() + " ";
-				} else {
-					logMessage += "unnamed motor ";
-				}
-				logMessage += "idling";
-				addParallel(new KittenCommand(logMessage, LogKitten.KittenLevel.WTF));
-			}
 		}
 	}
 
@@ -62,9 +50,17 @@ public class MotorIdleGroup extends CommandGroup{
 	 * @param subsystem
 	 * @param motors
 	 */
-	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
-		this("Idling Motors", subsystem, motors);
-	}
+	// public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
+	// this(new Command (){
+	// public void initialize(){
+	// String logMessage = "";
+	// for (Motor motor : motors){
+	// logMessage += motor.getName() + " ";
+	// }
+	// }
+	// };
+	// addParallel(new SingleOp(() -> RobotMap.Component.rollyBOI.safelySetState(RollyBOI.GrabberState.RELEASED)));
+	// }
 }
 	
 

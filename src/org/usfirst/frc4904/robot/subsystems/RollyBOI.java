@@ -44,6 +44,13 @@ public class RollyBOI extends Subsystem {
 		currentState = state;
 	}
 
+	public void safelySetState(GrabberState state) {
+		if (currentState != state) {
+			grabber.set(state.getGrabberValue());
+			currentState = state;
+		}
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdleGroup("RollyBOI", this, true, rollerLeft, rollerRight));
