@@ -93,6 +93,7 @@ public class RobotMap {
 			new DoubleSolenoid(Port.Pneumatics.rightLiftSupportOut, Port.Pneumatics.rightLiftSupportIn));
 		Component.lifterLeft = new Lifter(
 			new DoubleSolenoid(Port.Pneumatics.leftLiftSupportOut, Port.Pneumatics.leftLiftSupportIn));
+
 		Component.pdp = new PDP();
 		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
