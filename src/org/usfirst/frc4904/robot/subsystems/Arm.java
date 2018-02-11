@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class Arm extends PositionSensorMotor {
-	public static final double ELBOW_MULTIPLIER = 1.0;
+	public static final double ARM_SPEED_SCALE = 0.3;
 	private final double TICK_MULTIPLIER = 360.0/255.0;
 	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
 	public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
