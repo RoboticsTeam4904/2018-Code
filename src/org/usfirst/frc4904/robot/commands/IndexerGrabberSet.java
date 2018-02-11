@@ -11,10 +11,12 @@ public class IndexerGrabberSet extends Command {
 	public IndexerGrabberSet(RollyBOI.GrabberState state) {
 		this.state = state;
 	}
+
 	@Override
 	protected void initialize() {
 		RobotMap.Component.rollyBOI.setState(state);
 	}
+
 	@Override
 	protected void interrupted() {
 		RobotMap.Component.rollyBOI.setState(RollyBOI.GrabberState.CLASPED);
@@ -22,6 +24,6 @@ public class IndexerGrabberSet extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 }
