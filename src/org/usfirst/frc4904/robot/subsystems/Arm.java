@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_SCALE = 0.3;
-	private final double TICK_MULTIPLIER = 360.0/255.0;
+	private final double TICK_MULTIPLIER = 360.0 / 255.0;
 	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
 	public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
 	public static DoubleSolenoid.Value BRAKE_DISABLED = DoubleSolenoid.Value.kReverse;
@@ -46,22 +46,22 @@ public class Arm extends PositionSensorMotor {
 
 	@Override
 	public void set(double speed) {
-		if ((encoder.getDistance() > ArmState.ARM_POSITION_INTAKE.position && speed < 0)
-			|| (encoder.getDistance() < ArmState.ARM_POSITION_SCALE.position && speed > 0)) {
-			super.set(0);
-			return;
-		}
+		// if ((encoder.getDistance() > ArmState.ARM_POSITION_INTAKE.position && speed < 0)
+		// || (encoder.getDistance() < ArmState.ARM_POSITION_SCALE.position && speed > 0)) {
+		// super.set(0);
+		// return;
+		// }
 		super.set(speed);
 	}
 
 	public void setOverride(double speed) {
 		super.set(speed);
 	}
-	
+
 	public double getAngle() {
 		return encoder.getDistance() + TICK_OFFSET;
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdle(this));
