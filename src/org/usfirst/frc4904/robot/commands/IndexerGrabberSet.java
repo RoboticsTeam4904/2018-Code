@@ -3,7 +3,6 @@ package org.usfirst.frc4904.robot.commands;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
-import org.usfirst.frc4904.standard.LogKitten;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IndexerGrabberSet extends Command {
@@ -16,12 +15,6 @@ public class IndexerGrabberSet extends Command {
 	@Override
 	protected void initialize() {
 		RobotMap.Component.rollyBOI.setState(state);
-		LogKitten.wtf("We are setting grabber to " + state.name());
-	}
-
-	@Override
-	protected void interrupted() {
-		// RobotMap.Component.rollyBOI.setState(RollyBOI.GrabberState.CLASPED);
 	}
 
 	@Override
