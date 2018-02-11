@@ -2,23 +2,22 @@ package org.usfirst.frc4904.robot.commands;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class IndexerGrabberSet extends Command {
-	protected final RollyBOI.GrabberState state;
+	protected final boolean clasped;
 
-	public IndexerGrabberSet(RollyBOI.GrabberState state) {
-		this.state = state;
+	public IndexerGrabberSet(boolean clasped) {
+		this.clasped = clasped;
 	}
 
 	@Override
 	protected void initialize() {
-		RobotMap.Component.rollyBOI.setState(state);
+		RobotMap.Component.rollyBOI.grabber.set(clasped);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return true;
+		return false;
 	}
 }
