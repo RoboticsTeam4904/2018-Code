@@ -3,6 +3,7 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
@@ -48,8 +49,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static int diskBrakeOn = 7;
-			public static int diskBrakeOff = 6;
+			public static int discBrakeOn = 7;
+			public static int discBrakeOff = 6;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
 		}
@@ -82,7 +83,7 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
-		public static DoubleSolenoid diskBrake;
+		public static DiscBrake discBrake;
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
@@ -130,7 +131,7 @@ public class RobotMap {
 		armB.setInverted(true);
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
 			armA, armB);
-		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeOn, Port.Pneumatics.diskBrakeOff);
+		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);

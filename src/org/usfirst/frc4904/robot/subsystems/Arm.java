@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
+import org.usfirst.frc4904.robot.commands.ArmBrakeSet;
 import org.usfirst.frc4904.standard.Util;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.MotionController;
@@ -8,13 +9,12 @@ import org.usfirst.frc4904.standard.custom.sensors.CustomEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_SCALE = 0.3;
 	private final double TICK_MULTIPLIER = 360.0 / 255.0;
 	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
-	public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
-	public static DoubleSolenoid.Value BRAKE_DISABLED = DoubleSolenoid.Value.kReverse;
 	public final CustomEncoder encoder;
 	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
@@ -65,5 +65,29 @@ public class Arm extends PositionSensorMotor {
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdle(this));
+	}
+
+	public static class DiscBrake extends Subsystem {
+		protected DoubleSolenoid brake;
+		public static DoubleSolenoid.Value BRAKE_ENABLED = DoubleSolenoid.Value.kForward;
+		public static DoubleSolenoid.Value BRAKE_DISABLED = DoubleSolenoid.Value.kReverse;
+
+		public DiscBrake(DoubleSolenoid brake) {
+			super("DiscBrake");
+			this.brake = brake;
+		}
+
+		public void set(boolean on) {
+			if (on) {
+				brake.set(DiscBrake.BRAKE_ENABLED);
+			} else {
+				brake.set(DiscBrake.BRAKE_DISABLED);
+			}
+		}
+
+		@Override
+		protected void initDefaultCommand() {
+			setDefaultCommand(new ArmBrakeSet(false));
+		}
 	}
 }
