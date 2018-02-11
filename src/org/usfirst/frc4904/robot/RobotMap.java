@@ -24,7 +24,7 @@ public class RobotMap {
 		public static class HumanInput {
 			public static final int leftStick = 0;
 			public static final int xboxController = 1;
-			public static final int rightStick = -1;//DEPRECATED?
+			public static final int rightStick = -1;// DEPRECATED?
 		}
 
 		public static class CANMotor {
@@ -49,8 +49,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static int diskBrakeIn = -1;
-			public static int diskBrakeOut = -1;
+			public static int diskBrakeOn = 7;
+			public static int diskBrakeOff = 6;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
 		}
@@ -61,6 +61,7 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
@@ -129,7 +130,7 @@ public class RobotMap {
 		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
 			new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
-		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeIn, Port.Pneumatics.diskBrakeOut);
+		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeOn, Port.Pneumatics.diskBrakeOff);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
