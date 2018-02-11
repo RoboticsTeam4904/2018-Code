@@ -1,9 +1,9 @@
 package org.usfirst.frc4904.robot.commands;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Idles motors of a subsystem.
@@ -19,28 +19,12 @@ public class IdleMotors extends CommandGroup{
 	 * @param subsystem
 	 * @param motors
 	 */
-	public IdleMotors(Subsystem subsystem, Motor[] motors) {
+	public IdleMotors(Subsystem subsystem, Motor... motors) {
 		super("IdleMotors");
 		requires(subsystem);
-		for (int i=0; i<motors.length; i++) {
-			requires(motors[i]);
-			addParallel(new MotorIdle(motors[i]));
+		for (Motor motor : motors) {
+			requires(motor);
+			addParallel(new MotorIdle(motor));
 		}
-	}
-
-	/**
-	 * Run MotorIdle (from WPILib) in parallel on each of 2 motors.
-	 *
-	 * @param subsystem
-	 * @param motor1
-	 * @param motor2
-	 */
-	public IdleMotors(Subsystem subsystem, Motor motor1, Motor motor2) {
-		super("IdleMotors");
-		requires(subsystem);
-		requires(motor1);
-		requires(motor2);
-		addParallel(new MotorIdle(motor1));
-		addParallel(new MotorIdle(motor2));
 	}
 }
