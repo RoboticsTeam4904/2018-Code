@@ -22,14 +22,13 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class RobotMap {
 	public static class Port { // TODO: Correct Ports
 		public static class HumanInput {
-			public static final int leftStick = 0;
+			public static final int joystick = 0;
 			public static final int xboxController = 1;
-			public static final int rightStick = -1;// DEPRECATED?
 		}
 
 		public static class CANMotor {
-			public static final int armMotorA = -1;
-			public static final int armMotorB = -1;
+			public static final int armMotorA = 9;
+			public static final int armMotorB = 14;
 		}
 
 		public static class CANEncoder {
@@ -87,7 +86,6 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
-		public static CustomJoystick operatorStick;
 		public static CustomXbox driverXbox;
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
@@ -102,8 +100,7 @@ public class RobotMap {
 		}
 
 		public static class Operator {
-			public static CustomJoystick leftStick;
-			public static CustomJoystick rightStick;
+			public static CustomJoystick joystick;
 		}
 	}
 
@@ -128,15 +125,16 @@ public class RobotMap {
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Arm
 		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
 		Component.arm = new Arm(new CustomPIDController(0, 0, 0, 0, armEncoder), armEncoder,
-			new CANTalonSRX(Port.CANMotor.armMotorA), new CANTalonSRX(Port.CANMotor.armMotorB));
+			armA, armB);
 		Component.diskBrake = new DoubleSolenoid(Port.Pneumatics.diskBrakeOn, Port.Pneumatics.diskBrakeOff);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
-		HumanInput.Operator.leftStick = new CustomJoystick(Port.HumanInput.leftStick);
-		HumanInput.Operator.leftStick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
-		HumanInput.Operator.rightStick = new CustomJoystick(Port.HumanInput.rightStick);
-		HumanInput.Operator.rightStick.setDeadzone(HumanInterfaceConfig.STICK_RIGHT_DEADZONE);
+		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);

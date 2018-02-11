@@ -11,13 +11,14 @@ public class DefaultOperator extends Operator {
 	public DefaultOperator() {
 		super("Default Operator");
 	}
+
 	public DefaultOperator(String name) {
 		super(name);
 	}
 
 	@Override
 	public void bindCommands() {
-		new MotorControl(RobotMap.Component.arm, RobotMap.Component.operatorStick, CustomJoystick.Y_AXIS,
+		new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
 			Arm.ARM_SPEED_SCALE).start();
 	}
 }
