@@ -44,7 +44,7 @@ public class RollyBOI extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdleGroup(this, rollerLeft, rollerRight));		
+		setDefaultCommand(new MotorIdleGroup("RollyBOI", this, true, rollerLeft, rollerRight));
 	}
 	
 	public void set(double speed) {
