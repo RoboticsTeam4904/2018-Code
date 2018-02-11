@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class Sockets {
 	
 	public static int PORT_NUMBER = 5202;
-	public static final String HOSTNAME = "127.0.0.1";   
+	public static final String HOSTNAME = "127.0.0.1"; //"tegra-ubuntu.local";
 	
 	public ServerSocket listener;
 	BufferedReader in;

@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class TX1Comms {
 	
-	public static final boolean usingSockets = false;
+	public static final boolean usingSockets = true;
 	
 	public static String getEncoderData() {
 		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
@@ -32,21 +32,32 @@ public class TX1Comms {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("sending data");
+		System.out.println("start");
+		send();
+	}
+	
+	public static void send() {
+		
 		Sockets s = new Sockets();
+		System.out.println("socks initialized");
 		YewEsBee usb = new YewEsBee();
+		System.out.println("done initializing");
 		while(true) {
 			System.out.println("sending data");
 			try {
 				Thread.sleep(20);
-			} catch (InterruptedException e) {e.printStackTrace();}
+			} catch (InterruptedException e) {
+				System.out.println("REEEE");
+				e.printStackTrace();
+				}
 			
-			String message = "{ \"encoders:\" " + getEncoderData() + ", \"IMU\": " + getIMUData() + "}";
+			String message = "{ \"encoders:\" " + getEncoderData() + ", \"IMU\": " + getIMUData() + "}" + " " + System.currentTimeMillis();
 			if(usingSockets) {
 				s.sendData(message);
 			} else {
 				usb.sendData(message);
 			}
 		}
+
 	}
 }
