@@ -1,9 +1,6 @@
 package org.usfirst.frc4904.robot.commands;
 
 
-import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.subsystems.RollyBOI;
-import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -43,7 +40,6 @@ public class MotorIdleGroup extends CommandGroup{
 	 */
 	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
 		this(MotorIdleGroup.makeName(motors), subsystem, motors);
-		addParallel(new SingleOp(() -> RobotMap.Component.rollyBOI.safelySetState(RollyBOI.GrabberState.RELEASED)));
 	}
 
 	public static String makeName(Motor... motors) {
