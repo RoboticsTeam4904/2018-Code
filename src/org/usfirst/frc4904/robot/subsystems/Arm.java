@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends PositionSensorMotor {
-	public static final double ARM_SPEED_SCALE = 0.3;
+	public static final double ARM_SPEED_SCALE = 0.4;
 	private final double TICK_MULTIPLIER = 360.0 / 255.0;
 	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
 	public final CustomEncoder encoder;

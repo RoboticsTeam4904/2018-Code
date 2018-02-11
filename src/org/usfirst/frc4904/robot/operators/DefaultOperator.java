@@ -19,8 +19,9 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-			Arm.ARM_SPEED_SCALE).start();
-		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new ArmBrakeSet(true));
+		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileReleased(new ArmBrakeSet(true));
+		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+				Arm.ARM_SPEED_SCALE));
 	}
 }
