@@ -9,8 +9,7 @@ public class IntakeSquared extends CommandGroup {
 		super("IntakeSquared");
 		requires(RobotMap.Component.crateIO);
 		requires(RobotMap.Component.rollyBOI);
-		// addParallel(new SingleOp(() -> RobotMap.Component.rollyBOI.grabber.set(RollyBOI.RELEASED)));
-		addParallel(new IntakeRollersIntake());
 		addParallel(new IndexerIntake());
+		addParallel(new IntakeRollersIntake());
 	}
 }

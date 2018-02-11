@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CrateIO extends Subsystem {
 
-	public static final double INTAKE_SPEED = -0.85;
-	public static final double OUTTAKE_SPEED = 0.75;
+	public static final double INTAKE_SPEED = 1.0;
+	public static final double OUTTAKE_SPEED = -1.0;
 
 	public final Motor rollerLeft;
 	public final Motor rollerRight;
@@ -38,7 +38,7 @@ public class CrateIO extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdleGroup("CrateIO", this, true, rollerLeft, rollerRight));
+		setDefaultCommand(new MotorIdleGroup("CrateIO", this, rollerLeft, rollerRight));
 	}
 
 	public void set(double speed) {

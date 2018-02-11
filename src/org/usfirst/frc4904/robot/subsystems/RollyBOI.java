@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RollyBOI extends Subsystem {
-	public static final double INTAKE_SPEED = 0.5;
-	public static final double OUTTAKE_SPEED = -0.5;
+	public static final double INTAKE_SPEED = -1.0;
+	public static final double OUTTAKE_SPEED = 1.0;
 	public static final DoubleSolenoid.Value RELEASED = DoubleSolenoid.Value.kReverse;
 	public static final DoubleSolenoid.Value CLASPED = DoubleSolenoid.Value.kForward;
 	public final Motor rollerLeft;
@@ -53,7 +53,7 @@ public class RollyBOI extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdleGroup("RollyBOI", this, true, rollerLeft, rollerRight));
+		setDefaultCommand(new MotorIdleGroup("RollyBOI", this, rollerLeft, rollerRight));
 	}
 
 	public void set(double speed) {

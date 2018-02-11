@@ -16,12 +16,12 @@ public class IndexerGrabberSet extends Command {
 	@Override
 	protected void initialize() {
 		RobotMap.Component.rollyBOI.setState(state);
-		LogKitten.wtf("We are setting solenoid to " + state.name());
+		LogKitten.wtf("We are setting grabber to " + state.name());
 	}
 
 	@Override
 	protected void interrupted() {
-		RobotMap.Component.rollyBOI.setState(RollyBOI.GrabberState.CLASPED);
+		// RobotMap.Component.rollyBOI.setState(RollyBOI.GrabberState.CLASPED);
 	}
 
 	@Override

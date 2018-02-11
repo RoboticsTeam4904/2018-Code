@@ -1,6 +1,9 @@
 package org.usfirst.frc4904.robot.commands;
 
 
+import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.subsystems.RollyBOI;
+import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -21,7 +24,7 @@ public class MotorIdleGroup extends CommandGroup{
 	 * @param subsystem
 	 * @param motors
 	 */
-	public MotorIdleGroup(String name, Subsystem subsystem,  boolean isDebug, Motor... motors) {
+	public MotorIdleGroup(String name, Subsystem subsystem, Motor... motors) {
 		super(name);
 		requires(subsystem);
 		for (Motor motor : motors) {
@@ -33,34 +36,28 @@ public class MotorIdleGroup extends CommandGroup{
 	/**
 	 * Run MotorIdle (from WPILib) in parallel on every motor
 	 * from a list of motors with unrestricted size.
-	 * 
-	 * @param name
-	 * @param subsystem
-	 * @param motors
-	 */
-	public MotorIdleGroup(String name, Subsystem subsystem, Motor... motors) {
-		this(name, subsystem, false, motors);
-	}
-
-	/**
-	 * Run MotorIdle (from WPILib) in parallel on every motor
-	 * from a list of motors with unrestricted size.
 	 * Logs the names of all motors that are being idled
 	 *
 	 * @param subsystem
 	 * @param motors
 	 */
-	// public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
-	// this(new Command (){
-	// public void initialize(){
-	// String logMessage = "";
-	// for (Motor motor : motors){
-	// logMessage += motor.getName() + " ";
-	// }
-	// }
-	// };
-	// addParallel(new SingleOp(() -> RobotMap.Component.rollyBOI.safelySetState(RollyBOI.GrabberState.RELEASED)));
-	// }
+	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
+		this(MotorIdleGroup.makeName(motors), subsystem, motors);
+		addParallel(new SingleOp(() -> RobotMap.Component.rollyBOI.safelySetState(RollyBOI.GrabberState.RELEASED)));
+	}
+
+	public static String makeName(Motor... motors) {
+		String name = "";
+		for (Motor motor : motors) {
+			if (motor.getName() != null) {
+				name += motor.getName() + " ";
+			} else {
+				name += "unnamed motor ";
+			}
+			name += "idling";
+		}
+		return name;
+	}
 }
 	
 
