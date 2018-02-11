@@ -55,6 +55,14 @@ public class MotorIdleGroup extends CommandGroup{
 		}
 	}
 
+	/**
+	 * Run MotorIdle (from WPILib) in parallel on every motor
+	 * from a list of motors with unrestricted size.
+	 * 
+	 * @param name
+	 * @param subsystem
+	 * @param motors
+	 */
 	public MotorIdleGroup(String name, Subsystem subsystem, Motor... motors) {
 		this(name, subsystem, false, motors);
 	}
