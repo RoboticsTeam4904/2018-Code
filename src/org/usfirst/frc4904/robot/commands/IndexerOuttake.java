@@ -11,7 +11,6 @@ public class IndexerOuttake extends CommandGroup {
 	public IndexerOuttake() {
 		super("IndexerRollersOuttake");
 		requires(RobotMap.Component.rollyBOI);
-		addParallel(new IndexerGrabberRelease());
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerLeft, RollyBOI.OUTTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerRight, RollyBOI.OUTTAKE_SPEED));
 	}

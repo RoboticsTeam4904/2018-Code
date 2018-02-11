@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class IndexerIntake extends CommandGroup {
 	public IndexerIntake() {
 		requires(RobotMap.Component.rollyBOI);
-		addParallel(new IndexerGrabberRelease());
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerLeft, RollyBOI.INTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerRight, RollyBOI.INTAKE_SPEED));
 	}
