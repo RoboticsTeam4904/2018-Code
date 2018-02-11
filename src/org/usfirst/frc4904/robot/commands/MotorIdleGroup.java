@@ -24,8 +24,8 @@ public class MotorIdleGroup extends CommandGroup{
 	 * @param subsystem
 	 * @param motors
 	 */
-	public MotorIdleGroup(Subsystem subsystem, boolean isDebug, Motor... motors) {
-		this("Idling Motors", subsystem, isDebug, motors);
+	public MotorIdleGroup(Subsystem subsystem, Motor... motors) {
+		this("Idling Motors", subsystem, motors);
 	}
 
 	/**
