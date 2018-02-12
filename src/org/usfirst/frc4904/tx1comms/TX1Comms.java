@@ -3,16 +3,18 @@ package org.usfirst.frc4904.tx1comms;
 import java.util.HashMap;
 import org.json.JSONObject;
 
-public class TX1Comms {
+public class TX1Comms implements Runnable{
 	
 	public static final boolean usingSockets = true;
 	
+	
+	//The encoders don't exist yet, so we are pretending we can get the data
 	public static String getEncoderData() {
 		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
-//		encoders.put("leftBack", ((Encoder) null).get());
-//		encoders.put("leftFront", ((Encoder) null).get());
-//		encoders.put("rightBack", ((Encoder) null).get());
-//		encoders.put("rightFront", ((Encoder) null).get());
+//		encoders.put("leftBack", ((Encoder) RobotMap.whatever).get());
+//		encoders.put("leftFront", ((Encoder) RobotMap.whatever).get());
+//		encoders.put("rightBack", ((Encoder) RobotMap.whatever).get());
+//		encoders.put("rightFront", ((Encoder) RobotMap.whatever).get());
 		encoders.put("leftBack", 5);
 		encoders.put("leftFront", 4);
 		encoders.put("rightBack", 3);
@@ -23,7 +25,7 @@ public class TX1Comms {
 		return message;
 	}
 	
-	
+	//The IMU doesn't exist yet, so we are pretending we can get the data
 	public static String getIMUData() {
 		//IMU imu =  new IMU(); //RobotMap.Component.IMU (but it doesn't exist yet)
 		
@@ -31,25 +33,25 @@ public class TX1Comms {
 		return message;
 	}
 	
+	//only for testing purposes
 	public static void main(String[] args) {
-		System.out.println("start");
-		send();
+		System.out.println("starting");
+		new TX1Comms().run();
 	}
-	
-	public static void send() {
-		
+
+	@Override
+	public void run() {
 		Sockets s = new Sockets();
 		System.out.println("socks initialized");
-		YewEsBee usb = new YewEsBee();
+		USBSender usb = new USBSender();
 		System.out.println("done initializing");
 		while(true) {
 			System.out.println("sending data");
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
-				System.out.println("REEEE");
 				e.printStackTrace();
-				}
+			}
 			
 			String message = "{ \"encoders:\" " + getEncoderData() + ", \"IMU\": " + getIMUData() + "}" + " " + System.currentTimeMillis();
 			if(usingSockets) {
