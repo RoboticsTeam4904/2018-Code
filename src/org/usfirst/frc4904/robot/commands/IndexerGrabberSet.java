@@ -8,6 +8,7 @@ public class IndexerGrabberSet extends Command {
 	protected final boolean clasped;
 
 	public IndexerGrabberSet(boolean clasped) {
+		super(clasped ? "IndexerGrabberClasp" : "IndexerGrabberRelease");
 		this.clasped = clasped;
 	}
 

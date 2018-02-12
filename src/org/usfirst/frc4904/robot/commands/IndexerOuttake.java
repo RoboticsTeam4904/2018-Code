@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class IndexerOuttake extends CommandGroup {
 	public IndexerOuttake() {
-		super("IndexerRollersOuttake");
+		super("IndexerOuttake");
 		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IndexerGrabberRelease());
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOI.rollerLeft, RollyBOI.OUTTAKE_SPEED));
