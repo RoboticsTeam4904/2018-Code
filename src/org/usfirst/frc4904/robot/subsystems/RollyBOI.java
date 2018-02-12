@@ -1,7 +1,7 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
-import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
+import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
 import org.usfirst.frc4904.robot.commands.MotorIdleGroup;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -47,7 +47,7 @@ public class RollyBOI extends Subsystem {
 
 		@Override
 		protected void initDefaultCommand() {
-			setDefaultCommand(new IndexerGrabberRelease());
+			setDefaultCommand(new IndexerGrabberClasp());
 		}
 	}
 }
