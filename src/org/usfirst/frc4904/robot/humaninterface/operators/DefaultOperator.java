@@ -1,4 +1,4 @@
-package org.usfirst.frc4904.robot.operators;
+package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
