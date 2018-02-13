@@ -91,7 +91,7 @@ public class RobotMap {
 		public static Motor crateIORollerRight;
 		public static Motor rollyBOIRollerLeft;
 		public static Motor rollyBOIRollerRight;
-		public static DoubleSolenoid rollyBOIGrabber;
+		public static RollyBOI.Grabber rollyBOIGrabber;
 		public static CrateIO crateIO;
 		public static RollyBOI rollyBOI;
 		public static CustomJoystick joystick;
@@ -130,8 +130,8 @@ public class RobotMap {
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
 			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
-			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased);
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
+			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased));
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
 		// Wheels
