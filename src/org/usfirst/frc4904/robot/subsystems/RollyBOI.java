@@ -2,11 +2,16 @@ package org.usfirst.frc4904.robot.subsystems;
 
 
 import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
-import org.usfirst.frc4904.robot.commands.MotorIdleGroup;
+import org.usfirst.frc4904.standard.commands.Idle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * RollyBOI is the indexer on the end of the arm.
+ * When the arm is fully down, RollyBOI accepts cubes from the intake.
+ *
+ */
 public class RollyBOI extends Subsystem {
 	public static final double INTAKE_SPEED = -0.5;
 	public static final double OUTTAKE_SPEED = 1.0;
@@ -22,12 +27,7 @@ public class RollyBOI extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdleGroup("RollyBOI", this, rollerLeft, rollerRight));
-	}
-
-	public void set(double speed) {
-		rollerLeft.set(speed);
-		rollerRight.set(speed);
+		setDefaultCommand(new Idle(this));
 	}
 
 	public static class Grabber extends Subsystem {
