@@ -22,34 +22,26 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {
-	}
+	public void teleopExecute() {}
 
 	@Override
-	public void autonomousInitialize() {
-	}
+	public void autonomousInitialize() {}
 
 	@Override
-	public void autonomousExecute() {
-	}
+	public void autonomousExecute() {}
 
 	@Override
-	public void disabledInitialize() {
-	}
+	public void disabledInitialize() {}
 
 	@Override
-	public void disabledExecute() {
-	}
+	public void disabledExecute() {}
 
 	@Override
-	public void testInitialize() {
-	}
+	public void testInitialize() {}
 
 	@Override
-	public void testExecute() {
-	}
+	public void testExecute() {}
 
 	@Override
-	public void alwaysExecute() {
-	}
+	public void alwaysExecute() {}
 }

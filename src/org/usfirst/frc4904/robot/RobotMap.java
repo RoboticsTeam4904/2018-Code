@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -20,7 +21,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
-	public static class Port { // TODO: Correct Ports
+	public static class Port {
 		public static class HumanInput {
 			public static final int joystick = 0;
 			public static final int xboxController = 1;
@@ -31,6 +32,9 @@ public class RobotMap {
 			public static final int crateIORollerMotorRight = 7;
 			public static final int rollyBOIRollerMotorLeft = 11;
 			public static final int rollyBOIRollerMotorRight = 3;
+		}
+
+		public static class CANEncoder {
 		}
 
 		public static class PWM {
@@ -54,6 +58,7 @@ public class RobotMap {
 	}
 
 	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
+
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
@@ -85,13 +90,22 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
-		public static CustomJoystick operatorStick;
 		public static CustomXbox driverXbox;
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static NavX navx;
+	}
+
+	public static class HumanInput {
+		public static class Driver {
+			public static CustomXbox xbox;
+		}
+
+		public static class Operator {
+			public static CustomJoystick joystick;
+		}
 	}
 
 	public RobotMap() {
@@ -125,6 +139,10 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
+		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
+		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
+		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);

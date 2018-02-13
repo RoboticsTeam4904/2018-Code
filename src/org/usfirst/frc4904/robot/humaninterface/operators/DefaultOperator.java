@@ -21,7 +21,7 @@ public class DefaultOperator extends Operator {
 	public void bindCommands() {
 		RobotMap.Component.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		RobotMap.Component.joystick.button4.onlyWhileHeld(new OuttakeSquared());
-		RobotMap.Component.joystick.button5.whenPressed(new IndexerGrabberClasp());
-		RobotMap.Component.joystick.button6.whenPressed(new IndexerGrabberRelease());
+		RobotMap.Component.joystick.button5.whenPressed(new IndexerGrabberRelease());
+		RobotMap.Component.joystick.button6.whenPressed(new IndexerGrabberClasp());
 	}
 }
