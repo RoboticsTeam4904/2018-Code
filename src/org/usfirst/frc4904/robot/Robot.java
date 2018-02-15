@@ -5,6 +5,8 @@ import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -13,6 +15,9 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
+//		autoChooser.addDefault(new CenterSwitchDistance());
+//		autoChooser.addDefault(new LeftSideDistance());
+//		autoChooser.addDefault(new RightSideDistance());
 	}
 
 	@Override
@@ -49,5 +54,15 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
+		putSBSubsystemSummary();
+		SmartDashboard.putNumber("Arm Angle", RobotMap.Component.arm.getAngle());
+	}
+
+	void putSBSubsystemSummary() {
+		String summary = "";
+		for (Subsystem subsystem : RobotMap.Component.mainSubsystems) {
+			summary += "{" + subsystem.getName() + "} running command {" + subsystem.getCurrentCommand() + "}\n";
+		}
+		SmartDashboard.putString("Subsystem Overview", summary);
 	}
 }

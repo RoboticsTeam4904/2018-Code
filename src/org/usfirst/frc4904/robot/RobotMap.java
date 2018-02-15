@@ -19,6 +19,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.Acceleration
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
 	public static class Port { // TODO: Correct Ports
@@ -93,6 +94,7 @@ public class RobotMap {
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static NavX navx;
+		public static Subsystem[] mainSubsystems;
 	}
 
 	public static class HumanInput {
@@ -139,5 +141,12 @@ public class RobotMap {
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+		Component.mainSubsystems = new Subsystem[] {
+													Component.chassis,
+//													Component.crateIO,
+													Component.arm//,
+//													Component.lifterRight,
+//													Component.lifterLeft
+		};
 	}
 }
