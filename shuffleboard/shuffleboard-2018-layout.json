@@ -49,7 +49,7 @@
               "_type": "Simple Dial",
               "_title": "Arm Angle",
               "minValue": 0.0,
-              "maxValue": 100.0,
+              "maxValue": 180.0,
               "valueVisible": true
             }
           }
@@ -114,7 +114,7 @@
               "_type": "Simple Dial",
               "_title": "Arm Angle",
               "minValue": 0.0,
-              "maxValue": 100.0,
+              "maxValue": 180.0,
               "valueVisible": true
             }
           }
