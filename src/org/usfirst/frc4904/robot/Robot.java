@@ -1,24 +1,29 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc4904.robot.subsystems.arm;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+
 
 public class Robot extends CommandRobotBase {
-	private RobotMap robotMap = new RobotMap();
+	private RobotMap map = new RobotMap();
 
 	@Override
 	public void initialize() {
 		autoChooser.addDefault(CenterSwitchDistance());
 		autoChooser.addDefault(LeftSideDistance());
 		autoChooser.addDefault(RightSideDistance());
+		driverChooser.addDefault(new NathanGain());
 	}
 
 	@Override
 	public void teleopInitialize() {
-		// TODO Auto-generated method stub
+		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
+		teleopCommand.start();
 	}
 
 	@Override
@@ -71,3 +76,4 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putString("Subsystem Overview", summary);
 	}
 }
+
