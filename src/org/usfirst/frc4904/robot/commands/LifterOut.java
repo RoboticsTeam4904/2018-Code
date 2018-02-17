@@ -5,6 +5,6 @@ import org.usfirst.frc4904.robot.subsystems.Lifter;
 
 public class LifterOut extends LifterSet {
 	public LifterOut(Lifter lifter) {
-		super(lifter, Lifter.SUPPORT_SOLENOID_RAISED);
+		super(lifter.extender, Lifter.LIFTER_SOLENOID_RAISED, lifter);
 	}
 }

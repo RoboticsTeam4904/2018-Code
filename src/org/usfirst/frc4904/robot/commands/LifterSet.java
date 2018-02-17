@@ -6,18 +6,19 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LifterSet extends Command {
-	private Lifter lifter;
 	private DoubleSolenoid.Value state;
+	private DoubleSolenoid lifterPiston;
 
-	public LifterSet(Lifter lifter, DoubleSolenoid.Value state) {
-		this.lifter = lifter;
+	public LifterSet(DoubleSolenoid lifterPiston, DoubleSolenoid.Value state, Lifter lifter) {
+		this.lifterPiston = lifterPiston;
 		this.state = state;
 		requires(lifter);
 	}
 
+
 	@Override
 	protected void initialize() {
-		lifter.extender.set(state);
+		lifterPiston.set(state);
 	}
 
 	@Override

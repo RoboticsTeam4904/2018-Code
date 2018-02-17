@@ -6,11 +6,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lifter extends Subsystem {
 	public final DoubleSolenoid extender;
-	public static final DoubleSolenoid.Value SUPPORT_SOLENOID_RAISED = DoubleSolenoid.Value.kReverse;
-	public static final DoubleSolenoid.Value SUPPORT_SOLENOID_LOWERED = DoubleSolenoid.Value.kForward;
+	public final DoubleSolenoid support;
+	public static final DoubleSolenoid.Value LIFTER_SOLENOID_RAISED = DoubleSolenoid.Value.kReverse;
+	public static final DoubleSolenoid.Value LIFTER_SOLENOID_LOWERED = DoubleSolenoid.Value.kForward;
 
-	public Lifter(DoubleSolenoid extender) {
+	public Lifter(DoubleSolenoid extender, DoubleSolenoid support) {
 		this.extender = extender;
+		this.support = support;
 	}
 
 	@Override

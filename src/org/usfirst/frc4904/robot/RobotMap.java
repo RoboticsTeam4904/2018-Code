@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.robot;
 
 
-
 import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
@@ -40,10 +39,15 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static int leftLiftSupportOut = -1;
-			public static int leftLiftSupportIn = -1;
-			public static int rightLiftSupportOut = -1;
-			public static int rightLiftSupportIn = -1;
+			// TODO: RealPorts
+			public static int leftLifterOut = -1;
+			public static int leftLifterIn = -1;
+			public static int rightLifterOut = -1;
+			public static int rightLifterIn = -1;
+			public static int leftLifterSupportIn = -1;
+			public static int leftLifterSupportOut = -1;
+			public static int rightLifterSupportIn = -1;
+			public static int rightLifterSupportOut = -1;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
 		}
@@ -91,9 +95,11 @@ public class RobotMap {
 	public RobotMap() {
 		// Lifter
 		Component.lifterRight = new Lifter(
-			new DoubleSolenoid(Port.Pneumatics.rightLiftSupportOut, Port.Pneumatics.rightLiftSupportIn));
+			new DoubleSolenoid(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn),
+			new DoubleSolenoid(Port.Pneumatics.rightLifterSupportOut, Port.Pneumatics.rightLifterSupportIn));
 		Component.lifterLeft = new Lifter(
-			new DoubleSolenoid(Port.Pneumatics.leftLiftSupportOut, Port.Pneumatics.leftLiftSupportIn));
+			new DoubleSolenoid(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn),
+			new DoubleSolenoid(Port.Pneumatics.leftLifterSupportOut, Port.Pneumatics.leftLifterSupportIn));
 
 		Component.pdp = new PDP();
 		// Wheels
