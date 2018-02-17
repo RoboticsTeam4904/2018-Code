@@ -10,9 +10,9 @@ public class LifterSet extends Command {
 	private DoubleSolenoid lifterPiston;
 
 	public LifterSet(DoubleSolenoid lifterPiston, DoubleSolenoid.Value state, Lifter lifter) {
+		requires(lifter);
 		this.lifterPiston = lifterPiston;
 		this.state = state;
-		requires(lifter);
 	}
 
 

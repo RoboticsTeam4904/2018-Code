@@ -19,21 +19,20 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		// TODO: These are just examples for basic testing. These need to be changed.
-		RobotMap.Component.operatorStick.button1.onlyWhileHeld(new RunIf(
-			new LifterOut(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.b::get));
-		RobotMap.Component.operatorStick.button3.onlyWhileHeld(new RunIf(
+		RobotMap.Component.operatorStick.button12.onlyWhileHeld(new RunIf(
+			new LifterOut(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.rightStick::get));
+		RobotMap.Component.operatorStick.button11.onlyWhileHeld(new RunIf(
 			new LifterSupportOut(RobotMap.Component.lifterLeft),
-			RobotMap.Component.driverXbox.b::get,
+			RobotMap.Component.driverXbox.rightStick::get,
 			() -> {
 				return RobotMap.Component.lifterLeft.extender.get() == Lifter.LIFTER_SOLENOID_RAISED;
 			}));
 
-		RobotMap.Component.operatorStick.button2.onlyWhileHeld(new RunIf(
-			new LifterOut(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.b::get));
-		RobotMap.Component.operatorStick.button4.onlyWhileHeld(new RunIf(
+		RobotMap.Component.operatorStick.button10.onlyWhileHeld(new RunIf(
+			new LifterOut(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
+		RobotMap.Component.operatorStick.button9.onlyWhileHeld(new RunIf(
 			new LifterSupportOut(RobotMap.Component.lifterRight),
-			RobotMap.Component.driverXbox.b::get,
+			RobotMap.Component.driverXbox.rightStick::get,
 			() -> {
 				return RobotMap.Component.lifterRight.extender.get() == Lifter.LIFTER_SOLENOID_RAISED;
 			}));
