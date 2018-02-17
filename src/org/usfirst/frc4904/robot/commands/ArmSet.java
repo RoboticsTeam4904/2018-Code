@@ -2,6 +2,8 @@ package org.usfirst.frc4904.robot.commands;
 
 
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.KittenCommand;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -17,6 +19,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ArmSet extends CommandGroup {
 	public ArmSet(Arm.ArmState state) {
 		addSequential(new ArmMove(state, true));
-		addSequential(new ArmBrakeSet(true));
+		addSequential(new KittenCommand("Done moving", LogKitten.KittenLevel.WTF));
+		addSequential(new ArmBrakeSet(false));
 	}
 }

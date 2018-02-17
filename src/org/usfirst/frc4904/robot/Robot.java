@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.robot.commands.AutonSwitch;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
@@ -21,10 +22,15 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopInitialize() {}
+	public void teleopInitialize() {
+		teleopCommand = new AutonSwitch();
+		teleopCommand.start();
+	}
 
 	@Override
-	public void teleopExecute() {}
+	public void teleopExecute() {
+		LogKitten.wtf(RobotMap.Component.arm.encoder.getDistance());
+	}
 
 	@Override
 	public void autonomousInitialize() {}
@@ -49,7 +55,7 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void alwaysExecute() {
 		// putSBSubsystemSummary();
-		LogKitten.wtf("Arm Angle: " + RobotMap.Component.arm.getAngle());
+		LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
 	}
 
 	void putSBSubsystemSummary() {
