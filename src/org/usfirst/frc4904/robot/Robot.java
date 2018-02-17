@@ -15,18 +15,16 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-//		autoChooser.addDefault(new CenterSwitchDistance());
-//		autoChooser.addDefault(new LeftSideDistance());
-//		autoChooser.addDefault(new RightSideDistance());
+		// autoChooser.addDefault(new CenterSwitchDistance());
+		// autoChooser.addDefault(new LeftSideDistance());
+		// autoChooser.addDefault(new RightSideDistance());
 	}
 
 	@Override
-	public void teleopInitialize() {
-	}
+	public void teleopInitialize() {}
 
 	@Override
-	public void teleopExecute() {
-	}
+	public void teleopExecute() {}
 
 	@Override
 	public void autonomousInitialize() {}
@@ -37,25 +35,21 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void disabledInitialize() {
-	}
+	public void disabledInitialize() {}
 
 	@Override
-	public void disabledExecute() {
-	}
+	public void disabledExecute() {}
 
 	@Override
-	public void testInitialize() {
-	}
+	public void testInitialize() {}
 
 	@Override
-	public void testExecute() {
-	}
+	public void testExecute() {}
 
 	@Override
 	public void alwaysExecute() {
-		putSBSubsystemSummary();
-		SmartDashboard.putNumber("Arm Angle", RobotMap.Component.arm.getAngle());
+		// putSBSubsystemSummary();
+		LogKitten.wtf("Arm Angle: " + RobotMap.Component.arm.getAngle());
 	}
 
 	void putSBSubsystemSummary() {

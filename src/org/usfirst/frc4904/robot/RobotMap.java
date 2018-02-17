@@ -34,7 +34,7 @@ public class RobotMap {
 		}
 
 		public static class CANEncoder {
-			public static final int armEncoderPort = -1;
+			public static final int armEncoderPort = 0x612;
 		}
 
 		public static class PWM {
@@ -50,8 +50,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static int discBrakeOn = 7;
-			public static int discBrakeOff = 6;
+			public static int discBrakeOn = 2;
+			public static int discBrakeOff = 3;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
 		}
@@ -142,11 +142,11 @@ public class RobotMap {
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
 		Component.mainSubsystems = new Subsystem[] {
-													Component.chassis,
-//													Component.crateIO,
-													Component.arm//,
-//													Component.lifterRight,
-//													Component.lifterLeft
+				Component.chassis,
+				// Component.crateIO,
+				Component.arm// ,
+				// Component.lifterRight,
+				// Component.lifterLeft
 		};
 	}
 }

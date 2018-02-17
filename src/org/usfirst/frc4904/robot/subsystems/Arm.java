@@ -13,14 +13,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_SCALE = 0.4;
-	private final double TICK_MULTIPLIER = 360.0 / 255.0;
+	private final double ENCODER_TICKS = 1024.0;
+	private final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS;
 	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
 	public final CustomEncoder encoder;
 	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
 
 	public enum ArmState {
-		ARM_POSITION_INTAKE(0), ARM_POSITION_SWITCH(40), ARM_POSITION_SCALE(90); // TODO: need to be tweaked a lot
+		ARM_POSITION_INTAKE(0), ARM_POSITION_SWITCH(48), ARM_POSITION_SCALE(143); // TODO: need to be tweaked a lot
 		public final double position;
 
 		private ArmState(double position) {
