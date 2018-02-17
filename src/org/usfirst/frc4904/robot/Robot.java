@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc4904.robot.subsystems.arm;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 
-
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
 
