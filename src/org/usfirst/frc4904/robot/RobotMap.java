@@ -34,8 +34,7 @@ public class RobotMap {
 			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
-		public static class CANEncoder {
-		}
+		public static class CANEncoder {}
 
 		public static class PWM {
 			public static final int leftDriveA = 2;
@@ -52,13 +51,12 @@ public class RobotMap {
 		public static class Pneumatics {
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
-			public static final int rollyBOIGrabberClasped = 2;
-			public static final int rollyBOIGrabberReleased = 3;
+			public static final int rollyBOIGrabberClasped = 7;
+			public static final int rollyBOIGrabberReleased = 6;
 		}
 	}
 
 	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
-
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
