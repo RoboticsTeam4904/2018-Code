@@ -9,7 +9,7 @@ public class IndexerGrabberSet extends Command {
 
 	public IndexerGrabberSet(boolean clasped) {
 		super(clasped ? "IndexerGrabberClasp" : "IndexerGrabberRelease");
-		requires(RobotMap.Component.rollyBOIGrabber);
+		requires(RobotMap.Component.rollyBOI.grabber);
 		this.clasped = clasped;
 	}
 

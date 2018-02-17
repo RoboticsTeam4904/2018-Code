@@ -48,10 +48,10 @@ public class MotorIdleGroup extends CommandGroup{
 			if (motor.getName() != null) {
 				name += motor.getName() + " ";
 			} else {
-				name += "unnamed motor ";
+				name += "motor ";
 			}
-			name += "idling";
 		}
+		name += "idling";
 		return name;
 	}
 }

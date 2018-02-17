@@ -38,9 +38,4 @@ public class CrateIO extends Subsystem {
 	protected void initDefaultCommand() {
 		setDefaultCommand(new MotorIdleGroup("CrateIO", this, rollerLeft, rollerRight));
 	}
-
-	public void set(double speed) {
-		rollerLeft.set(speed);
-		rollerRight.set(speed);
-	}
 }
