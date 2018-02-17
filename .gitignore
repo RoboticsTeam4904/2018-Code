@@ -3,3 +3,6 @@ dist
 bin
 sysProps.xml
 .DS_Store
+.classpath
+.project
+.settings
