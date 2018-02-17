@@ -75,6 +75,7 @@ public class RobotMap {
 		public static NavX navx;
 	}
 
+
 	public RobotMap() {
 		Component.pdp = new PDP();
 		// Wheels
