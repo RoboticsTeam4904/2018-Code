@@ -20,6 +20,6 @@ public class ArmSet extends CommandGroup {
 	public ArmSet(Arm.ArmState state) {
 		addSequential(new ArmMove(state, true));
 		addSequential(new KittenCommand("Done moving", LogKitten.KittenLevel.WTF));
-		addSequential(new ArmBrakeSet(false));
+		addSequential(new ArmBrakeSet(true));
 	}
 }

@@ -55,7 +55,7 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void alwaysExecute() {
 		// putSBSubsystemSummary();
-		LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
+		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
 	}
 
 	void putSBSubsystemSummary() {
