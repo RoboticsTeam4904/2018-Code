@@ -29,20 +29,20 @@ public class RobotMap {
 		public static class CANMotor {}
 
 		public static class PWM {
-			public static final int leftDriveA = -1;
-			public static final int leftDriveB = -1;
-			public static final int rightDriveA = -1;
-			public static final int rightDriveB = -1;
+			public static final int leftDriveA = 2;
+			public static final int leftDriveB = 3;
+			public static final int rightDriveA = 0;
+			public static final int rightDriveB = 1;
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = -1;
-			public static final int rightEncoder = -1;
+			// public static final int leftEncoder = -1;
+			// public static final int rightEncoder = -1;
 		}
 
 		public static class Pneumatics {
-			public static final int shifterUp = -1;
-			public static final int shifterDown = -1;
+			public static final int shifterUp = 0;
+			public static final int shifterDown = 1;
 		}
 	}
 
@@ -85,10 +85,10 @@ public class RobotMap {
 
 	public RobotMap() {
 		Component.pdp = new PDP();
-		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
-		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
-		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		// Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
+		// Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
+		// Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		// Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
@@ -97,19 +97,20 @@ public class RobotMap {
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
-		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
-		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-			Component.chassisEncoders);
+		Component.shifter = new SolenoidShifters(0x001, Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		// Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
+		// Component.chassisEncoders);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Sensors
 		Component.navx = new NavX(SerialPort.Port.kMXP);
 		// Motion Controllers
 		// TODO: All these numbers are straight out of 2017, so these might need new numbers
-		Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
-		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
-		Component.chassisTurnMC.setInputRange(-180, 180);
-		Component.chassisTurnMC.setContinuous(true);
-		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		// Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
+		// Component.chassisTurnMC.setMinimumNominalOutput(0.24);
+		// Component.chassisTurnMC.setInputRange(-180, 180);
+		// Component.chassisTurnMC.setContinuous(true);
+		// Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		gameField = new Field();
 	}
 }

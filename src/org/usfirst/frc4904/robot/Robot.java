@@ -1,6 +1,7 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.autonly.LeftSideTime;
 import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.standard.CommandRobotBase;
@@ -13,6 +14,7 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
+		autoChooser.addDefault(new LeftSideTime());
 	}
 
 	@Override
