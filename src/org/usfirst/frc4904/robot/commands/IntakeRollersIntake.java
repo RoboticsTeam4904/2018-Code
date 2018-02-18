@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class IntakeRollersIntake extends CommandGroup {
 	public IntakeRollersIntake() {
 		super("IntakeRollersIntake");
+		this.setInterruptible(true);
 		requires(RobotMap.Component.crateIO);
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerLeft, CrateIO.INTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.crateIO.rollerRight, CrateIO.INTAKE_SPEED));

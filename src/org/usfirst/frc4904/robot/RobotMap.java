@@ -9,6 +9,7 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
@@ -46,6 +47,7 @@ public class RobotMap {
 		public static class CAN {
 			public static final int leftEncoder = -1;
 			public static final int rightEncoder = -1;
+			public static final int intakeSwitch = 0x613;
 		}
 
 		public static class Pneumatics {
@@ -94,6 +96,7 @@ public class RobotMap {
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static NavX navx;
+		public static CANSensor intakeSwitch;
 	}
 
 	public static class HumanInput {
@@ -144,5 +147,7 @@ public class RobotMap {
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+		// Limit Switches
+		Component.intakeSwitch = new CANSensor("Intake Switch Left", Port.CAN.intakeSwitch);
 	}
 }
