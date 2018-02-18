@@ -11,6 +11,7 @@ public class IndexerGrabberSet extends Command {
 		super(clasped ? "IndexerGrabberClasp" : "IndexerGrabberRelease");
 		requires(RobotMap.Component.rollyBOI.grabber);
 		this.clasped = clasped;
+		setInterruptible(true);
 	}
 
 	@Override

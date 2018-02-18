@@ -116,7 +116,8 @@ public class RobotMap {
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
 			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new RollyBOI.Grabber(new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(
+			new DoubleSolenoid(0x000, RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
 			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased));
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
@@ -134,7 +135,7 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Chassis
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.shifter = new SolenoidShifters(1, Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
