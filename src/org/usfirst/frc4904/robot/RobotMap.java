@@ -131,7 +131,10 @@ public class RobotMap {
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
 		armB.setInverted(true);
-		Component.arm = new Arm(new CustomPIDController(0.01, -10, 0, 0, armEncoder, 10.5), armEncoder,
+		CustomPIDController armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
+		armController.setIThreshold(25);
+		armController.setAbsoluteTolerance(5);
+		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
 		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);

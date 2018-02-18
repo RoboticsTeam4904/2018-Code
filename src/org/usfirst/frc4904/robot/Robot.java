@@ -1,11 +1,12 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.robot.commands.AutonSwitch;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
-import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,29 +17,25 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		// autoChooser.addDefault(new CenterSwitchDistance());
+		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		// autoChooser.addDefault(new LeftSideDistance());
 		// autoChooser.addDefault(new RightSideDistance());
 	}
 
 	@Override
 	public void teleopInitialize() {
-		teleopCommand = new AutonSwitch();
+		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
 	}
 
 	@Override
-	public void teleopExecute() {
-		LogKitten.wtf(RobotMap.Component.arm.encoder.getDistance());
-	}
+	public void teleopExecute() {}
 
 	@Override
 	public void autonomousInitialize() {}
 
 	@Override
-	public void autonomousExecute() {
-		LogKitten.wtf(RobotMap.Component.arm.encoder.getDistance());
-	}
+	public void autonomousExecute() {}
 
 	@Override
 	public void disabledInitialize() {}

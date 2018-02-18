@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot.commands;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.LogKitten;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -21,6 +22,7 @@ public class ArmBrakeSet extends Command {
 
 	@Override
 	protected void initialize() {
+		LogKitten.wtf("BRAKE HAS BEEN SET");
 		RobotMap.Component.discBrake.set(on);
 	}
 
