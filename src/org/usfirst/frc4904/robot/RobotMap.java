@@ -56,8 +56,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			// public static final int leftEncoder = -1;
-			// public static final int rightEncoder = -1;
+			 public static final int leftEncoder = 0x610;
+			 public static final int rightEncoder = 0x611;
 		}
 
 		public static class Pneumatics {
@@ -72,7 +72,7 @@ public class RobotMap {
 
 	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
 		public static class Wheel {
-			public static final double TICKS_PER_REVOLUTION = 256;
+			public static final double TICKS_PER_REVOLUTION = 1024;
 			public static final double DIAMETER_INCHES = 4;
 			public static final double CIRCUMFERENCE_INCHES = Metrics.Wheel.DIAMETER_INCHES * Math.PI;
 			public static final double TICKS_PER_INCH = Metrics.Wheel.TICKS_PER_REVOLUTION
@@ -85,8 +85,8 @@ public class RobotMap {
 			// public static final int driveI = 0;
 			// public static final int driveD = 0;
 		}
-		public static final double LENGTH = 32.75;
-		public static final double WIDTH = 27.75;
+		public static final double LENGTH = 49.04;//32.75;
+		public static final double WIDTH = 34.25;//27.75;
 	}
 
 	public static class Component {
@@ -131,10 +131,12 @@ public class RobotMap {
 
 	public RobotMap() {
 		Component.pdp = new PDP();
-		// Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
-		// Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		// Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
-		// Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
+		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
+//		Component.leftWheelEncoder.reset();
+//		Component.rightWheelEncoder.reset();
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
 		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
@@ -156,7 +158,7 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(0x001, Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
-		// Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		 Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
 		// Component.chassisEncoders);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);

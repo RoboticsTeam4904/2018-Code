@@ -6,7 +6,9 @@ import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
+import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.custom.CANMessageUnavailableException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +58,17 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
+//		LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.getDistance() + " Right: " + RobotMap.Component.rightWheelEncoder.getDistance());
+//		SmartDashboard.putNumber("leftEncoder", RobotMap.Component.leftWheelEncoder.getDistance());
+//		SmartDashboard.putNumber("rightEncoder", RobotMap.Component.rightWheelEncoder.getDistance());
+		//		try {
+//			LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.read() + " Right: " + RobotMap.Component.rightWheelEncoder.read());
+//		}
+//		catch (CANMessageUnavailableException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 		// putSBSubsystemSummary();
 		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
 	}
