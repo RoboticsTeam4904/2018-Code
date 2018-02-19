@@ -18,8 +18,6 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
-		// autoChooser.addDefault(new LeftSideDistance());
-		// autoChooser.addDefault(new RightSideDistance());
 	}
 
 	@Override
