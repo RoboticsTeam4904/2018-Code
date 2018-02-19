@@ -49,10 +49,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static final int shifterUp = 0;
-			public static final int shifterDown = 1;
-			public static final int rollyBOIGrabberClasped = 7;
-			public static final int rollyBOIGrabberReleased = 6;
+			public static final pcmPort shifter = new pcmPort(1, 0, 1);
+			public static final pcmPort rollyBOIGrabber = new pcmPort(0, 7, 6);
 		}
 	}
 
@@ -116,8 +114,9 @@ public class RobotMap {
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
 			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new RollyBOI.Grabber(new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
-			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased));
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(
+			new DoubleSolenoid(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
+				Port.Pneumatics.shifter.reverse));
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
 		// Wheels
@@ -134,7 +133,8 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Chassis
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
+			Port.Pneumatics.shifter.reverse);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
@@ -144,5 +144,27 @@ public class RobotMap {
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+	}
+
+	public static class pcmPort {
+		public int pcmID;
+		public int forward;
+		public int reverse;
+
+		/**
+		 * Defines a piston based on two ports and a PCM number
+		 * 
+		 * @param pcmID
+		 *        The ID of the PCM attached to the piston. Usually 0 or 1.
+		 * @param forward
+		 *        The forward port of the piston.
+		 * @param reverse
+		 *        The reverse port of the piston.
+		 */
+		public pcmPort(int pcmID, int forward, int reverse) { // First variable PCM number, second forward, third reverse.
+			this.pcmID = pcmID;
+			this.forward = forward;
+			this.reverse = reverse;
+		}
 	}
 }
