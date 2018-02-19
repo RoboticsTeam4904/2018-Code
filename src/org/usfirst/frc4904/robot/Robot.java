@@ -4,9 +4,12 @@ package org.usfirst.frc4904.robot;
 import org.usfirst.frc4904.autonly.LeftSideTime;
 import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
+import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -14,7 +17,10 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
+		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(new LeftSideTime());
+		// autoChooser.addDefault(new LeftSideDistance());
+		// autoChooser.addDefault(new RightSideDistance());
 	}
 
 	@Override
@@ -24,9 +30,7 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void teleopExecute() {}
 
 	@Override
 	public void autonomousInitialize() {
@@ -36,32 +40,31 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void autonomousExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void autonomousExecute() {}
 
 	@Override
-	public void disabledInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledInitialize() {}
 
 	@Override
-	public void disabledExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledExecute() {}
 
 	@Override
-	public void testInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void testInitialize() {}
 
 	@Override
-	public void testExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void testExecute() {}
 
 	@Override
 	public void alwaysExecute() {
-		// TODO Auto-generated method stub
+		// putSBSubsystemSummary();
+		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
+	}
+
+	void putSBSubsystemSummary() {
+		String summary = "";
+		for (Subsystem subsystem : RobotMap.Component.mainSubsystems) {
+			summary += "{" + subsystem.getName() + "} running command {" + subsystem.getCurrentCommand() + "}\n";
+		}
+		SmartDashboard.putString("Subsystem Overview", summary);
 	}
 }
