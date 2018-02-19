@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class IntakeSquared extends CommandGroup {
 	public IntakeSquared() {
 		super("IntakeSquared");
-		requires(RobotMap.Component.crateIO);
-		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IndexerIntake());
 		addParallel(new IntakeRollersIntake());
 	}

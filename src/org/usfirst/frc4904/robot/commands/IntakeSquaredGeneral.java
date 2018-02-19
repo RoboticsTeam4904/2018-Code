@@ -14,8 +14,6 @@ public class IntakeSquaredGeneral extends CommandGroup {
 
 	public IntakeSquaredGeneral() {
 		super("IntakeSquaredGeneral");
-		requires(RobotMap.Component.crateIO);
-		requires(RobotMap.Component.rollyBOI);
 		addParallel(new IndexerIntake());
 		addParallel(intakeRollersIntake);
 		addParallel(new RunAllSequential(new WaitUntil(() -> {
