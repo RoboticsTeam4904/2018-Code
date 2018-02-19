@@ -5,11 +5,14 @@ import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
+import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CustomPIDController;
 import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import org.usfirst.frc4904.standard.custom.sensors.EncoderPair;
 import org.usfirst.frc4904.standard.custom.sensors.NavX;
 import org.usfirst.frc4904.standard.custom.sensors.PDP;
@@ -35,6 +38,10 @@ public class RobotMap {
 		public static class CANMotor {
 			public static final int armMotorA = 9;
 			public static final int armMotorB = 14;
+			public static final int crateIORollerMotorLeft = 1;
+			public static final int crateIORollerMotorRight = 7;
+			public static final int rollyBOIRollerMotorLeft = 11;
+			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
 		public static class CANEncoder {
@@ -58,10 +65,12 @@ public class RobotMap {
 			public static int discBrakeOff = 3;
 			public static final int shifterUp = 0;
 			public static final int shifterDown = 1;
+			public static final int rollyBOIGrabberClasped = 7;
+			public static final int rollyBOIGrabberReleased = 6;
 		}
 	}
 
-	public static class Metrics { // TODO: Check in later with design to confirm these metrics
+	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
@@ -83,6 +92,14 @@ public class RobotMap {
 	public static class Component {
 		public static Arm arm;
 		public static PDP pdp;
+		public static Motor crateIORollerLeft;
+		public static Motor crateIORollerRight;
+		public static Motor rollyBOIRollerLeft;
+		public static Motor rollyBOIRollerRight;
+		public static RollyBOI.Grabber rollyBOIGrabber;
+		public static CrateIO crateIO;
+		public static RollyBOI rollyBOI;
+		public static CustomJoystick joystick;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
@@ -99,6 +116,7 @@ public class RobotMap {
 		public static CustomPIDController drivePID;
 		public static NavX navx;
 		public static Subsystem[] mainSubsystems;
+		public static CANSensor intakeSwitch;
 	}
 
 	public static class HumanInput {
@@ -112,11 +130,24 @@ public class RobotMap {
 	}
 
 	public RobotMap() {
+		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
 		// Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		// Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
 		// Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		// Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
+		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerLeft.setInverted(true);
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
+			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
+			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased));
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
+			Component.rollyBOIGrabber);
+		// Wheels
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
@@ -151,19 +182,10 @@ public class RobotMap {
 		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
 		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
+		// Chassis
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
-		// Controllers
-		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
-		Component.driverXbox.setDeadZone(0.1);
-		Component.mainSubsystems = new Subsystem[] {
-				Component.chassis,
-				// Component.crateIO,
-				Component.arm// ,
-				// Component.lifterRight,
-				// Component.lifterLeft
-		};
 	}
 }
