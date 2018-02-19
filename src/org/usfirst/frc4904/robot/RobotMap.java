@@ -130,7 +130,6 @@ public class RobotMap {
 	}
 
 	public RobotMap() {
-		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
 		// Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		// Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
