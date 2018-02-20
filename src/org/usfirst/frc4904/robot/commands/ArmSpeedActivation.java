@@ -16,8 +16,14 @@ public class ArmSpeedActivation extends MotorControl {
 	public ArmSpeedActivation(Arm.ArmState target, Controller controller, int axis, double minScale, double maxDist, double curvature) {
 		super(RobotMap.Component.arm, controller, axis, Arm.ARM_SPEED_SCALE);
 		this.target = target;
+		if (minScale <= 0 || minScale > 1) {
+			throw new IllegalArgumentException("minScale must be between 0 and 1.  Given:" + minScale);
+		}
 		this.minScale = minScale;
 		this.maxDist = maxDist;
+		if (curvature <= 0) {
+			throw new IllegalArgumentException("curvature must be greater than 0.  Given:" + curvature);
+		}
 		this.curvature = curvature;
 	}
 
