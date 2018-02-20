@@ -2,8 +2,6 @@ package org.usfirst.frc4904.robot.commands;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.KittenCommand;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -17,9 +15,7 @@ public class ReleaseIntake extends CommandGroup {
 	public ReleaseIntake() {
 		addSequential(
 			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerRight, releaseSpeed), releaseTime));
-		addSequential(new KittenCommand("First done", LogKitten.KittenLevel.WTF));
 		addSequential(new WaitCommand(waitTime));
-		addSequential(new KittenCommand("Second done", LogKitten.KittenLevel.WTF));
 		addSequential(
 			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerLeft, releaseSpeed), releaseTime));
 	}
