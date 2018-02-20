@@ -4,6 +4,8 @@ package org.usfirst.frc4904.robot;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
+import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.CANTalonSRX;
@@ -22,7 +24,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
-	public static class Port { // TODO: Correct Ports
+	public static class Port {
 		public static class HumanInput {
 			public static final int joystick = 0;
 			public static final int xboxController = 1;
@@ -31,6 +33,10 @@ public class RobotMap {
 		public static class CANMotor {
 			public static final int armMotorA = 9;
 			public static final int armMotorB = 14;
+			public static final int crateIORollerMotorLeft = 1;
+			public static final int crateIORollerMotorRight = 7;
+			public static final int rollyBOIRollerMotorLeft = 11;
+			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
 		public static class CANEncoder {
@@ -52,8 +58,8 @@ public class RobotMap {
 		public static class Pneumatics {
 			public static int discBrakeOn = 2;
 			public static int discBrakeOff = 3;
-			public static final int shifterUp = 0;
-			public static final int shifterDown = 1;
+			public static final PCMPort shifter = new PCMPort(1, 0, 1);
+			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
 	}
 
@@ -76,6 +82,14 @@ public class RobotMap {
 	public static class Component {
 		public static Arm arm;
 		public static PDP pdp;
+		public static Motor crateIORollerLeft;
+		public static Motor crateIORollerRight;
+		public static Motor rollyBOIRollerLeft;
+		public static Motor rollyBOIRollerRight;
+		public static RollyBOI.Grabber rollyBOIGrabber;
+		public static CrateIO crateIO;
+		public static RollyBOI rollyBOI;
+		public static CustomJoystick joystick;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
@@ -103,7 +117,18 @@ public class RobotMap {
 	}
 
 	public RobotMap() {
+		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
+		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
+		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerLeft.setInverted(true);
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
+			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
+			Component.rollyBOIGrabber);
 		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
@@ -118,7 +143,8 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Chassis
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
+			Port.Pneumatics.shifter.reverse);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Arm
@@ -146,5 +172,31 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
+	}
+
+	public static class PCMPort {
+		public int pcmID;
+		public int forward;
+		public int reverse;
+
+		/**
+		 * Defines a piston based on two ports and a PCM number
+		 * 
+		 * @param pcmID
+		 *        The ID of the PCM attached to the piston. Usually 0 or 1.
+		 * @param forward
+		 *        The forward port of the piston.
+		 * @param reverse
+		 *        The reverse port of the piston.
+		 */
+		public PCMPort(int pcmID, int forward, int reverse) { // First variable PCM number, second forward, third reverse.
+			this.pcmID = pcmID;
+			this.forward = forward;
+			this.reverse = reverse;
+		}
+
+		public DoubleSolenoid buildDoubleSolenoid() {
+			return new DoubleSolenoid(pcmID, forward, reverse);
+		}
 	}
 }
