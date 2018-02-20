@@ -46,11 +46,11 @@
               2
             ],
             "content": {
-              "_type": "Simple Dial",
+              "_type": "Gyro",
               "_title": "Arm Angle",
-              "minValue": 0.0,
-              "maxValue": 180.0,
-              "valueVisible": true
+              "majorTickSpace": 45.0,
+              "startAngle": 0.0,
+              "tickMarkRingVisible": true
             }
           }
         }
@@ -67,7 +67,7 @@
         "tiles": {
           "0,0": {
             "size": [
-              8,
+              7,
               5
             ],
             "content": {
@@ -75,9 +75,9 @@
               "_title": "Camera Stream"
             }
           },
-          "8,2": {
+          "7,2": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
@@ -85,9 +85,9 @@
               "_title": "Auton Routine Selector"
             }
           },
-          "8,0": {
+          "7,0": {
             "size": [
-              2,
+              3,
               2
             ],
             "content": {
@@ -95,7 +95,7 @@
               "_title": "Subsystem Overview"
             }
           },
-          "8,3": {
+          "7,3": {
             "size": [
               1,
               2
@@ -105,17 +105,17 @@
               "_title": "PID Controller"
             }
           },
-          "9,3": {
+          "8,3": {
             "size": [
-              1,
+              2,
               2
             ],
             "content": {
-              "_type": "Simple Dial",
+              "_type": "Gyro",
               "_title": "Arm Angle",
-              "minValue": 0.0,
-              "maxValue": 180.0,
-              "valueVisible": true
+              "majorTickSpace": 45.0,
+              "startAngle": 0.0,
+              "tickMarkRingVisible": true
             }
           }
         }
