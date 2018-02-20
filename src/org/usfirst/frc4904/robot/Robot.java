@@ -1,10 +1,10 @@
 package org.usfirst.frc4904.robot;
 
+
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
+import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -12,9 +12,7 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
-		autoChooser.addDefault("Chassis", new ChassisConstant(RobotMap.Component.chassis, 0, 0.5, 0, 0));
-		autoChooser.addObject("Left", new MotorConstant(RobotMap.Component.leftWheel, 0.5));
-		autoChooser.addObject("Right", new MotorConstant(RobotMap.Component.rightWheel, 0.5));
+		operatorChooser.addDefault(new DefaultOperator());
 	}
 
 	@Override
@@ -24,9 +22,7 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void teleopExecute() {}
 
 	@Override
 	public void autonomousInitialize() {
@@ -36,32 +32,20 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void autonomousExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void autonomousExecute() {}
 
 	@Override
-	public void disabledInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledInitialize() {}
 
 	@Override
-	public void disabledExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledExecute() {}
 
 	@Override
-	public void testInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void testInitialize() {}
 
 	@Override
-	public void testExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void testExecute() {}
 
 	@Override
-	public void alwaysExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void alwaysExecute() {}
 }
