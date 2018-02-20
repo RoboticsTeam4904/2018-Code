@@ -28,7 +28,7 @@ public class ArmSpeedActivation extends MotorControl {
 	@Override
 	protected void execute() {
 		LogKitten.d("ArmControlActivation executing: " + controller.getAxis(axis));
-		double dist = Math.abs(RobotMap.Component.arm.encoder.getDistance() - target.position);
+		double dist = target.position - RobotMap.Component.arm.encoder.getDistance();
 		if (dist > maxDist) {
 			motor.set(controller.getAxis(axis) * scale);
 		} else {
@@ -37,6 +37,10 @@ public class ArmSpeedActivation extends MotorControl {
 	}
 
 	protected double calcActivation(double dist) {
-		return minScale + (1-minScale) * Math.log(1+dist*curvature) / Math.log(1+maxDist*curvature);
+		if (dist > 0) {
+			return minScale + (1-minScale) * Math.log(1+dist*curvature) / Math.log(1+maxDist*curvature);
+		} else {
+			return minScale * Math.exp(dist * curvature * (1-minScale) / (minScale*Math.log(1+maxDist*curvature)));
+		}
 	}
 }
