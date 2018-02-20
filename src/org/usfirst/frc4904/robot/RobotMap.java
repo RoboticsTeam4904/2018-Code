@@ -48,6 +48,7 @@ public class RobotMap {
 			public static final int leftEncoder = -1;
 			public static final int rightEncoder = -1;
 			public static final int intakeSwitch = 0x613;
+			public static final int cubeIntookethSensor = -1; // TODO: real ports
 		}
 
 		public static class Pneumatics {
@@ -114,7 +115,8 @@ public class RobotMap {
 		Component.pdp = new PDP();
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
-		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight,
+			new CANSensor("CubeSensor", Port.CAN.cubeIntookethSensor));
 		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
