@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class ReleaseIntake extends CommandGroup {
-	private static double releaseSpeed = 0.3;
-	private static double releaseTime = 0.5;
-	private static double waitTime = 0.25;
+	private static final double releaseSpeed = 0.3;
+	private static final double releaseTime = 0.5;
+	private static final double waitTime = 0.25;
 
 	public ReleaseIntake() {
 		addSequential(
