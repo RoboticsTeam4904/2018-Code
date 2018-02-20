@@ -99,6 +99,7 @@ public class RobotMap {
 		Component.mainSubsystems = new Subsystem[] {
 													Component.chassis,
 													Component.crateIO,
+													Component.rollyBOI,
 													Component.arm,
 													Component.lifterRight,
 													Component.lifterLeft
