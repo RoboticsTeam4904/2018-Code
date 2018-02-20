@@ -61,12 +61,6 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			public static int discBrakeOn = 2;
-			public static int discBrakeOff = 3;
-			public static final int shifterUp = 0;
-			public static final int shifterDown = 1;
-			public static final int rollyBOIGrabberClasped = 7;
-			public static final int rollyBOIGrabberReleased = 6;
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
@@ -158,14 +152,12 @@ public class RobotMap {
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
-		Component.shifter = new SolenoidShifters(0x001, Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
 		// Component.chassisEncoders);
 		// Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
 			Port.Pneumatics.shifter.reverse);
-		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Sensors
 		Component.navx = new NavX(SerialPort.Port.kMXP);
@@ -187,7 +179,6 @@ public class RobotMap {
 		armController.setAbsoluteTolerance(5);
 		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
-		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
 		// Chassis
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);

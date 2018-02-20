@@ -2,12 +2,7 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-<<<<<<< HEAD
 import org.usfirst.frc4904.robot.commands.ArmBrakeSet;
-import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
-import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
-=======
->>>>>>> master
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;

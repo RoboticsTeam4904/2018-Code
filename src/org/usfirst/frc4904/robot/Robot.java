@@ -1,14 +1,15 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.LeftSideTime;
 import org.usfirst.frc4904.autonly.Strategy;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.custom.CANMessageUnavailableException;
+import org.usfirst.frc4904.standard.custom.sensors.InvalidSensorException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,9 +21,10 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		autoChooser.addDefault(new LeftSideTime());
+		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		// autoChooser.addDefault(new LeftSideDistance());
 		// autoChooser.addDefault(new RightSideDistance());
+		SmartDashboard.putString("Most Recent CAN Success", "never");
 	}
 
 	@Override
@@ -58,19 +60,28 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
-//		LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.getDistance() + " Right: " + RobotMap.Component.rightWheelEncoder.getDistance());
-//		SmartDashboard.putNumber("leftEncoder", RobotMap.Component.leftWheelEncoder.getDistance());
-//		SmartDashboard.putNumber("rightEncoder", RobotMap.Component.rightWheelEncoder.getDistance());
-		//		try {
-//			LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.read() + " Right: " + RobotMap.Component.rightWheelEncoder.read());
-//		}
-//		catch (CANMessageUnavailableException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
+		try {
+			int[] sensorValues = RobotMap.Component.leftWheelEncoder.readSensor();
+			SmartDashboard.putNumberArray("Most Recent CAN Message", new double[] {sensorValues[0], sensorValues[1]});
+			SmartDashboard.putNumber("Most Recent CAN Success", System.currentTimeMillis());
+		}
+		catch (InvalidSensorException e) {
+			SmartDashboard.putNumber("Most Recent CAN Failure", System.currentTimeMillis());
+		}
+		// LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.getDistance() + " Right: "
+		// + RobotMap.Component.rightWheelEncoder.getDistance());
+		// SmartDashboard.putNumber("leftEncoder", RobotMap.Component.leftWheelEncoder.getDistance());
+		// SmartDashboard.putNumber("rightEncoder", RobotMap.Component.rightWheelEncoder.getDistance());
+		// try {
+		// LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.read() + " Right: " + RobotMap.Component.rightWheelEncoder.read());
+		// }
+		// catch (CANMessageUnavailableException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		// putSBSubsystemSummary();
-		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
+		LogKitten.wtf("Arm: " + RobotMap.Component.arm.getAngle());
+		// SmartDashboard.getNumber(LiveWindow.addSensor(moduleType, channel, component);, defaultValue)
 	}
 
 	void putSBSubsystemSummary() {
