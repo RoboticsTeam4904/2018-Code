@@ -56,8 +56,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			 public static final int leftEncoder = 0x610;
-			 public static final int rightEncoder = 0x611;
+			public static final int leftEncoder = 0x610;
+			public static final int rightEncoder = 0x611;
 		}
 
 		public static class Pneumatics {
@@ -67,6 +67,8 @@ public class RobotMap {
 			public static final int shifterDown = 1;
 			public static final int rollyBOIGrabberClasped = 7;
 			public static final int rollyBOIGrabberReleased = 6;
+			public static final PCMPort shifter = new PCMPort(1, 0, 1);
+			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
 	}
 
@@ -85,8 +87,8 @@ public class RobotMap {
 			// public static final int driveI = 0;
 			// public static final int driveD = 0;
 		}
-		public static final double LENGTH = 49.04;//32.75;
-		public static final double WIDTH = 34.25;//27.75;
+		public static final double LENGTH = 49.04;// 32.75;
+		public static final double WIDTH = 34.25;// 27.75;
 	}
 
 	public static class Component {
@@ -133,8 +135,8 @@ public class RobotMap {
 		Component.pdp = new PDP();
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-//		Component.leftWheelEncoder.reset();
-//		Component.rightWheelEncoder.reset();
+		// Component.leftWheelEncoder.reset();
+		// Component.rightWheelEncoder.reset();
 		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
@@ -144,8 +146,7 @@ public class RobotMap {
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
 			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new RollyBOI.Grabber(new DoubleSolenoid(RobotMap.Port.Pneumatics.rollyBOIGrabberClasped,
-			RobotMap.Port.Pneumatics.rollyBOIGrabberReleased));
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
 		// Wheels
@@ -158,9 +159,13 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		Component.shifter = new SolenoidShifters(0x001, Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
-		 Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
 		// Component.chassisEncoders);
+		// Chassis
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
+			Port.Pneumatics.shifter.reverse);
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Sensors
 		Component.navx = new NavX(SerialPort.Port.kMXP);
@@ -188,5 +193,31 @@ public class RobotMap {
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
+	}
+
+	public static class PCMPort {
+		public int pcmID;
+		public int forward;
+		public int reverse;
+
+		/**
+		 * Defines a piston based on two ports and a PCM number
+		 * 
+		 * @param pcmID
+		 *        The ID of the PCM attached to the piston. Usually 0 or 1.
+		 * @param forward
+		 *        The forward port of the piston.
+		 * @param reverse
+		 *        The reverse port of the piston.
+		 */
+		public PCMPort(int pcmID, int forward, int reverse) { // First variable PCM number, second forward, third reverse.
+			this.pcmID = pcmID;
+			this.forward = forward;
+			this.reverse = reverse;
+		}
+
+		public DoubleSolenoid buildDoubleSolenoid() {
+			return new DoubleSolenoid(pcmID, forward, reverse);
+		}
 	}
 }

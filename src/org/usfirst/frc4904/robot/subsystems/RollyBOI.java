@@ -2,7 +2,6 @@ package org.usfirst.frc4904.robot.subsystems;
 
 
 import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
-import org.usfirst.frc4904.standard.commands.Idle;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * When the arm is fully down, RollyBOI accepts cubes from the intake.
  *
  */
-public class RollyBOI extends Subsystem {
+public class RollyBOI {
 	public static final double INTAKE_SPEED = 0.5;
 	public static final double OUTTAKE_SPEED = -1.0;
 	public final Motor rollerLeft;
@@ -23,11 +22,6 @@ public class RollyBOI extends Subsystem {
 		this.rollerLeft = rollerLeft;
 		this.rollerRight = rollerRight;
 		this.grabber = grabber;
-	}
-
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new Idle(this));
 	}
 
 	public static class Grabber extends Subsystem {
