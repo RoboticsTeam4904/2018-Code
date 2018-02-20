@@ -96,16 +96,17 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifterUp, Port.Pneumatics.shifterDown);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		Component.mainSubsystems = new Subsystem[] {
-													Component.chassis,
-													Component.crateIO,
-													Component.rollyBOI,
-													Component.arm,
-													Component.lifterRight,
-													Component.lifterLeft
-		};
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+		// Subsystems that will be in the Shuffleboard summary
+		Component.mainSubsystems = new Subsystem[] {
+				Component.chassis,
+				Component.crateIO,
+				Component.rollyBOI,
+				Component.arm,
+				Component.lifterRight,
+				Component.lifterLeft
+		};
 	}
 }

@@ -64,7 +64,6 @@ public class Robot extends CommandRobotBase {
 	public void alwaysExecute() {
 		putSBSubsystemSummary();
 		SmartDashboard.putNumber("Arm Angle", arm.getAngle());
-		// TODO Auto-generated method stub
 	}
 
 	void putSBSubsystemSummary() {
