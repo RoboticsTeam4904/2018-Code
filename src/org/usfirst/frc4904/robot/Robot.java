@@ -1,15 +1,12 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Strategy;
-import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
-import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.Idle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.custom.sensors.InvalidSensorException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +18,9 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		// autoChooser.addDefault(new LeftSideTime());
+		// autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		autoChooser.addDefault(new Idle());
 		// autoChooser.addDefault(new LeftSideDistance());
 		// autoChooser.addDefault(new RightSideDistance());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
@@ -31,16 +30,23 @@ public class Robot extends CommandRobotBase {
 	public void teleopInitialize() {
 		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
+		// RobotMap.Component.arm.encoder.reset();
+		// LogKitten.wtf(RobotMap.Component.arm.getAngle());
 	}
 
 	@Override
-	public void teleopExecute() {}
+	public void teleopExecute() {
+		// SmartDashboard.putNumber("Arm Angle", RobotMap.Component.arm.getAngle());
+	}
 
 	@Override
 	public void autonomousInitialize() {
+		LogKitten.wtf("---RESET ARM ENCODER---");
+		RobotMap.Component.arm.encoder.reset();
+		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
-		((Strategy) autoChooser.getSelected()).setup();
+		// ((Strategy) autoChooser.getSelected()).setup();
 	}
 
 	@Override
@@ -60,18 +66,19 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
-		try {
-			int[] sensorValues = RobotMap.Component.leftWheelEncoder.readSensor();
-			SmartDashboard.putNumberArray("Most Recent CAN Message", new double[] {sensorValues[0], sensorValues[1]});
-			SmartDashboard.putNumber("Most Recent CAN Success", System.currentTimeMillis());
-		}
-		catch (InvalidSensorException e) {
-			SmartDashboard.putNumber("Most Recent CAN Failure", System.currentTimeMillis());
-		}
+		// try {
+		// int[] sensorValues = RobotMap.Component.leftWheelEncoder.readSensor();
+		// SmartDashboard.putNumberArray("Most Recent CAN Message", new double[] {sensorValues[0], sensorValues[1]});
+		// SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
+		// }
+		// catch (InvalidSensorException e) {
+		// SmartDashboard.putNumber("Most Recent CAN Failure", System.currentTimeMillis());
+		// }
 		// LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.getDistance() + " Right: "
 		// + RobotMap.Component.rightWheelEncoder.getDistance());
-		// SmartDashboard.putNumber("leftEncoder", RobotMap.Component.leftWheelEncoder.getDistance());
-		// SmartDashboard.putNumber("rightEncoder", RobotMap.Component.rightWheelEncoder.getDistance());
+		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getAngle());
+		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
+		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		// try {
 		// LogKitten.wtf("Chassis Encoders. Left: " + RobotMap.Component.leftWheelEncoder.read() + " Right: " + RobotMap.Component.rightWheelEncoder.read());
 		// }
@@ -80,7 +87,8 @@ public class Robot extends CommandRobotBase {
 		// e.printStackTrace();
 		// }
 		// putSBSubsystemSummary();
-		LogKitten.wtf("Arm: " + RobotMap.Component.arm.getAngle());
+		// LogKitten.wtf("Arm: " + RobotMap.Component.arm.getAngle());
+		// SmartDash.putNumber("")
 		// SmartDashboard.getNumber(LiveWindow.addSensor(moduleType, channel, component);, defaultValue)
 	}
 
