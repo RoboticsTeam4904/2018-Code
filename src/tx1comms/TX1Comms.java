@@ -2,10 +2,12 @@ package tx1comms;
 
 import java.util.HashMap;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.usfirst.frc4904.standard.LogKitten;
 
 public class TX1Comms implements Runnable{
 	
+	int[] lidarData = new int[360];
 	
 	//The encoders don't exist yet, so we are pretending we can get the data
 	public static String getEncoderData() {
@@ -49,11 +51,25 @@ public class TX1Comms implements Runnable{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
 			String message = "{ \"encoders:\" " + getEncoderData() + ", \"IMU\": " + getIMUData() + "}" + " " + System.currentTimeMillis();
 			s.sendData(message);
+			
+			processLidar(s);
 
 		}
 
+	}
+	
+	public void processLidar(Sockets sockets) {
+		String line = sockets.readData();
+		if(line != null) {
+			JSONTokener t = new JSONTokener(line);
+			JSONObject jsonData = new JSONObject(t);
+			//for each degree in a circle, get the distance that the lidar detects
+			for(int i = 0; i < 360; i++) {
+				lidarData[i] = jsonData.getInt(Integer.toString(i));
+			}
+			
+		}
 	}
 }

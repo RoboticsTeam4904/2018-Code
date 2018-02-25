@@ -40,27 +40,12 @@ public class Sockets {
 		sendMessage(message);
 	}
 	
-	public String getEncoderData() {
-		HashMap<String, Integer> encoders = new HashMap<String, Integer>();	
-//		encoders.put("leftBack", ((Encoder) null).get());
-//		encoders.put("leftFront", ((Encoder) null).get());
-//		encoders.put("rightBack", ((Encoder) null).get());
-//		encoders.put("rightFront", ((Encoder) null).get());
-		encoders.put("leftBack", 5);
-		encoders.put("leftFront", 4);
-		encoders.put("rightBack", 3);
-		encoders.put("rightFront", 2);
-
-		String message = JSONObject.valueToString(encoders);
-		//sendMessage(message);
-		return message;
-	}
-	
-	
-	public String getIMUData() {
-		//IMU imu =  new IMU(); //RobotMap.Component.IMU (but it doesn't exist yet)
-		
-		String message = JSONObject.valueToString(5);
-		return message;
+	public String readData() {
+		try {
+			return in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace(); 
+			return null; 
+		}
 	}
 }
