@@ -176,7 +176,7 @@ public class RobotMap {
 		armB.setInverted(true);
 		CustomPIDController armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
 		armController.setIThreshold(25);
-		armController.setAbsoluteTolerance(5);
+		armController.setAbsoluteTolerance(20);
 		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
 		// Chassis

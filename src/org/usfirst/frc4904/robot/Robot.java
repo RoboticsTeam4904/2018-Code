@@ -1,11 +1,11 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.autonly.LeftSideTime;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.Idle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,12 +18,13 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		// autoChooser.addDefault(new LeftSideTime());
+		autoChooser.addDefault(new LeftSideTime());
 		// autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
-		autoChooser.addDefault(new Idle());
+		// autoChooser.addDefault(new LeftSideTime());
 		// autoChooser.addDefault(new LeftSideDistance());
 		// autoChooser.addDefault(new RightSideDistance());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
+		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 	}
 
 	@Override
@@ -90,6 +91,10 @@ public class Robot extends CommandRobotBase {
 		// LogKitten.wtf("Arm: " + RobotMap.Component.arm.getAngle());
 		// SmartDash.putNumber("")
 		// SmartDashboard.getNumber(LiveWindow.addSensor(moduleType, channel, component);, defaultValue)
+		if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
+			RobotMap.Component.arm.encoder.reset();
+			SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
+		}
 	}
 
 	void putSBSubsystemSummary() {
