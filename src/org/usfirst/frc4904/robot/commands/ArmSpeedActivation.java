@@ -35,10 +35,11 @@ public class ArmSpeedActivation extends MotorControl {
 	protected void execute() {
 		LogKitten.d("ArmControlActivation executing: " + controller.getAxis(axis));
 		double dist = target.position - RobotMap.Component.arm.encoder.getDistance();
-		if (dist > maxDist) {
-			motor.set(controller.getAxis(axis) * scale);
+		double controllerSpeed = controller.getAxis(axis);
+		if (dist > maxDist) { //|| Math.signum(controllerSpeed) == Math.signum(dist)) {
+			motor.set(controllerSpeed * scale);
 		} else {
-			motor.set(controller.getAxis(axis) * scale * calcActivation(dist));
+			motor.set(controllerSpeed * scale * calcActivation(dist));
 		}
 	}
 
