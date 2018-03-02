@@ -58,6 +58,7 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 256;
 			public static final double DIAMETER_INCHES = 4;
@@ -76,6 +77,10 @@ public class RobotMap {
 	public static class Component {
 		public static Lifter lifterLeft;
 		public static Lifter lifterRight;
+		public static Lifter.Extender extenderLeft;
+		public static Lifter.Extender extenderRight;
+		public static Lifter.Support supportLeft;
+		public static Lifter.Support supportRight;
 		public static PDP pdp;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
@@ -94,13 +99,16 @@ public class RobotMap {
 
 	public RobotMap() {
 		// Lifter
-		Component.lifterRight = new Lifter(
-			new DoubleSolenoid(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn),
+		Component.extenderRight = new Lifter.Extender(
+			new DoubleSolenoid(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn));
+		Component.extenderLeft = new Lifter.Extender(
+			new DoubleSolenoid(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn));
+		Component.supportRight = new Lifter.Support(
 			new DoubleSolenoid(Port.Pneumatics.rightLifterSupportOut, Port.Pneumatics.rightLifterSupportIn));
-		Component.lifterLeft = new Lifter(
-			new DoubleSolenoid(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn),
+		Component.supportLeft = new Lifter.Support(
 			new DoubleSolenoid(Port.Pneumatics.leftLifterSupportOut, Port.Pneumatics.leftLifterSupportIn));
-
+		Component.lifterRight = new Lifter(Component.extenderRight, Component.supportRight);
+		Component.lifterLeft = new Lifter(Component.extenderLeft, Component.supportLeft);
 		Component.pdp = new PDP();
 		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
