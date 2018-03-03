@@ -18,6 +18,8 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		
+		// Test values
 		SmartDashboard.putNumber("P", 254);
 		SmartDashboard.putNumber("I", 0);
 		SmartDashboard.putNumber("D", 0);
@@ -53,7 +55,7 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
-		// putSBSubsystemSummary();
+		 putSBSubsystemSummary();
 		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
 		RobotMap.Component.armController.setPIDF(
 			SmartDashboard.getNumber("P", 0),

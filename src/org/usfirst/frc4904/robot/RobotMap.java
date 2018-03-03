@@ -163,9 +163,11 @@ public class RobotMap {
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+		// Subsystems that will be in the Shuffleboard subsystem summary
 		Component.mainSubsystems = new Subsystem[] {
 				Component.chassis,
 				// Component.crateIO,
+				// Component.rollyBOI,
 				Component.arm// ,
 				// Component.lifterRight,
 				// Component.lifterLeft
