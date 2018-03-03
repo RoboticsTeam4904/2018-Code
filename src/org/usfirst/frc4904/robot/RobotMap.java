@@ -34,8 +34,6 @@ public class RobotMap {
 			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
-		public static class CANEncoder {}
-
 		public static class PWM {
 			public static final int leftDriveA = 2;
 			public static final int leftDriveB = 3;
