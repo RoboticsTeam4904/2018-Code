@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -19,6 +20,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.Acceleration
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
 	public static class Port {
@@ -28,13 +30,17 @@ public class RobotMap {
 		}
 
 		public static class CANMotor {
+			public static final int armMotorA = 9;
+			public static final int armMotorB = 14;
 			public static final int crateIORollerMotorLeft = 1;
 			public static final int crateIORollerMotorRight = 7;
 			public static final int rollyBOIRollerMotorLeft = 11;
 			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
-		public static class CANEncoder {}
+		public static class CANEncoder {
+			public static final int armEncoderPort = 0x612;
+		}
 
 		public static class PWM {
 			public static final int leftDriveA = 2;
@@ -49,6 +55,8 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
+			public static int discBrakeOn = 2;
+			public static int discBrakeOff = 3;
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
@@ -71,6 +79,8 @@ public class RobotMap {
 	}
 
 	public static class Component {
+		public static Arm arm;
+		public static CustomPIDController armController;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
 		public static Motor crateIORollerRight;
@@ -92,6 +102,7 @@ public class RobotMap {
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static NavX navx;
+		public static Subsystem[] mainSubsystems;
 	}
 
 	public static class HumanInput {
@@ -135,6 +146,16 @@ public class RobotMap {
 			Port.Pneumatics.shifter.reverse);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		// Arm
+		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		Component.armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
+		Component.armController.setIThreshold(25);
+		Component.armController.setAbsoluteTolerance(5);
+		Component.arm = new Arm(Component.armController, armEncoder,
+			armA, armB);
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
@@ -142,6 +163,15 @@ public class RobotMap {
 		// Controllers
 		Component.driverXbox = new CustomXbox(Port.HumanInput.xboxController);
 		Component.driverXbox.setDeadZone(0.1);
+		// Subsystems that will be in the Shuffleboard subsystem summary
+		Component.mainSubsystems = new Subsystem[] {
+				Component.chassis,
+				// Component.crateIO,
+				// Component.rollyBOI,
+				Component.arm// ,
+				// Component.lifterRight,
+				// Component.lifterLeft
+		};
 	}
 
 	public static class PCMPort {

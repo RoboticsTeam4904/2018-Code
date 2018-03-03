@@ -1,10 +1,14 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -13,6 +17,13 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
+		autoChooser.addDefault(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		
+		// Test values
+		SmartDashboard.putNumber("P", 254);
+		SmartDashboard.putNumber("I", 0);
+		SmartDashboard.putNumber("D", 0);
+		SmartDashboard.putNumber("F", 0);
 	}
 
 	@Override
@@ -43,5 +54,22 @@ public class Robot extends CommandRobotBase {
 	public void testExecute() {}
 
 	@Override
-	public void alwaysExecute() {}
+	public void alwaysExecute() {
+		 putSBSubsystemSummary();
+		// LogKitten.wtf("Arm Brake: " + RobotMap.Component.discBrake.getCurrentCommandName());
+		RobotMap.Component.armController.setPIDF(
+			SmartDashboard.getNumber("P", 0),
+			SmartDashboard.getNumber("I", 0),
+			SmartDashboard.getNumber("D", 0),
+			SmartDashboard.getNumber("F", 0)
+		);
+	}
+
+	void putSBSubsystemSummary() {
+		String summary = "";
+		for (Subsystem subsystem : RobotMap.Component.mainSubsystems) {
+			summary += "{" + subsystem.getName() + "} running command {" + subsystem.getCurrentCommand() + "}\n";
+		}
+		SmartDashboard.putString("Subsystem Overview", summary);
+	}
 }
