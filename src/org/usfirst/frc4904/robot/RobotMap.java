@@ -44,10 +44,6 @@ public class RobotMap {
 			public static final int rollyBOIRollerMotorRight = 3;
 		}
 
-		public static class CANEncoder {
-			public static final int armEncoderPort = 0x612;
-		}
-
 		public static class PWM {
 			public static final int leftDriveA = 2;
 			public static final int leftDriveB = 3;
@@ -58,6 +54,7 @@ public class RobotMap {
 		public static class CAN {
 			public static final int leftEncoder = 0x610;
 			public static final int rightEncoder = 0x611;
+			public static final int armEncoderPort = 0x612;
 		}
 
 		public static class Pneumatics {
@@ -126,41 +123,27 @@ public class RobotMap {
 	}
 
 	public RobotMap() {
+		/* General */
 		Component.pdp = new PDP();
+		Component.navx = new NavX(SerialPort.Port.kMXP);
+		gameField = new Field();
+		/* Chassis */
+		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		// Component.leftWheelEncoder.reset();
-		// Component.rightWheelEncoder.reset();
 		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
-		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
-		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
-		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
-		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
-		Component.rollyBOIRollerLeft.setInverted(true);
-		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
-			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
-		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
-		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
-			Component.rollyBOIGrabber);
-		// Wheels
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		// Acceleration Caps
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.rightWheelAccelerationCap.enable();
+		// Wheels
 		Component.leftWheel = new Motor("LeftWheel", Component.leftWheelAccelerationCap,
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
-		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
-		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-		// Component.chassisEncoders);
-		// Chassis
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
-			Port.Pneumatics.shifter.reverse);
-		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		// Sensors
-		Component.navx = new NavX(SerialPort.Port.kMXP);
 		// Motion Controllers
 		// TODO: All these numbers are straight out of 2017, so these might need new numbers
 		// Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
@@ -168,18 +151,37 @@ public class RobotMap {
 		// Component.chassisTurnMC.setInputRange(-180, 180);
 		// Component.chassisTurnMC.setContinuous(true);
 		// Component.chassisTurnMC.setAbsoluteTolerance(1.0);
-		gameField = new Field();
-		// Arm
-		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
-		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
-		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
-		armB.setInverted(true);
+		// General Chassis
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
+		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
+		// Component.chassisEncoders);
+		/* CrateIO */
+		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
+		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		/* RollyBoi */
+		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
+		Component.rollyBOIRollerLeft.setInverted(true);
+		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
+			new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorRight));
+		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
+		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
+			Component.rollyBOIGrabber);
+		/* Arm */
+		// Encoders
+		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
 		CustomPIDController armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
 		armController.setIThreshold(25);
 		armController.setAbsoluteTolerance(20);
+		// Motors
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		// General
 		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
-		// Chassis
+		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
