@@ -51,11 +51,11 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			// TODO: RealPorts
-			public static final PCMPort rightLifter = new PCMPort(-1, -1, -1);
-			public static final PCMPort leftLifter = new PCMPort(-1, -1, -1);
-			public static final PCMPort leftLifterSupport = new PCMPort(-1, -1, -1);
-			public static final PCMPort rightLifterSupport = new PCMPort(-1, -1, -1);
+			// TODO: Check if the order of these ports is correct
+			public static final PCMPort leftLifter = new PCMPort(2, 3, 0);
+			public static final PCMPort rightLifter = new PCMPort(2, 3, 1);
+			public static final PCMPort leftLifterSupport = new PCMPort(4, 5, 0);
+			public static final PCMPort rightLifterSupport = new PCMPort(4, 5, 1);
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
