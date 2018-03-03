@@ -10,10 +10,23 @@ public class Lifter extends Subsystem {
 	// public final DoubleSolenoid support;
 	public final Extender extender;
 	public final Support support;
+	public int lifterOut;
+	public int lifterIn;
+	public int lifterSupportOut;
+	public int lifterSupportIn;
 
 	public Lifter(Extender extender, Support support) {
 		this.extender = extender;
 		this.support = support;
+	}
+
+	public Lifter(int lifterOut, int lifterIn, int lifterSupportOut, int lifterSupportIn) {
+		this.lifterOut = lifterOut;
+		this.lifterIn = lifterIn;
+		this.extender = new Extender(
+			new DoubleSolenoid(lifterOut, lifterIn));
+		this.support = new Support(
+			new DoubleSolenoid(lifterSupportOut, lifterSupportIn));
 	}
 
 	@Override

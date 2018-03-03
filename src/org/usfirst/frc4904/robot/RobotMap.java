@@ -14,7 +14,6 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.VictorSP;
 
 public class RobotMap {
@@ -77,10 +76,10 @@ public class RobotMap {
 	public static class Component {
 		public static Lifter lifterLeft;
 		public static Lifter lifterRight;
-		public static Lifter.Extender extenderLeft;
-		public static Lifter.Extender extenderRight;
-		public static Lifter.Support supportLeft;
-		public static Lifter.Support supportRight;
+		// public static Lifter.Extender extenderLeft;
+		// public static Lifter.Extender extenderRight;
+		// public static Lifter.Support supportLeft;
+		// public static Lifter.Support supportRight;
 		public static PDP pdp;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
@@ -99,16 +98,22 @@ public class RobotMap {
 
 	public RobotMap() {
 		// Lifter
-		Component.extenderRight = new Lifter.Extender(
-			new DoubleSolenoid(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn));
-		Component.extenderLeft = new Lifter.Extender(
-			new DoubleSolenoid(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn));
-		Component.supportRight = new Lifter.Support(
-			new DoubleSolenoid(Port.Pneumatics.rightLifterSupportOut, Port.Pneumatics.rightLifterSupportIn));
-		Component.supportLeft = new Lifter.Support(
-			new DoubleSolenoid(Port.Pneumatics.leftLifterSupportOut, Port.Pneumatics.leftLifterSupportIn));
-		Component.lifterRight = new Lifter(Component.extenderRight, Component.supportRight);
-		Component.lifterLeft = new Lifter(Component.extenderLeft, Component.supportLeft);
+		/*
+		 * Component.extenderRight = new Lifter.Extender(
+		 * new DoubleSolenoid(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn));
+		 * Component.extenderLeft = new Lifter.Extender(
+		 * new DoubleSolenoid(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn));
+		 * Component.supportRight = new Lifter.Support(
+		 * new DoubleSolenoid(Port.Pneumatics.rightLifterSupportOut, Port.Pneumatics.rightLifterSupportIn));
+		 * Component.supportLeft = new Lifter.Support(
+		 * new DoubleSolenoid(Port.Pneumatics.leftLifterSupportOut, Port.Pneumatics.leftLifterSupportIn));
+		 * Component.lifterRight = new Lifter(Component.extenderRight, Component.supportRight);
+		 * Component.lifterLeft = new Lifter(Component.extenderLeft, Component.supportLeft);
+		 */
+		Component.lifterRight = new Lifter(Port.Pneumatics.rightLifterOut, Port.Pneumatics.rightLifterIn,
+			Port.Pneumatics.rightLifterSupportOut, Port.Pneumatics.rightLifterSupportIn);
+		Component.lifterLeft = new Lifter(Port.Pneumatics.leftLifterOut, Port.Pneumatics.leftLifterIn,
+			Port.Pneumatics.leftLifterSupportOut, Port.Pneumatics.leftLifterSupportIn);
 		Component.pdp = new PDP();
 		// Wheels
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
