@@ -25,14 +25,17 @@ public class Lifter extends Subsystem {
 		public final DoubleSolenoid extender;
 		public static final DoubleSolenoid.Value EXTENDER_SOLENOID_NOT_DEPLOYED = DoubleSolenoid.Value.kForward;
 		public static final DoubleSolenoid.Value EXTENDER_SOLENOID_DEPLOYED = DoubleSolenoid.Value.kReverse;
+		public boolean isDeployed;
 
 		public Extender(DoubleSolenoid extender) {
 			this.extender = extender;
+			this.isDeployed = false;
 		}
 
 		public void set(boolean deployed) {
 			if (deployed) {
 				this.extender.set(EXTENDER_SOLENOID_DEPLOYED);
+				this.isDeployed = true;
 			} else {
 				this.extender.set(EXTENDER_SOLENOID_NOT_DEPLOYED);
 			}
