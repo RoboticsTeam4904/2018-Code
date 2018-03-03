@@ -34,7 +34,17 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {}
+	public void teleopExecute() {
+		int[] sensorValues;
+		try {
+			sensorValues = RobotMap.Component.intakeSwitch.readSensor();
+			SmartDashboard.putBooleanArray("IntakeSwitches", new boolean[] {sensorValues[0] == 1, sensorValues[1] == 1});
+		}
+		catch (InvalidSensorException e) {
+			// TODO Auto-generated catch block
+			LogKitten.ex(e);
+		}
+	}
 
 	@Override
 	public void autonomousInitialize() {

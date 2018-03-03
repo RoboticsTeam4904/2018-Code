@@ -58,6 +58,7 @@ public class RobotMap {
 		public static class CAN {
 			public static final int leftEncoder = 0x610;
 			public static final int rightEncoder = 0x611;
+			public static final int cubeIntookethSensor = -1; // TODO: real ports
 		}
 
 		public static class Pneumatics {
@@ -135,7 +136,8 @@ public class RobotMap {
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
-		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight);
+		Component.crateIO = new CrateIO(Component.crateIORollerLeft, Component.crateIORollerRight,
+			new CANSensor("CubeSensor", Port.CAN.cubeIntookethSensor));
 		Component.rollyBOIRollerLeft = new Motor("RollyBOIRollerLeft", new CANTalonSRX(Port.CANMotor.rollyBOIRollerMotorLeft));
 		Component.rollyBOIRollerLeft.setInverted(true);
 		Component.rollyBOIRollerRight = new Motor("RollyBOIRollerRight",
@@ -156,8 +158,7 @@ public class RobotMap {
 		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
 		// Component.chassisEncoders);
 		// Chassis
-		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.pcmID, Port.Pneumatics.shifter.forward,
-			Port.Pneumatics.shifter.reverse);
+		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		// Sensors
 		Component.navx = new NavX(SerialPort.Port.kMXP);

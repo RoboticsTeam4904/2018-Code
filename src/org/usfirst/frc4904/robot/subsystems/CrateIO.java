@@ -1,6 +1,9 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
+import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
+import org.usfirst.frc4904.standard.custom.sensors.InvalidSensorException;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 
 /**
@@ -12,6 +15,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 public class CrateIO {
 	public static final double INTAKE_SPEED = 0.5;
 	public static final double OUTTAKE_SPEED = -0.5;
+	public final CANSensor cubeSensor;
 	public final Motor rollerLeft;
 	public final Motor rollerRight;
 
@@ -27,8 +31,19 @@ public class CrateIO {
 	 *        to the right motors for intaking
 	 *        and outtaking cubes.
 	 */
-	public CrateIO(Motor rollerLeft, Motor rollerRight) {
+	public CrateIO(Motor rollerLeft, Motor rollerRight, CANSensor cubeSensor) {
 		this.rollerLeft = rollerLeft;
 		this.rollerRight = rollerRight;
+		this.cubeSensor = cubeSensor;
+	}
+
+	public boolean getCube() {
+		try {
+			return (cubeSensor.readSensor()[0] == 1);
+		}
+		catch (InvalidSensorException e) {
+			LogKitten.ex(e);
+			return false;
+		}
 	}
 }
