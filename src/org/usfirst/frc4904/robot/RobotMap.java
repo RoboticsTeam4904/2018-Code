@@ -3,7 +3,6 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
-import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -93,7 +92,6 @@ public class RobotMap {
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
-		public static DiscBrake discBrake;
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
@@ -157,7 +155,6 @@ public class RobotMap {
 		armController.setAbsoluteTolerance(5);
 		Component.arm = new Arm(armController, armEncoder,
 			armA, armB);
-		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);

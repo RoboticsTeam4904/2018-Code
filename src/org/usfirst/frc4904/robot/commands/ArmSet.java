@@ -18,11 +18,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ArmSet extends CommandGroup {
 	public ArmSet(Arm.ArmState state) {
-		// Command armMove =
 		addSequential(new ArmMove(state, true));
-		// addSequential(new KittenCommand("Done moving", LogKitten.KittenLevel.WTF));
-		// addSequential(armMove.cancel);
 		addParallel(new MotorIdle(RobotMap.Component.arm));
-		addSequential(new ArmBrakeSet(true));
 	}
 }
