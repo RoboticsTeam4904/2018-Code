@@ -81,6 +81,7 @@ public class RobotMap {
 
 	public static class Component {
 		public static Arm arm;
+		public static CustomPIDController armController;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
 		public static Motor crateIORollerRight;
@@ -152,10 +153,10 @@ public class RobotMap {
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
 		armB.setInverted(true);
-		CustomPIDController armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
-		armController.setIThreshold(25);
-		armController.setAbsoluteTolerance(5);
-		Component.arm = new Arm(armController, armEncoder,
+		Component.armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
+		Component.armController.setIThreshold(25);
+		Component.armController.setAbsoluteTolerance(5);
+		Component.arm = new Arm(Component.armController, armEncoder,
 			armA, armB);
 		Component.discBrake = new DiscBrake(new DoubleSolenoid(Port.Pneumatics.discBrakeOn, Port.Pneumatics.discBrakeOff));
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
