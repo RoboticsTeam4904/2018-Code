@@ -70,7 +70,7 @@ public class Robot extends CommandRobotBase {
 		// try {
 		// int[] sensorValues = RobotMap.Component.leftWheelEncoder.readSensor();
 		// SmartDashboard.putNumberArray("Most Recent CAN Message", new double[] {sensorValues[0], sensorValues[1]});
-		// SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
+		SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
 		// }
 		// catch (InvalidSensorException e) {
 		// SmartDashboard.putNumber("Most Recent CAN Failure", System.currentTimeMillis());
