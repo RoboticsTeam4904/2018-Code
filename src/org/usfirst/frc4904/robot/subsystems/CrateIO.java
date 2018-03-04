@@ -1,9 +1,7 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
-import org.usfirst.frc4904.robot.commands.MotorIdleGroup;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * CrateIO is the subsystem of rollers
@@ -11,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * it to intake/outtake cubes in front
  * of it.
  */
-public class CrateIO extends Subsystem {
+public class CrateIO {
 	public static final double INTAKE_SPEED = 0.5;
 	public static final double OUTTAKE_SPEED = -0.5;
 	public final Motor rollerLeft;
@@ -32,10 +30,5 @@ public class CrateIO extends Subsystem {
 	public CrateIO(Motor rollerLeft, Motor rollerRight) {
 		this.rollerLeft = rollerLeft;
 		this.rollerRight = rollerRight;
-	}
-
-	@Override
-	protected void initDefaultCommand() {
-		setDefaultCommand(new MotorIdleGroup("CrateIO", this, rollerLeft, rollerRight));
 	}
 }

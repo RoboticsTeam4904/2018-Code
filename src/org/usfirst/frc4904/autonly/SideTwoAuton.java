@@ -5,6 +5,7 @@ import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
+import org.usfirst.frc4904.robot.commands.ReleaseIntake;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.RunIf;
@@ -19,6 +20,7 @@ public class SideTwoAuton extends SideSwitchTime {
 	public static final double INTAKE_TIME = 3;
 
 	public SideTwoAuton(boolean leftSide) {
+		addSequential(new ReleaseIntake());
 		addSequential((leftSide ? new LeftSideTime() : new RightSideTime()));
 		addParallel(new ChassisMoveDistance(RobotMap.Component.chassis,
 			RobotMap.Metrics.Wheel.TICKS_PER_INCH * BACKWARD_DISTANCE, RobotMap.Component.drivePID));
