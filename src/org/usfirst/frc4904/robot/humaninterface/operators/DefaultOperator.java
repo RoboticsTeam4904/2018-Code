@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.ArmMove;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;
@@ -30,5 +31,8 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new SingleOp(() -> {
 			RobotMap.Component.arm.encoder.reset();
 		}));
+		RobotMap.HumanInput.Operator.joystick.button8.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
+		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
+		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
 	}
 }
