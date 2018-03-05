@@ -61,15 +61,16 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
-		SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
-		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getAngle());
-		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
-		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
+		// SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
+		// SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getAngle());
+		// SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
+		// SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
+		LogKitten.wtf(RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS));
 	}
 
 	void putSBSubsystemSummary() {
