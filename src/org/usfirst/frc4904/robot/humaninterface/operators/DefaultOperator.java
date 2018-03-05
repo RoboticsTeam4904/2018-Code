@@ -6,6 +6,7 @@ import org.usfirst.frc4904.robot.commands.ArmMove;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.commands.RunIfElse;
 import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -23,9 +24,14 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		// RobotMap.HumanInput.Operator.joystick.button1.onlyWhileReleased(new ArmBrakeSet(true));
-		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(
+		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new RunIfElse(
 			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-				Arm.ARM_SPEED_SCALE));
+				Arm.ARM_SPEED_RAISE),
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+				Arm.ARM_SPEED_LOWER),
+			() -> {
+				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
+			}));
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new SingleOp(() -> {
