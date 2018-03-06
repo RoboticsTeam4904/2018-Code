@@ -16,12 +16,18 @@ public class OuttakeScale extends Strategy {
 	 * Constructor. Never call unless certain outtaking onto OUR scale.
 	 *
 	 * @param approach_dist
+	 *		  Positive distance to approach the scale. Will drive backwards.
 	 */
 	public OuttakeScale(double approach_dist) {
+		// Set arm to scale position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * approach_dist, RobotMap.Component.drivePID));
-		addSequential(new OuttakeSquared());
+		// Back up towards scale
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -RobotMap.Metrics.Wheel.TICKS_PER_INCH * approach_dist, RobotMap.Component.drivePID));
+		// Outtake cube
+		addSequential(new OuttakeSquared());
+		// Move forwards away from scale
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * approach_dist, RobotMap.Component.drivePID));
+		// Set arm to intake position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
 
