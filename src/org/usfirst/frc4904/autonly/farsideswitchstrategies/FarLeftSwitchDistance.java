@@ -1,4 +1,4 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.farsideswitchstrategies;
 
 
 import org.usfirst.frc4904.robot.RobotMap;

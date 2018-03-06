@@ -1,4 +1,4 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.farsideswitchstrategies;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
@@ -7,12 +7,12 @@ import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 
-public class FarLeftSwitchLeftDistance extends FarSideSwitchStrategy {
-	public FarLeftSwitchLeftDistance() {
+public class FarRightSwitchRightDistance extends FarSideSwitchStrategy {
+	public FarRightSwitchRightDistance() {
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
 			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_CLOSE_SWITCH, RobotMap.Component.drivePID));
 		addSequential(
-			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// addSequential(new RunIf(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH), () -> {
 		// return RobotMap.gameField.ourSwitch.isLeftOurs();
 		// }));

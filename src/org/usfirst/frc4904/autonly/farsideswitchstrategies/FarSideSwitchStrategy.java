@@ -1,5 +1,6 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.farsideswitchstrategies;
 
+import org.usfirst.frc4904.autonly.Strategy;
 
 public abstract class FarSideSwitchStrategy extends Strategy {
 	public static final double DISTANCE_CLOSE_SWITCH = 0;
