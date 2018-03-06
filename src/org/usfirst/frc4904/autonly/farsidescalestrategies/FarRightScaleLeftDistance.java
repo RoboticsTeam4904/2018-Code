@@ -9,22 +9,27 @@ import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 
-public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
-	public FarLeftScaleLeftDistance() {
-		// Move forward to scale (on side though)
-		addSequential(
-			new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_CLOSE_SCALE,
-				RobotMap.Component.drivePID));
-		// Turn backwards for outtake
+public class FarRightScaleLeftDistance extends FarSideScaleStrategy {
+	public FarRightScaleLeftDistance() {
+		// Move forwards past scale
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_TO_BEHIND_SCALE, RobotMap.Component.drivePID));
+		// Turn left
 		addSequential(
 			new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-		// Raise arm to scale height
+		// Cross behind scale
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_CROSS_BEHIND_SCALE, RobotMap.Component.drivePID));
+		// Turn right to face away from scale
+		addSequential(
+			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+		// Lift arm to scale height
 		addSequential(new RunIf(new ArmSet(Arm.ArmState.ARM_POSITION_SCALE), () -> {
 			return RobotMap.gameField.scale.isLeftOurs();
 		}));
-		// Back up towards scale
+		// Approach scale backwards
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_CLOSE_SCALE, RobotMap.Component.drivePID), () -> {
+			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_FAR_SCALE, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.scale.isLeftOurs();
 			}));
 		// Outtake cube
@@ -33,7 +38,7 @@ public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
 		}));
 		// Move forwards away from scale
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_CLOSE_SCALE, RobotMap.Component.drivePID), () -> {
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_FAR_SCALE, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.scale.isLeftOurs();
 			}));
 	}
