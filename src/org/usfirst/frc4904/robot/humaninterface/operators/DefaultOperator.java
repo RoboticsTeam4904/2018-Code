@@ -3,6 +3,8 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ArmMove;
+import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
+import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;
@@ -34,6 +36,8 @@ public class DefaultOperator extends Operator {
 			}));
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
+		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
+		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new SingleOp(() -> {
 			RobotMap.Component.arm.encoder.reset();
 		}));
