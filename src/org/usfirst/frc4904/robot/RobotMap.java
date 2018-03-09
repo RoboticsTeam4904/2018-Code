@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
@@ -27,7 +26,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
-	public static Field gameField;
 
 	public static class Port { // TODO: Correct Ports
 		public static class HumanInput {
@@ -168,7 +166,6 @@ public class RobotMap {
 		// Component.chassisTurnMC.setInputRange(-180, 180);
 		// Component.chassisTurnMC.setContinuous(true);
 		// Component.chassisTurnMC.setAbsoluteTolerance(1.0);
-		gameField = new Field();
 		// Arm
 		CANEncoder armEncoder = new CANEncoder(Port.CANEncoder.armEncoderPort);
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
