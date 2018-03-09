@@ -73,9 +73,6 @@ public class RobotMap {
 			public static final double DISTANCE_SIDE_SIDE = 25.21;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
 				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
-			// public static final int driveP = 0; // TODO: Replace with real PID values.
-			// public static final int driveI = 0;
-			// public static final int driveD = 0;
 		}
 		public static final double LENGTH = 49.04;// 32.75;
 		public static final double WIDTH = 34.25;// 27.75;
@@ -142,18 +139,8 @@ public class RobotMap {
 			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
-		// Motion Controllers
-		// TODO: All these numbers are straight out of 2017, so these might need new numbers
-		// Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
-		// Component.chassisTurnMC.setMinimumNominalOutput(0.24);
-		// Component.chassisTurnMC.setInputRange(-180, 180);
-		// Component.chassisTurnMC.setContinuous(true);
-		// Component.chassisTurnMC.setAbsoluteTolerance(1.0);
-		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		// Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-		// Component.chassisEncoders);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
