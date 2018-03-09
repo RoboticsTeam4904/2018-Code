@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
+import org.usfirst.frc4904.robot.humaninterface.operators.LeakyRelu;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
@@ -176,7 +177,7 @@ public class RobotMap {
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
 		armB.setInverted(true);
 		// General
-		Component.arm = new Arm(armController, armEncoder,
+		Component.arm = new Arm(armController, new LeakyRelu(Arm.ARM_SPEED_LOWER, Arm.ARM_SPEED_RAISE), armEncoder,
 			armA, armB);
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);

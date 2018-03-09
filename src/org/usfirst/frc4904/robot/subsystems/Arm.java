@@ -7,6 +7,7 @@ import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.MotionController;
 import org.usfirst.frc4904.standard.custom.sensors.CustomEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
+import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.SpeedModifier;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -36,6 +37,13 @@ public class Arm extends PositionSensorMotor {
 		this.encoder.setDistancePerPulse(TICK_MULTIPLIER); // Setting degrees per pulse. Now the value from getDistance is in degrees.
 	}
 
+	public Arm(MotionController motionController, SpeedModifier armModifier, CustomEncoder encoder,
+		SpeedController... elbowControllers) {
+		super("Arm", armModifier, motionController, elbowControllers);
+		this.encoder = encoder;
+		this.encoder.setDistancePerPulse(TICK_MULTIPLIER); // Setting degrees per pulse. Now the value from getDistance is in degrees.
+	}
+
 	@Override
 	public void setPosition(double position) {
 		double safePosition = motorAngleRange.limitValue(position);
@@ -48,11 +56,6 @@ public class Arm extends PositionSensorMotor {
 
 	@Override
 	public void set(double speed) {
-		// if ((encoder.getDistance() > ArmState.ARM_POSITION_INTAKE.position && speed < 0)
-		// || (encoder.getDistance() < ArmState.ARM_POSITION_SCALE.position && speed > 0)) {
-		// super.set(0);
-		// return;
-		// }
 		super.set(speed);
 	}
 

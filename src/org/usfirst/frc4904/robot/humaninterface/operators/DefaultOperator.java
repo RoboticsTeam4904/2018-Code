@@ -27,10 +27,8 @@ public class DefaultOperator extends Operator {
 	public void bindCommands() {
 		// RobotMap.HumanInput.Operator.joystick.button1.onlyWhileReleased(new ArmBrakeSet(true));
 		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new RunIfElse(
-			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-				Arm.ARM_SPEED_RAISE),
-			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-				Arm.ARM_SPEED_LOWER),
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS),
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS),
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
