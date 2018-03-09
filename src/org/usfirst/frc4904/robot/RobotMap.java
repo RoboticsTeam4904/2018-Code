@@ -1,7 +1,6 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
@@ -27,7 +26,6 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
-	public static Field gameField;
 
 	public static class Port { // TODO: Correct Ports
 		public static class HumanInput {
@@ -126,7 +124,6 @@ public class RobotMap {
 		/* General */
 		Component.pdp = new PDP();
 		Component.navx = new NavX(SerialPort.Port.kMXP);
-		gameField = new Field();
 		/* Chassis */
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
