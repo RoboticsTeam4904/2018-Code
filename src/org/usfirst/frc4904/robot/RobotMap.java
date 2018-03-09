@@ -80,6 +80,7 @@ public class RobotMap {
 		}
 		public static final double LENGTH = 49.04;// 32.75;
 		public static final double WIDTH = 34.25;// 27.75;
+		public static final double ROBOT_DISTANCE_FROM_CLOSE_WALL = 29.69 + WIDTH / 2; // this is variable, find way to determine real value
 	}
 
 	public static class Component {
