@@ -3,9 +3,6 @@ package org.usfirst.frc4904.autonly.farsidescalestrategies;
 
 import org.usfirst.frc4904.autonly.OuttakeScale;
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.commands.ArmSet;
-import org.usfirst.frc4904.robot.commands.OuttakeSquared;
-import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
@@ -18,7 +15,8 @@ public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
 				RobotMap.Component.drivePID));
 		// Turn left to face away from scale
 		addSequential(
-			new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			new ChassisTurn(RobotMap.Component.chassis, ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
+				RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.
 		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_FAR_SCALE), () -> {
 			return RobotMap.gameField.scale.isRightOurs();

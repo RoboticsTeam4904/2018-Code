@@ -14,7 +14,8 @@ public abstract class FarSideScaleStrategy extends Strategy {
 		- RobotMap.Metrics.ROBOT_DISTANCE_FROM_CLOSE_WALL;
 	public static final double DISTANCE_APPROACH_SCALE_Y = AutonFieldMeasurements.ALLIANCE_SCALE_DISTANCE
 		- DISTANCE_CLOSE_SCALE;
-	public static final double ANGLE_TO_SCALE = Math.atan(DISTANCE_APPROACH_SCALE_Y / DISTANCE_APPROACH_SCALE_X);
+	public static final double ANGLE_TO_CLOSE_SCALE = 90 + Math.atan(DISTANCE_APPROACH_SCALE_Y / DISTANCE_APPROACH_SCALE_X);
+	public static final double ANGLE_TO_FAR_SCALE = -Math.atan(DISTANCE_APPROACH_SCALE_Y / DISTANCE_APPROACH_SCALE_X);
 	public static final double DISTANCE_APPROACH_SCALE = Math
 		.sqrt(DISTANCE_APPROACH_SCALE_X * DISTANCE_APPROACH_SCALE_X + DISTANCE_APPROACH_SCALE_Y * DISTANCE_APPROACH_SCALE_Y)
 		- RobotMap.Metrics.LENGTH / 2;
