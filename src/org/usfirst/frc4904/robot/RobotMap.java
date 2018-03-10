@@ -23,7 +23,6 @@ import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableMo
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.VictorSP;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
 
@@ -102,7 +101,6 @@ public class RobotMap {
 		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
 		public static NavX navx;
-		public static Subsystem[] mainSubsystems;
 		public static CANSensor intakeSwitch;
 	}
 
