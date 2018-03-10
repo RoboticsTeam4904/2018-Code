@@ -10,19 +10,9 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "0,3": {
             "size": [
-              7,
-              5
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_title": "Camera Stream"
-            }
-          },
-          "8,2": {
-            "size": [
-              2,
+              5,
               1
             ],
             "content": {
@@ -31,10 +21,10 @@
               "_title": "Auton Routine Selector"
             }
           },
-          "8,3": {
+          "3,0": {
             "size": [
               2,
-              2
+              3
             ],
             "content": {
               "_type": "Gyro",
@@ -45,7 +35,7 @@
               "tickMarkRingVisible": true
             }
           },
-          "7,2": {
+          "2,0": {
             "size": [
               1,
               3
@@ -77,10 +67,10 @@
               ]
             }
           },
-          "7,0": {
+          "0,0": {
             "size": [
-              3,
-              2
+              2,
+              3
             ],
             "content": {
               "_type": "Text View",
@@ -100,19 +90,9 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
-          "0,0": {
+          "0,3": {
             "size": [
-              8,
-              5
-            ],
-            "content": {
-              "_type": "Camera Stream",
-              "_title": "Camera Stream"
-            }
-          },
-          "8,2": {
-            "size": [
-              2,
+              5,
               1
             ],
             "content": {
@@ -121,10 +101,10 @@
               "_title": "Auton Routine Selector"
             }
           },
-          "8,3": {
+          "3,0": {
             "size": [
               2,
-              2
+              3
             ],
             "content": {
               "_type": "Gyro",
@@ -135,10 +115,10 @@
               "tickMarkRingVisible": true
             }
           },
-          "8,0": {
+          "0,0": {
             "size": [
-              2,
-              2
+              3,
+              3
             ],
             "content": {
               "_type": "Text View",
