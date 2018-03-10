@@ -23,13 +23,19 @@ public class FarLeftSwitchRightDistance extends FarSideSwitchStrategy {
 		// Turn right
 		addSequential(
 			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+		// Move back to be next to horizontal with switch
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_BACK_TO_SWITCH, RobotMap.Component.drivePID));
+		// Turn right
+		addSequential(
+			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// Lift arm to switch height
 		addSequential(new RunIf(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH), () -> {
 			return RobotMap.gameField.ourSwitch.isRightOurs();
 		}));
 		// Approach switch
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_MARGIN_BEHIND_SWITCH, RobotMap.Component.drivePID), () -> {
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
 		// Outtake cube
@@ -38,7 +44,7 @@ public class FarLeftSwitchRightDistance extends FarSideSwitchStrategy {
 		}));
 		// Back away from switch
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_MARGIN_BEHIND_SWITCH, RobotMap.Component.drivePID), () -> {
+			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
 	}

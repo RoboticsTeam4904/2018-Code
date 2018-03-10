@@ -23,7 +23,7 @@ public class FarRightSwitchRightDistance extends FarSideSwitchStrategy {
 		}));
 		// Move forwards to approach switch
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_CLOSE_SWITCH, RobotMap.Component.drivePID), () -> {
+			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
 		// Outtake cube
@@ -32,7 +32,7 @@ public class FarRightSwitchRightDistance extends FarSideSwitchStrategy {
 		}));
 		// Back away from switch
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
-			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_CLOSE_SWITCH, RobotMap.Component.drivePID), () -> {
+			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
 	}
