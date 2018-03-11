@@ -6,13 +6,14 @@ import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * Sequentially set arm to scale position, approach switch, outtake,
  * drive back approach_dist, and set arm to intake position.
  *
  */
-public class OuttakeScale extends Strategy {
+public class OuttakeScale extends CommandGroup {
 	protected static final double APPROACH_DISTANCE_PAST_SCALE = 6; // this shall now be known as Shiley's Constant.
 
 	/**
@@ -37,7 +38,4 @@ public class OuttakeScale extends Strategy {
 		// Set arm to intake position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
-
-	@Override
-	public void setup() {}
 }

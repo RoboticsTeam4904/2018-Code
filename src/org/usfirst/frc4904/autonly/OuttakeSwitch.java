@@ -5,13 +5,14 @@ import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *	Sequentially set arm to switch position, approach switch, outtake,
  *  drive back approach_dist, and set arm to intake position.
  *
  */
-public class OuttakeSwitch extends Strategy {
+public class OuttakeSwitch extends CommandGroup {
 	/**
 	 * Constructor. Never call unless certain outtaking onto OUR switch.
 	 *
@@ -30,7 +31,4 @@ public class OuttakeSwitch extends Strategy {
 		// Set arm to intake position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
-
-	@Override
-	public void setup() {}
 }
