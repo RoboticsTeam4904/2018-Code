@@ -10,10 +10,10 @@ public class GoToCubePile extends Strategy {
 		switch(side) {
 			case "LEFT":
 				addSequential(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-				addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_TO_CUBE_PILE, RobotMap.Component.drivePID));
+				addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_TO_CUBE_PILE, RobotMap.Component.drivePID));
 			case "RIGHT":
 				addSequential(new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-				addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_TO_CUBE_PILE, RobotMap.Component.drivePID));
+				addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_TO_CUBE_PILE, RobotMap.Component.drivePID));
 		}
 	}
 	

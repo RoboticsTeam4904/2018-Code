@@ -10,8 +10,7 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 public class FarLeftSwitchLeftDistance extends FarSideSwitchStrategy {
 	public FarLeftSwitchLeftDistance() {
 		// Move forward to switch (on side though)
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
-			RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_CLOSE_SWITCH, RobotMap.Component.drivePID));
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_CLOSE_SWITCH, RobotMap.Component.drivePID));
 		// Turn right to face switch
 		addSequential(
 			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));

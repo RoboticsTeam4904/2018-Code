@@ -40,7 +40,6 @@ public class Robot extends CommandRobotBase {
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
-		// ((Strategy) autoChooser.getSelected()).setup(); //TODO: Remove if possible.
 	}
 
 	@Override

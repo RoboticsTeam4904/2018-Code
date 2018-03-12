@@ -11,8 +11,8 @@ public class SideSwitchDistance extends Strategy {
 	public static final double DISTANCE_APPROACH_SWITCH = 144 - RobotMap.Metrics.LENGTH; // TODO: Test this distance.
 	
 	public SideSwitchDistance() {
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID));
-//		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_APPROACH_SWITCH, RobotMap.Component.drivePID));
+		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		addSequential(new KittenCommand("Finished lifting arm", KittenLevel.WTF));
 	}
 
