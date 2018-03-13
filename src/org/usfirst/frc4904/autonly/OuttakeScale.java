@@ -26,14 +26,12 @@ public class OuttakeScale extends CommandGroup {
 		// Set arm to scale position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
 		// Back up towards scale
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
-			-RobotMap.Metrics.Wheel.TICKS_PER_INCH * (approach_dist + APPROACH_DISTANCE_PAST_SCALE),
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist + APPROACH_DISTANCE_PAST_SCALE,
 			RobotMap.Component.drivePID));
 		// Outtake cube
 		addSequential(new OuttakeSquared());
 		// Move forwards away from scale
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis,
-			RobotMap.Metrics.Wheel.TICKS_PER_INCH * (approach_dist + APPROACH_DISTANCE_PAST_SCALE),
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -(approach_dist + APPROACH_DISTANCE_PAST_SCALE),
 			RobotMap.Component.drivePID));
 		// Set arm to intake position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));

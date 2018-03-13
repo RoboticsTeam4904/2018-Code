@@ -11,8 +11,7 @@ public class FarRightScaleRightDistance extends FarSideScaleStrategy {
 	public FarRightScaleRightDistance() {
 		// Move forward to scale (line up to its side, in the exact middle of the field between the two alliance driver stations)
 		addSequential(
-			new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * DISTANCE_CLOSE_SCALE,
-				RobotMap.Component.drivePID));
+			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_CLOSE_SCALE, RobotMap.Component.drivePID));
 		// Turn right to face away from scale
 		addSequential(new ChassisTurn(RobotMap.Component.chassis, -ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));

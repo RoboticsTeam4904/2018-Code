@@ -23,11 +23,11 @@ public class OuttakeSwitch extends CommandGroup {
 		// Set arm to switch position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		// Drive and approach switch
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, RobotMap.Metrics.Wheel.TICKS_PER_INCH * approach_dist, RobotMap.Component.drivePID));
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist, RobotMap.Component.drivePID));
 		// Outtake cube
 		addSequential(new OuttakeSquared());
 		// Drive back away from switch
-		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -RobotMap.Metrics.Wheel.TICKS_PER_INCH * approach_dist, RobotMap.Component.drivePID));
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -approach_dist, RobotMap.Component.drivePID));
 		// Set arm to intake position
 		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
