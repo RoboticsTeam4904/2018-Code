@@ -52,8 +52,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x610;
-			public static final int rightEncoder = 0x611;
+			public static final int leftEncoder = 0x611;
+			public static final int rightEncoder = 0x610;
 			public static final int armEncoderPort = 0x612;
 		}
 
@@ -132,7 +132,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder.setDistancePerPulse(-1 * Metrics.Wheel.INCHES_PER_TICK); // Encoder is mounted backwards
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -155,8 +155,8 @@ public class RobotMap {
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		 Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-		 Component.chassisEncoders);
+		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
+			Component.chassisEncoders);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
