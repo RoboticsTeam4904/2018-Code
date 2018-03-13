@@ -52,8 +52,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x610;
-			public static final int rightEncoder = 0x611;
+			public static final int leftEncoder = 0x611;
+			public static final int rightEncoder = 0x610;
 			public static final int armEncoderPort = 0x612;
 		}
 
@@ -132,7 +132,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder.setDistancePerPulse(-Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -147,11 +147,11 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Motion Controllers
 		// TODO: All these numbers are straight out of 2017, so these might need new numbers
-		// Component.chassisTurnMC = new CustomPIDController(0.03, 0.0, -0.01, Component.navx);
-		// Component.chassisTurnMC.setMinimumNominalOutput(0.24);
-		// Component.chassisTurnMC.setInputRange(-180, 180);
-		// Component.chassisTurnMC.setContinuous(true);
-		// Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		 Component.chassisTurnMC = new CustomPIDController(0.001, 0.0, -0.0001, Component.navx);
+		 Component.chassisTurnMC.setMinimumNominalOutput(0.24);
+		 Component.chassisTurnMC.setInputRange(-180, 180);
+		 Component.chassisTurnMC.setContinuous(true);
+		 Component.chassisTurnMC.setAbsoluteTolerance(1.0);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);

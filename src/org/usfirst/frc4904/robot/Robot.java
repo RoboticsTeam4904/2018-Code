@@ -7,6 +7,7 @@ import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,7 +19,7 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		autoChooser.addDefault(new ChassisMoveDistance(RobotMap.Component.chassis, 18, RobotMap.Component.drivePID));
+		autoChooser.addDefault(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));//new ChassisMoveDistance(RobotMap.Component.chassis, 36, RobotMap.Component.drivePID));
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 	}
