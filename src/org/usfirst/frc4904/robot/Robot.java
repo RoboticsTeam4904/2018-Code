@@ -22,6 +22,9 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addDefault(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));//new ChassisMoveDistance(RobotMap.Component.chassis, 36, RobotMap.Component.drivePID));
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
+		SmartDashboard.putNumber("PID/P", RobotMap.Component.drivePID.getP());
+		SmartDashboard.putNumber("PID/I", RobotMap.Component.drivePID.getI());
+		SmartDashboard.putNumber("PID/D", RobotMap.Component.drivePID.getD());
 	}
 
 	@Override
@@ -60,10 +63,16 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
+		SmartDashboard.putNumber("PID/e", RobotMap.Component.drivePID.getError());
+		SmartDashboard.putNumber("PID/x", RobotMap.Component.drivePID.getSensorValue());
+		RobotMap.Component.drivePID.setPID(SmartDashboard.getNumber("PID/P", 0), SmartDashboard.getNumber("PID/I", 0),
+			SmartDashboard.getNumber("PID/D", 0));
+		LogKitten.wtf((RobotMap.Component.drivePID.getP() + " - " + RobotMap.Component.drivePID.getI() + " - " +
+			RobotMap.Component.drivePID.getD()));
 		// SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
-		// SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getAngle());
-		// SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
-		// SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
+		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
+		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
+		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();

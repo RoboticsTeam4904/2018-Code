@@ -16,7 +16,7 @@ public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_LOWER = 0.4;
 	private final double ENCODER_TICKS = 1024.0;
 	private final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS;
-	private static final double TICK_OFFSET = 0.0; // TODO: needs to be set
+	private static final double RESTING_ARM_ANGLE_DEG = 20.0;
 	public final CustomEncoder encoder;
 	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
@@ -26,7 +26,7 @@ public class Arm extends PositionSensorMotor {
 		public final double position;
 
 		private ArmState(double position) {
-			this.position = position + TICK_OFFSET;
+			this.position = position;
 		}
 	}
 
@@ -60,8 +60,12 @@ public class Arm extends PositionSensorMotor {
 		super.set(speed);
 	}
 
-	public double getAngle() {
-		return encoder.getDistance() + TICK_OFFSET;
+	public double getRelativeAngle() {
+		return encoder.getDistance();
+	}
+
+	public double getTrueAngle() {
+		return encoder.getDistance() + RESTING_ARM_ANGLE_DEG;
 	}
 
 	@Override
