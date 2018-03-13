@@ -147,7 +147,7 @@ public class RobotMap {
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Motion Controllers
 		// TODO: All these numbers are straight out of 2017, so these might need new numbers
-		Component.chassisTurnMC = new CustomPIDController(0.001, 0.0, -0.0001, Component.navx);
+		Component.chassisTurnMC = new CustomPIDController(0.00005, 0.0, 0.0000, Component.navx);
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);

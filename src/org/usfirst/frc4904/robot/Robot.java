@@ -6,7 +6,6 @@ import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,12 +18,13 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		autoChooser.addDefault(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));//new ChassisMoveDistance(RobotMap.Component.chassis, 36, RobotMap.Component.drivePID));
+		autoChooser.addDefault(
+			new ChassisTurn(RobotMap.Component.chassis, 45, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));// new ChassisMoveDistance(RobotMap.Component.chassis, 36, RobotMap.Component.drivePID));
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
-		SmartDashboard.putNumber("PID/P", RobotMap.Component.drivePID.getP());
-		SmartDashboard.putNumber("PID/I", RobotMap.Component.drivePID.getI());
-		SmartDashboard.putNumber("PID/D", RobotMap.Component.drivePID.getD());
+		SmartDashboard.putNumber("PID/P", RobotMap.Component.chassisTurnMC.getP());
+		SmartDashboard.putNumber("PID/I", RobotMap.Component.chassisTurnMC.getI());
+		SmartDashboard.putNumber("PID/D", RobotMap.Component.chassisTurnMC.getD());
 	}
 
 	@Override
@@ -63,14 +63,15 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void alwaysExecute() {
-		SmartDashboard.putNumber("PID/e", RobotMap.Component.drivePID.getError());
-		SmartDashboard.putNumber("PID/x", RobotMap.Component.drivePID.getSensorValue());
+		SmartDashboard.putNumber("PID/e", RobotMap.Component.chassisTurnMC.getError());
+		SmartDashboard.putNumber("PID/x", RobotMap.Component.chassisTurnMC.getSensorValue());
 		RobotMap.Component.drivePID.setPID(SmartDashboard.getNumber("PID/P", 0), SmartDashboard.getNumber("PID/I", 0),
 			SmartDashboard.getNumber("PID/D", 0));
-		LogKitten.wtf((RobotMap.Component.drivePID.getP() + " - " + RobotMap.Component.drivePID.getI() + " - " +
-			RobotMap.Component.drivePID.getD()));
+		// LogKitten.wtf((RobotMap.Component.chassisTurnMC.getP() + " - " + RobotMap.Component.chassisTurnMC.getI() + " - " +
+		// RobotMap.Component.chassisTurnMC.getD()));
 		// SmartDashboard.putString("Most Recent CAN Success", System.currentTimeMillis() + "");
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
+		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		// TODO: Fix arm resetting.
