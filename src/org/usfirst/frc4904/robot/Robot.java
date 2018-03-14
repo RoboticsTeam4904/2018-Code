@@ -23,42 +23,26 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void teleopExecute() {}
 
 	@Override
-	public void autonomousInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void autonomousInitialize() {}
 
 	@Override
-	public void autonomousExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void autonomousExecute() {}
 
 	@Override
-	public void disabledInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledInitialize() {}
 
 	@Override
-	public void disabledExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void disabledExecute() {}
 
 	@Override
-	public void testInitialize() {
-		// TODO Auto-generated method stub
-	}
+	public void testInitialize() {}
 
 	@Override
-	public void testExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void testExecute() {}
 
 	@Override
-	public void alwaysExecute() {
-		// TODO Auto-generated method stub
-	}
+	public void alwaysExecute() {}
 }

@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Lifter extends Subsystem {
-	// public final DoubleSolenoid extender;
-	// public final DoubleSolenoid support;
 	public final Extender extender;
 	public final Support support;
 	public int lifterOut;
