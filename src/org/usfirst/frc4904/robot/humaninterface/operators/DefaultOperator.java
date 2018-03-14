@@ -27,7 +27,7 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		// RobotMap.HumanInput.Operator.joystick.button1.onlyWhileReleased(new ArmBrakeSet(true));
+		// arm
 		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new RunIfElse(
 			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
 				Arm.ARM_SPEED_RAISE),
@@ -46,6 +46,7 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button8.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
 		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
+		// Lifter
 		RobotMap.Component.operatorStick.button12.onlyWhileHeld(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.rightStick::get));
 		RobotMap.Component.operatorStick.button11.onlyWhileHeld(new RunIf(
@@ -58,10 +59,10 @@ public class DefaultOperator extends Operator {
 			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
 		RobotMap.Component.operatorStick.button9.onlyWhileHeld(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterRight),
-			RobotMap.Component.driverXbox.rightStick::get,
 			() -> {
 				return RobotMap.Component.lifterRight.extender.isDeployed;
 			}));
+		// intake
 		RobotMap.Component.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		RobotMap.Component.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 	}
