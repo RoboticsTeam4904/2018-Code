@@ -11,5 +11,22 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar" sourcepath="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/commons-lang3-3.0.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/json-20171018.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/jsr80-1.0.1.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-linux-arm.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-linux-x86.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-linux-x86_64.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-osx-x86.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-osx-x86_64.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-windows-x86.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0-windows-x86_64.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/libusb4java-1.2.0.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-1.2.0-javadoc.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-1.2.0-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-1.2.0.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-javax-1.2.0-javadoc.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-javax-1.2.0-sources.jar"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/usb4java-javax-1.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
