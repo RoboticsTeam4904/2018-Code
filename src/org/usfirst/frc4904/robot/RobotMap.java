@@ -74,9 +74,14 @@ public class RobotMap {
 			public static final double DISTANCE_SIDE_SIDE = 25.21;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
 				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
-			public static final double driveP = 0.02;
-			public static final double driveI = 0;
-			public static final double driveD = -0.001;
+			public static final double driveP = 0.045;
+			public static final double driveI = 0.0000015;
+			public static final double driveD = -0.025;
+			public static final double driveF = 0.0;
+			public static final double turnP = 0.0003;
+			public static final double turnI = 0.0;
+			public static final double turnD = -0.0000025;
+			public static final double turnF = 0.000001;
 		}
 		public static final double LENGTH = 49.04;// 32.75;
 		public static final double WIDTH = 34.25;// 27.75;
@@ -146,8 +151,8 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Motion Controllers
-		// TODO: All these numbers are straight out of 2017, so these might need new numbers
-		Component.chassisTurnMC = new CustomPIDController(0.00005, 0.0, 0.0000, Component.navx);
+		Component.chassisTurnMC = new CustomPIDController(Metrics.Wheel.turnP, Metrics.Wheel.turnI, Metrics.Wheel.turnD,
+			Metrics.Wheel.turnF, Component.navx);
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
@@ -156,7 +161,7 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-			Component.chassisEncoders);
+			Metrics.Wheel.driveF, Component.chassisEncoders);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
