@@ -1,13 +1,15 @@
 package org.usfirst.frc4904.robot.humaninterface.operators;
 
-
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ArmMove;
+import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
+import org.usfirst.frc4904.robot.commands.SupportRaise;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
@@ -44,5 +46,23 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button8.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
 		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
+		RobotMap.Component.operatorStick.button12.onlyWhileHeld(new RunIf(
+			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.rightStick::get));
+		RobotMap.Component.operatorStick.button11.onlyWhileHeld(new RunIf(
+			new SupportRaise(RobotMap.Component.lifterLeft),
+			RobotMap.Component.driverXbox.rightStick::get,
+			() -> {
+				return RobotMap.Component.lifterLeft.extender.isDeployed;
+			}));
+		RobotMap.Component.operatorStick.button10.onlyWhileHeld(new RunIf(
+			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
+		RobotMap.Component.operatorStick.button9.onlyWhileHeld(new RunIf(
+			new SupportRaise(RobotMap.Component.lifterRight),
+			RobotMap.Component.driverXbox.rightStick::get,
+			() -> {
+				return RobotMap.Component.lifterRight.extender.isDeployed;
+			}));
+		RobotMap.Component.joystick.button3.onlyWhileHeld(new IntakeSquared());
+		RobotMap.Component.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 	}
 }

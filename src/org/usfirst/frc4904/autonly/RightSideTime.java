@@ -8,8 +8,8 @@ import org.usfirst.frc4904.standard.commands.RunIf;
 public class RightSideTime extends SideSwitchTime {
 	public RightSideTime() {
 		super();
-		addSequential(new RunIf(new Noop(), () -> {
-			return RobotMap.gameField.ourSwitch.isRightOurs();
-		}));
+		addSequential(new RunIf(new Noop(),
+			RobotMap.gameField.ourSwitch::isRightOurs
+	));
 	}
 }
