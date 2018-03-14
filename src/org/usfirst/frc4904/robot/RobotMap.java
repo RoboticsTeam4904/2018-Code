@@ -82,6 +82,10 @@ public class RobotMap {
 			public static final double turnI = 0.0;
 			public static final double turnD = -0.0000025;
 			public static final double turnF = 0.000001;
+			public static final double armP = 0.01;
+			public static final double armI = 0.00001;
+			public static final double armD = -0.001;
+			public static final double armF = 0.0;
 		}
 		public static final double LENGTH = 49.04;// 32.75;
 		public static final double WIDTH = 34.25;// 27.75;
@@ -177,7 +181,8 @@ public class RobotMap {
 		/* Arm */
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
-		CustomPIDController armController = new CustomPIDController(0.01, 0.00001, -0.001, 0, armEncoder);
+		CustomPIDController armController = new CustomPIDController(Metrics.Wheel.armP, Metrics.Wheel.armI, Metrics.Wheel.armD,
+			Metrics.Wheel.armF, armEncoder);
 		armController.setIThreshold(25);
 		armController.setAbsoluteTolerance(20);
 		// Motors
