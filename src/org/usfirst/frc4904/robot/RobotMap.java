@@ -74,11 +74,11 @@ public class RobotMap {
 			public static final double DISTANCE_SIDE_SIDE = 25.21;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
 				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
-			public static final double driveP = 0.045;
-			public static final double driveI = 0.0000015;
-			public static final double driveD = -0.025;
+			public static final double driveP = 0.057;
+			public static final double driveI = 0.0000035;
+			public static final double driveD = -0.012;
 			public static final double driveF = 0.0;
-			public static final double turnP = 0.0003;
+			public static final double turnP = 0.0032;
 			public static final double turnI = 0.0;
 			public static final double turnD = -0.0000025;
 			public static final double turnF = 0.000001;
@@ -166,6 +166,7 @@ public class RobotMap {
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
 			Metrics.Wheel.driveF, Component.chassisEncoders);
+		Component.drivePID.setAbsoluteTolerance(2.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
