@@ -36,28 +36,35 @@ public class DefaultOperator extends Operator {
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
-		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
-		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
 		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
-		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new SingleOp(() -> {
+		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new RunIf(new SingleOp(() -> {
 			RobotMap.Component.arm.encoder.reset();
+		}), () -> {
+			return !RobotMap.Component.lifterRight.extender.isDeployed;
 		}));
-		RobotMap.HumanInput.Operator.joystick.button8.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
-		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
-		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
+		RobotMap.HumanInput.Operator.joystick.button8
+			.onlyWhileHeld(new RunIf(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true)));
+		RobotMap.HumanInput.Operator.joystick.button10
+			.onlyWhileHeld(new RunIf(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true), () -> {
+				return !RobotMap.Component.driverXbox.rightStick.get();
+			}));
+		RobotMap.HumanInput.Operator.joystick.button12
+			.onlyWhileHeld(new RunIf(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true), () -> {
+				return !RobotMap.Component.driverXbox.rightStick.get();
+			}));
 		// Lifter
-		RobotMap.Component.operatorStick.button12.onlyWhileHeld(new RunIf(
+		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.rightStick::get));
-		RobotMap.Component.operatorStick.button11.onlyWhileHeld(new RunIf(
+		RobotMap.HumanInput.Operator.joystick.button11.onlyWhileHeld(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterLeft),
-			RobotMap.Component.driverXbox.rightStick::get,
 			() -> {
 				return RobotMap.Component.lifterLeft.extender.isDeployed;
 			}));
-		RobotMap.Component.operatorStick.button10.onlyWhileHeld(new RunIf(
+
+		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
-		RobotMap.Component.operatorStick.button9.onlyWhileHeld(new RunIf(
+		RobotMap.HumanInput.Operator.joystick.button9.onlyWhileHeld(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterRight),
 			() -> {
 				return RobotMap.Component.lifterRight.extender.isDeployed;

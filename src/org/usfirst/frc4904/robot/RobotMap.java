@@ -111,7 +111,6 @@ public class RobotMap {
 		public static CrateIO crateIO;
 		public static RollyBOI rollyBOI;
 		public static CustomJoystick joystick;
-		public static CustomJoystick operatorStick;
 		public static TankDriveShifting chassis;
 		public static Motor leftWheel;
 		public static Motor rightWheel;
@@ -142,7 +141,6 @@ public class RobotMap {
 
 	public RobotMap() {
 		/* General */
-		Component.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		Component.pdp = new PDP();
 		Component.navx = new NavX(SerialPort.Port.kMXP);
 		gameField = new Field();
