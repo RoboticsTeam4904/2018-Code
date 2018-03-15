@@ -22,7 +22,7 @@ public class Arm extends PositionSensorMotor {
 		ArmState.ARM_POSITION_SCALE.position);
 
 	public enum ArmState { // TODO: set/test arm_cube_secure value
-		ARM_POSITION_INTAKE(0), ARM_CUBE_SECURE(25), ARM_POSITION_SWITCH(53), ARM_POSITION_SCALE(143); // TODO: need to be tweaked a lot
+		ARM_POSITION_INTAKE(0), ARM_CUBE_SECURE(25), ARM_POSITION_SWITCH(53), ARM_POSITION_SCALE(143);
 		public final double position;
 
 		private ArmState(double position) {

@@ -13,6 +13,6 @@ public class IndexerIntake extends CommandGroup {
 		addParallel(new IndexerGrabberRelease());
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerLeft, RollyBOI.INTAKE_SPEED));
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerRight, RollyBOI.INTAKE_SPEED));
-		addParallel(new ArmSet(Arm.ArmState.ARM_CUBE_SECURE));
+		addSequential(new ArmSet(Arm.ArmState.ARM_CUBE_SECURE));
 	}
 }
