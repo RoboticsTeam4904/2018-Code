@@ -4,6 +4,8 @@ package org.usfirst.frc4904.robot.commands;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
+import org.usfirst.frc4904.standard.commands.Noop;
+import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -12,7 +14,8 @@ public class IndexerIntake extends CommandGroup {
 		super("IndexerIntake");
 		addParallel(new IndexerGrabberRelease());
 		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerLeft, RollyBOI.INTAKE_SPEED));
-		addParallel(new MotorConstant(RobotMap.Component.rollyBOIRollerRight, RollyBOI.INTAKE_SPEED));
+		addSequential(new MotorConstant(RobotMap.Component.rollyBOIRollerRight, RollyBOI.INTAKE_SPEED));
+		addSequential(new RunFor(new Noop(), Arm.TIME_INTAKE_RAISE));
 		addSequential(new ArmSet(Arm.ArmState.ARM_CUBE_SECURE));
 	}
 }
