@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot.humaninterface.operators;
 
+
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ArmMove;
 import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
@@ -41,7 +42,7 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new RunIf(new SingleOp(() -> {
 			RobotMap.Component.arm.encoder.reset();
 		}), () -> {
-			return !RobotMap.Component.lifterRight.extender.isDeployed;
+			return !RobotMap.Component.lifterRight.extender.isDeployed; // what the fu-
 		}));
 		RobotMap.HumanInput.Operator.joystick.button8
 			.onlyWhileHeld(new RunIf(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true)));
@@ -61,7 +62,6 @@ public class DefaultOperator extends Operator {
 			() -> {
 				return RobotMap.Component.lifterLeft.extender.isDeployed;
 			}));
-
 		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
 		RobotMap.HumanInput.Operator.joystick.button9.onlyWhileHeld(new RunIf(
