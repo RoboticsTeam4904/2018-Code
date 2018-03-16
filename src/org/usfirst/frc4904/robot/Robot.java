@@ -44,6 +44,8 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject(new FarRightSwitchDistance());
 		autoChooser.addObject(new FarLeftScaleDistance());
 		autoChooser.addObject(new FarRightScaleDistance());
+		autoChooser.addObject(new CrossBaselineDistance());
+		autoChooser.addObject(new CrossBaselineTime());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		SmartDashboard.putNumber("drivePID/P", RobotMap.Component.drivePID.getP());
