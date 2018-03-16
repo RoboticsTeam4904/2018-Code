@@ -10,7 +10,7 @@ public class RightSideDistance extends Strategy {
 	public RightSideDistance() {
 		super();
 		addSequential(new RunIfElse(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH),
-			new CrossBaselineDistance(DISTANCE_APPROACH_SWITCH), () -> {
+			new CrossBaselineDistance(), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
 	}
