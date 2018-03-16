@@ -1,11 +1,11 @@
 package org.usfirst.frc4904.robot;
 
-
 import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
@@ -58,12 +58,22 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
+			// TODO: Check if the order of these ports is correct
+			public static final PCMPort leftLifter = new PCMPort(2, 3, 0);
+			public static final PCMPort rightLifter = new PCMPort(2, 3, 1);
+			public static final PCMPort leftLifterSupport = new PCMPort(4, 5, 0);
+			public static final PCMPort rightLifterSupport = new PCMPort(4, 5, 1);
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}
 	}
 
 	public static class Metrics { // TODO: Check in later with design to confirm these metrics.
+		public static final double WHEEL_DIAMETER_INCHES = 4;
+		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
+		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
+		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
 			public static final double DIAMETER_INCHES = 4;
@@ -94,6 +104,8 @@ public class RobotMap {
 
 	public static class Component {
 		public static Arm arm;
+		public static Lifter lifterLeft;
+		public static Lifter lifterRight;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
 		public static Motor crateIORollerRight;
@@ -110,7 +122,6 @@ public class RobotMap {
 		public static SolenoidShifters shifter;
 		public static EnableableModifier rightWheelAccelerationCap;
 		public static EnableableModifier leftWheelAccelerationCap;
-		public static CustomJoystick operatorStick;
 		public static CustomXbox driverXbox;
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
@@ -179,6 +190,13 @@ public class RobotMap {
 		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
+		/* Lifters */
+		Component.lifterRight = new Lifter(
+			Port.Pneumatics.rightLifter.forward, Port.Pneumatics.rightLifter.reverse,
+			Port.Pneumatics.rightLifterSupport.forward, Port.Pneumatics.rightLifterSupport.reverse);
+		Component.lifterLeft = new Lifter(
+			Port.Pneumatics.leftLifter.forward, Port.Pneumatics.leftLifter.reverse,
+			Port.Pneumatics.leftLifterSupport.forward, Port.Pneumatics.leftLifterSupport.reverse);
 		/* Arm */
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
@@ -199,6 +217,7 @@ public class RobotMap {
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 	}
+
 
 	public static class PCMPort {
 		public int pcmID;
@@ -225,4 +244,5 @@ public class RobotMap {
 			return new DoubleSolenoid(pcmID, forward, reverse);
 		}
 	}
+
 }
