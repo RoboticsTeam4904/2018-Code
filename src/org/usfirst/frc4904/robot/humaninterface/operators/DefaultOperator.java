@@ -32,6 +32,7 @@ public class DefaultOperator extends Operator {
 		// intake and indexer
 		RobotMap.Component.joystick.button2.whenPressed(new ReleaseIntake());
 		RobotMap.Component.joystick.button3.onlyWhileHeld(new IntakeSquared());
+		RobotMap.Component.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		RobotMap.Component.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
 		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
@@ -44,13 +45,13 @@ public class DefaultOperator extends Operator {
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
-		RobotMap.HumanInput.Operator.joystick.button7
-			.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK));
-		RobotMap.HumanInput.Operator.joystick.button8
-			.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
-		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new SingleOp(() -> {
+		RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new SingleOp(() -> {
 			RobotMap.Component.arm.encoder.reset();
 		}));
+		// RobotMap.HumanInput.Operator.joystick.button7
+		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
+		RobotMap.HumanInput.Operator.joystick.button8
+			.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
 		// RobotMap.HumanInput.Operator.joystick.button10
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
 		// RobotMap.HumanInput.Operator.joystick.button12

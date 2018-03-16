@@ -11,9 +11,4 @@ public class IntakeSquared extends CommandGroup {
 		addParallel(new IndexerIntake());
 		addParallel(new IntakeRollersIntake());
 	}
-
-	@Override
-	protected void interrupted() {
-		new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true);
-	}
 }
