@@ -2,6 +2,8 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
+import org.usfirst.frc4904.autonly.CrossBaselineDistance;
+import org.usfirst.frc4904.autonly.CrossBaselineTime;
 import org.usfirst.frc4904.autonly.LeftSideDistance;
 import org.usfirst.frc4904.autonly.LeftSideTime;
 import org.usfirst.frc4904.autonly.RightSideDistance;
