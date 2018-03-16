@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot;
 
+
 import org.usfirst.frc4904.autonly.Field;
 import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
@@ -84,22 +85,33 @@ public class RobotMap {
 			public static final double DISTANCE_SIDE_SIDE = 25.21;
 			public static final double INCHES_PER_TICK = Metrics.Wheel.CIRCUMFERENCE_INCHES
 				/ Metrics.Wheel.TICKS_PER_REVOLUTION;
-			public static final double driveP = 0.057;
-			public static final double driveI = 0.0000035;
-			public static final double driveD = -0.012;
-			public static final double driveF = 0.0;
-			public static final double turnP = 0.0032;
-			public static final double turnI = 0.0;
-			public static final double turnD = -0.0000025;
-			public static final double turnF = 0.000001;
-			public static final double armP = 0.01;
-			public static final double armI = 0.00001;
-			public static final double armD = -0.001;
-			public static final double armF = 0.0;
 		}
 		public static final double LENGTH = 49.04;// 32.75;
 		public static final double WIDTH = 34.25;// 27.75;
 		public static final double ROBOT_DISTANCE_FROM_CLOSE_WALL = 29.69 + WIDTH / 2; // this is variable, find way to determine real value
+	}
+
+	public static class PID {
+		public static class Drive {
+			public static final double P = 0.057;
+			public static final double I = 0.0000035;
+			public static final double D = -0.012;
+			public static final double F = 0.0;
+		}
+
+		public static class Turn {
+			public static final double P = 0.0032;
+			public static final double I = 0.0;
+			public static final double D = -0.0000025;
+			public static final double F = 0.000001;
+		}
+
+		public static class Arm {
+			public static final double P = 0.01;
+			public static final double I = 0.00001;
+			public static final double D = -0.001;
+			public static final double F = 0.0;
+		}
 	}
 
 	public static class Component {
@@ -166,8 +178,7 @@ public class RobotMap {
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
 			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
 		// Motion Controllers
-		Component.chassisTurnMC = new CustomPIDController(Metrics.Wheel.turnP, Metrics.Wheel.turnI, Metrics.Wheel.turnD,
-			Metrics.Wheel.turnF, Component.navx);
+		Component.chassisTurnMC = new CustomPIDController(PID.Turn.P, PID.Turn.I, PID.Turn.D, PID.Turn.F, Component.navx);
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
@@ -175,8 +186,8 @@ public class RobotMap {
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		Component.drivePID = new CustomPIDController(Metrics.Wheel.driveP, Metrics.Wheel.driveI, Metrics.Wheel.driveD,
-			Metrics.Wheel.driveF, Component.chassisEncoders);
+		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
+			Component.chassisEncoders);
 		Component.drivePID.setAbsoluteTolerance(2.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
@@ -200,10 +211,9 @@ public class RobotMap {
 		/* Arm */
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
-		CustomPIDController armController = new CustomPIDController(Metrics.Wheel.armP, Metrics.Wheel.armI, Metrics.Wheel.armD,
-			Metrics.Wheel.armF, armEncoder);
+		CustomPIDController armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		armController.setIThreshold(25);
-		armController.setAbsoluteTolerance(20);
+		armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
@@ -217,7 +227,6 @@ public class RobotMap {
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
 	}
-
 
 	public static class PCMPort {
 		public int pcmID;
@@ -244,5 +253,4 @@ public class RobotMap {
 			return new DoubleSolenoid(pcmID, forward, reverse);
 		}
 	}
-
 }
