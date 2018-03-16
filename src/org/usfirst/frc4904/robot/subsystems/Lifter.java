@@ -27,6 +27,11 @@ public class Lifter extends Subsystem {
 			new DoubleSolenoid(lifterSupportOut, lifterSupportIn));
 	}
 
+	public Lifter(DoubleSolenoid extender, DoubleSolenoid support) {
+		this.extender = new Extender(extender);
+		this.support = new Support(support);
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new Idle(this));

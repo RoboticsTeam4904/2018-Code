@@ -30,10 +30,10 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		// intake and indexer
-		RobotMap.Component.joystick.button2.whenPressed(new ReleaseIntake());
-		RobotMap.Component.joystick.button3.onlyWhileHeld(new IntakeSquared());
-		RobotMap.Component.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
-		RobotMap.Component.joystick.button4.onlyWhileHeld(new OuttakeSquared());
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new ReleaseIntake());
+		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
+		RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
+		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
 		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
 		// arm
@@ -58,14 +58,14 @@ public class DefaultOperator extends Operator {
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		// Lifter
 		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new RunIf(
-			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.Component.driverXbox.rightStick::get));
+			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.HumanInput.Driver.xbox.rightStick::get));
 		RobotMap.HumanInput.Operator.joystick.button11.onlyWhileHeld(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterLeft),
 			() -> {
 				return RobotMap.Component.lifterLeft.extender.isDeployed;
 			}));
 		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new RunIf(
-			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.Component.driverXbox.rightStick::get));
+			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
 		RobotMap.HumanInput.Operator.joystick.button9.onlyWhileHeld(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterRight),
 			() -> {
