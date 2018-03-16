@@ -1,11 +1,20 @@
 package org.usfirst.frc4904.robot;
 
 
-import org.usfirst.frc4904.autonly.OuttakeSwitch;
+import org.usfirst.frc4904.autonly.CenterSwitchDistance;
+import org.usfirst.frc4904.autonly.LeftSideDistance;
+import org.usfirst.frc4904.autonly.LeftSideTime;
+import org.usfirst.frc4904.autonly.RightSideDistance;
+import org.usfirst.frc4904.autonly.RightSideTime;
+import org.usfirst.frc4904.autonly.farsidescalestrategies.FarLeftScaleDistance;
+import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleDistance;
+import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchDistance;
+import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarRightSwitchDistance;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,10 +28,20 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
-			// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-			// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
-			// new Square());
-			new OuttakeSwitch(12));
+			new ChassisIdle(RobotMap.Component.chassis));
+		// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
+		// new Square());
+		// new OuttakeSwitch(12));
+		autoChooser.addObject(new LeftSideTime());
+		autoChooser.addObject(new RightSideTime());
+		autoChooser.addObject(new LeftSideDistance());
+		autoChooser.addObject(new RightSideDistance());
+		autoChooser.addObject(new CenterSwitchDistance());
+		autoChooser.addObject(new FarLeftSwitchDistance());
+		autoChooser.addObject(new FarRightSwitchDistance());
+		autoChooser.addObject(new FarLeftScaleDistance());
+		autoChooser.addObject(new FarRightScaleDistance());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		SmartDashboard.putNumber("PID/P", RobotMap.Component.drivePID.getP());
