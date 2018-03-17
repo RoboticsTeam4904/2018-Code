@@ -128,7 +128,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		// LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
 		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
 		// + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
 		// + Double.toString(RobotMap.Component.navx.getYaw()));

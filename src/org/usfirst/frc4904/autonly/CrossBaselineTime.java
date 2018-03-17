@@ -5,7 +5,7 @@ import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 
 public class CrossBaselineTime extends Strategy {
-	public static final double CROSSBASELINE_TIME = 5;
+	public static final double CROSSBASELINE_TIME = 4;
 
 	public CrossBaselineTime() {
 		addSequential(new ChassisConstant(RobotMap.Component.chassis, 0, AutonConfig.DEAD_RECKON_DRIVE_SPEED, 0,
