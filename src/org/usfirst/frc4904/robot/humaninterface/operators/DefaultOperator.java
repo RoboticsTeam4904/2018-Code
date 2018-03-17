@@ -29,16 +29,6 @@ public class DefaultOperator extends Operator {
 
 	@Override
 	public void bindCommands() {
-		// intake and indexer
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(),
-			new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
-		// RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new IndexerGrabberRelease()); // for hold to open
-		// RobotMap.HumanInput.Operator.joystick.button2.whenReleased(new IndexerGrabberClasp());
-		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
-		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
-		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
-		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
-		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
 		// arm
 		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new RunIfElse(
 			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
@@ -51,6 +41,16 @@ public class DefaultOperator extends Operator {
 		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new SingleOp(() -> {
 		// RobotMap.Component.arm.encoder.reset();
 		// }));
+		// intake and indexer
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(),
+			new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
+		// RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new IndexerGrabberRelease()); // for hold to open
+		// RobotMap.HumanInput.Operator.joystick.button2.whenReleased(new IndexerGrabberClasp());
+		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
+		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
+		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
+		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
+		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
 		RobotMap.HumanInput.Operator.joystick.button7.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerLeft, 0.5));
 		RobotMap.HumanInput.Operator.joystick.button8.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerRight, 0.5));
 		// RobotMap.HumanInput.Operator.joystick.button7
