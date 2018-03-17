@@ -3,17 +3,15 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
-import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
-import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
-import org.usfirst.frc4904.robot.commands.ReleaseIntake;
 import org.usfirst.frc4904.robot.commands.SupportRaise;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
+import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -31,7 +29,8 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		// intake and indexer
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(), new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
+		// RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(),
+		// new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
@@ -46,9 +45,9 @@ public class DefaultOperator extends Operator {
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
-		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new SingleOp(() -> {
-		// RobotMap.Component.arm.encoder.reset();
-		// }));
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new SingleOp(() -> {
+			RobotMap.Component.arm.encoder.resetViaOffset();
+		}));
 		RobotMap.HumanInput.Operator.joystick.button7.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerLeft, 0.5));
 		RobotMap.HumanInput.Operator.joystick.button8.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerRight, 0.5));
 		// RobotMap.HumanInput.Operator.joystick.button7

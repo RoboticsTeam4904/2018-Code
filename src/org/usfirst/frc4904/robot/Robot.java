@@ -1,5 +1,6 @@
 package org.usfirst.frc4904.robot;
 
+
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
@@ -11,11 +12,12 @@ import org.usfirst.frc4904.autonly.farsidescalestrategies.FarLeftScaleDistance;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarRightSwitchDistance;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -31,7 +33,8 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
-			new ChassisIdle(RobotMap.Component.chassis));
+			new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+		// new ChassisIdle(RobotMap.Component.chassis));
 		// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
 		// new Square());
@@ -69,8 +72,8 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void teleopInitialize() {
-//		Command intakeRelease = new ReleaseIntake();
-//		intakeRelease.start(); // Flip out intake in the beginning of teleop
+		// Command intakeRelease = new ReleaseIntake();
+		// intakeRelease.start(); // Flip out intake in the beginning of teleop
 		// RobotMap.Component.arm.encoder.reset();
 		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
@@ -127,7 +130,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		// LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle()) + ", RIGHT, "
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
 		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
 		// + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
 		// + Double.toString(RobotMap.Component.navx.getYaw()));
