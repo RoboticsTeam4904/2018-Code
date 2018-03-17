@@ -63,7 +63,7 @@ public class RobotMap {
 			public static final PCMPort leftLifter = new PCMPort(0, 2, 3);
 			public static final PCMPort rightLifter = new PCMPort(1, 3, 2);
 			public static final PCMPort leftLifterSupport = new PCMPort(0, 4, 5);
-			public static final PCMPort rightLifterSupport = new PCMPort(1, 5, 4);
+			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5);
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
 		}

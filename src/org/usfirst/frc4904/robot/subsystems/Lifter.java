@@ -1,6 +1,8 @@
 package org.usfirst.frc4904.robot.subsystems;
 
 
+import org.usfirst.frc4904.robot.commands.ExtenderSet;
+import org.usfirst.frc4904.robot.commands.SupportSet;
 import org.usfirst.frc4904.standard.commands.Idle;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -59,7 +61,7 @@ public class Lifter extends Subsystem {
 
 		@Override
 		protected void initDefaultCommand() {
-			// setDefaultCommand();
+			setDefaultCommand(new ExtenderSet(this, false));
 		}
 	}
 
@@ -82,7 +84,7 @@ public class Lifter extends Subsystem {
 
 		@Override
 		protected void initDefaultCommand() {
-			// setDefaultCommand();
+			setDefaultCommand(new SupportSet(this, false));
 		}
 	}
 }
