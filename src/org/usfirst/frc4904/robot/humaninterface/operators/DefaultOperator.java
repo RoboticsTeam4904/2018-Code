@@ -2,7 +2,6 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.commands.ArmMove;
 import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
@@ -32,7 +31,7 @@ public class DefaultOperator extends Operator {
 		// intake and indexer
 		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new ReleaseIntake());
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
-		RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
+		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
 		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
@@ -50,8 +49,8 @@ public class DefaultOperator extends Operator {
 		}));
 		// RobotMap.HumanInput.Operator.joystick.button7
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
-		RobotMap.HumanInput.Operator.joystick.button8
-			.onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
+		// RobotMap.HumanInput.Operator.joystick.button8
+		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
 		// RobotMap.HumanInput.Operator.joystick.button10
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
 		// RobotMap.HumanInput.Operator.joystick.button12

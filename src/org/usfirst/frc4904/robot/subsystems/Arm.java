@@ -5,7 +5,7 @@ import org.usfirst.frc4904.robot.commands.ArmBrakeSet;
 import org.usfirst.frc4904.standard.Util;
 import org.usfirst.frc4904.standard.commands.motor.MotorIdle;
 import org.usfirst.frc4904.standard.custom.motioncontrollers.MotionController;
-import org.usfirst.frc4904.standard.custom.sensors.CustomEncoder;
+import org.usfirst.frc4904.standard.custom.sensors.CANEncoder;
 import org.usfirst.frc4904.standard.subsystems.motor.PositionSensorMotor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -17,7 +17,7 @@ public class Arm extends PositionSensorMotor {
 	private final double ENCODER_TICKS = 1024.0;
 	private final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS;
 	private static final double RESTING_ARM_ANGLE_DEG = 20.0;
-	public final CustomEncoder encoder;
+	public final CANEncoder encoder;
 	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
 
@@ -30,7 +30,7 @@ public class Arm extends PositionSensorMotor {
 		}
 	}
 
-	public Arm(MotionController motionController, CustomEncoder encoder, SpeedController... elbowControllers) {
+	public Arm(MotionController motionController, CANEncoder encoder, SpeedController... elbowControllers) {
 		super("Arm", motionController, elbowControllers);
 		this.encoder = encoder;
 		this.encoder.setDistancePerPulse(TICK_MULTIPLIER); // Setting degrees per pulse. Now the value from getDistance is in degrees.

@@ -211,7 +211,6 @@ public class RobotMap {
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
 		// armEncoder.reset();
-		armEncoder.resetViaOffset(); // Reset arm encoder. Arm HAS to be in lowered position for ArmStates and PID to be accurate later
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(25);
 		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.

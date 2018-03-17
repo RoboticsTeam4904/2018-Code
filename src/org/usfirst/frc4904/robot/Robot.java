@@ -106,6 +106,7 @@ public class Robot extends CommandRobotBase {
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
 		RobotMap.Component.navx.reset(); // Set yaw to 0
+		RobotMap.Component.arm.encoder.resetViaOffset(); // Reset arm encoder. Arm HAS to be in lowered position for ArmStates and PID to be accurate later
 	}
 
 	@Override
