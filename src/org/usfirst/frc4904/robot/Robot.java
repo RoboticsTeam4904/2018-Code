@@ -1,6 +1,8 @@
 package org.usfirst.frc4904.robot;
 
 
+import org.opencv.core.Mat;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
@@ -19,16 +21,14 @@ import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
@@ -64,6 +64,10 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("turnPID/I", RobotMap.Component.chassisTurnMC.getI());
 		SmartDashboard.putNumber("turnPID/D", RobotMap.Component.chassisTurnMC.getD());
 		SmartDashboard.putNumber("turnPID/F", RobotMap.Component.chassisTurnMC.getF());
+		SmartDashboard.putNumber("armPID/P", RobotMap.Component.armController.getP());
+		SmartDashboard.putNumber("armPID/I", RobotMap.Component.armController.getI());
+		SmartDashboard.putNumber("armPID/D", RobotMap.Component.armController.getD());
+		SmartDashboard.putNumber("armPID/F", RobotMap.Component.armController.getF());
 		// streaming:
 		new Thread(() -> {
 			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
@@ -123,12 +127,17 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("drivePID/x", RobotMap.Component.drivePID.getSensorValue());
 		SmartDashboard.putNumber("turnPID/e", RobotMap.Component.chassisTurnMC.getError());
 		SmartDashboard.putNumber("turnPID/x", RobotMap.Component.chassisTurnMC.getSensorValue());
+		SmartDashboard.putNumber("armPID/e", RobotMap.Component.armController.getError());
+		SmartDashboard.putNumber("armPID/x", RobotMap.Component.armController.getSensorValue());
 		RobotMap.Component.drivePID.setPIDF(SmartDashboard.getNumber("drivePID/P", 0),
 			SmartDashboard.getNumber("drivePID/I", 0),
 			SmartDashboard.getNumber("drivePID/D", 0), SmartDashboard.getNumber("drivePID/F", 0));
 		RobotMap.Component.chassisTurnMC.setPIDF(SmartDashboard.getNumber("turnPID/P", 0),
 			SmartDashboard.getNumber("turnPID/I", 0),
 			SmartDashboard.getNumber("turnPID/D", 0), SmartDashboard.getNumber("turnPID/F", 0));
+		RobotMap.Component.armController.setPIDF(SmartDashboard.getNumber("armPID/P", 0),
+			SmartDashboard.getNumber("armPID/I", 0),
+			SmartDashboard.getNumber("armPID/D", 0), SmartDashboard.getNumber("armPID/F", 0));
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());

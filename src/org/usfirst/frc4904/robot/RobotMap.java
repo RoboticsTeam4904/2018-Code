@@ -138,6 +138,7 @@ public class RobotMap {
 		public static EncoderPair chassisEncoders;
 		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
+		public static CustomPIDController armController;
 		public static NavX navx;
 		public static Subsystem[] mainSubsystems;
 		public static CANSensor intakeSwitch;
@@ -209,15 +210,15 @@ public class RobotMap {
 		/* Arm */
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
-		CustomPIDController armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
-		armController.setIThreshold(25);
-		armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
+		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
+		Component.armController.setIThreshold(25);
+		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
 		armB.setInverted(true);
 		// General
-		Component.arm = new Arm(armController, armEncoder,
+		Component.arm = new Arm(Component.armController, armEncoder,
 			armA, armB);
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
