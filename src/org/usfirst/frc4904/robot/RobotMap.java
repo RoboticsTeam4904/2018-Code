@@ -209,7 +209,7 @@ public class RobotMap {
 			Port.Pneumatics.leftLifterSupport.buildDoubleSolenoid());
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder(Port.CAN.armEncoderPort);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(25);
 		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.

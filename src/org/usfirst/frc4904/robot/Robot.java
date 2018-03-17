@@ -21,6 +21,7 @@ import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
@@ -147,6 +148,7 @@ public class Robot extends CommandRobotBase {
 		// RobotMap.Component.arm.encoder.reset();
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
+		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
 	}
 
 	void putSBSubsystemSummary() {
