@@ -7,7 +7,7 @@ import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 
 public class SideSwitchTime extends Strategy {
-	public static final double TIME_APPROACH_SWITCH = 2; // TODO: Replace with real time
+	public static final double TIME_APPROACH_SWITCH = 4;
 	public static final double TIME_OUTTAKE = 1.0;
 
 	public SideSwitchTime() {
