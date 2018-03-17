@@ -16,7 +16,6 @@ import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -31,9 +30,9 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		autoChooser.addDefault(
-			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-			new ChassisIdle(RobotMap.Component.chassis));
+		// autoChooser.addDefault(
+		// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+		// new ChassisIdle(RobotMap.Component.chassis));
 		// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
 		// new Square());
@@ -47,7 +46,7 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject(new FarRightSwitchDistance());
 		autoChooser.addObject(new FarLeftScaleDistance());
 		autoChooser.addObject(new FarRightScaleDistance());
-		autoChooser.addObject(new CrossBaselineDistance());
+		autoChooser.addDefault(new CrossBaselineDistance());
 		autoChooser.addObject(new CrossBaselineTime());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
@@ -129,7 +128,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
+		// LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
 		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
 		// + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
 		// + Double.toString(RobotMap.Component.navx.getYaw()));
