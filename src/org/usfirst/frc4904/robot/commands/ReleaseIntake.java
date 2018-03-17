@@ -14,9 +14,9 @@ public class ReleaseIntake extends CommandGroup {
 
 	public ReleaseIntake() {
 		addSequential(
-			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerRight, RELEASE_SPEED), RELEASE_TIME));
+			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerLeft, RELEASE_SPEED), RELEASE_TIME));
 		addSequential(new WaitCommand(WAIT_TIME));
 		addSequential(
-			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerLeft, RELEASE_SPEED), RELEASE_TIME));
+			new RunFor(new MotorConstant(RobotMap.Component.crateIORollerRight, RELEASE_SPEED), RELEASE_TIME));
 	}
 }

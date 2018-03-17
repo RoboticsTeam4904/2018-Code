@@ -71,8 +71,8 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void teleopInitialize() {
-		Command intakeRelease = new ReleaseIntake();
-		intakeRelease.start(); // Flip out intake in the beginning of teleop
+//		Command intakeRelease = new ReleaseIntake();
+//		intakeRelease.start(); // Flip out intake in the beginning of teleop
 		// RobotMap.Component.arm.encoder.reset();
 		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
