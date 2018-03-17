@@ -63,7 +63,7 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterLeft),
 			() -> {
-				return RobotMap.Component.lifterLeft.extender.isDeployed;
+				return RobotMap.Component.lifterLeft.extender.isDeployed && RobotMap.HumanInput.Driver.xbox.rightStick.get();
 			}));
 		// button 10 + right stick: right lifter deploy
 		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(new RunIf(
@@ -72,7 +72,7 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterRight),
 			() -> {
-				return RobotMap.Component.lifterRight.extender.isDeployed;
+				return RobotMap.Component.lifterRight.extender.isDeployed && RobotMap.HumanInput.Driver.xbox.rightStick.get();
 			}));
 	}
 }
