@@ -1,8 +1,5 @@
 package org.usfirst.frc4904.robot;
 
-
-import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
@@ -22,9 +19,6 @@ import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -71,24 +65,14 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("armPID/F", RobotMap.Component.armController.getF());
 		// streaming:
 		new Thread(() -> {
-			UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-			camera.setResolution(640, 480);
-			CvSink cvSink = CameraServer.getInstance().getVideo();
-			CvSource outputStream = CameraServer.getInstance().putVideo("Stream", 640, 480);
-			Mat source = new Mat();
-			Mat output = new Mat();
-			while (!Thread.interrupted()) {
-				cvSink.grabFrame(source);
-				Imgproc.cvtColor(source, output, Imgproc.COLOR_BGR2GRAY);
-				outputStream.putFrame(output);
-			}
+			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
 	}
 
 	@Override
 	public void teleopInitialize() {
-		Command intakeRelease = new ReleaseIntake();
-		intakeRelease.start(); // Flip out intake in the beginning of teleop
+//		Command intakeRelease = new ReleaseIntake();
+//		intakeRelease.start(); // Flip out intake in the beginning of teleop
 		// RobotMap.Component.arm.encoder.reset();
 		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
