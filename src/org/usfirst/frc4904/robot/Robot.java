@@ -2,7 +2,6 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
-import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
 import org.usfirst.frc4904.autonly.LeftSideDistance;
 import org.usfirst.frc4904.autonly.LeftSideTime;
@@ -46,7 +45,8 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject(new FarRightSwitchDistance());
 		autoChooser.addObject(new FarLeftScaleDistance());
 		autoChooser.addObject(new FarRightScaleDistance());
-		autoChooser.addDefault(new CrossBaselineDistance());
+		autoChooser.addDefault(new CrossBaselineTime());
+		// autoChooser.addDefault(new CrossBaselineDistance());
 		autoChooser.addObject(new CrossBaselineTime());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
