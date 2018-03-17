@@ -84,9 +84,9 @@ public class Robot extends CommandRobotBase {
 	@Override
 	public void autonomousInitialize() {
 		// TODO: Fix encoder resetting.
-		LogKitten.wtf("---RESET ARM ENCODER---");
-		RobotMap.Component.arm.encoder.reset();
-		RobotMap.Component.arm.encoder.resetViaOffset(); // Reset arm encoder. Arm HAS to be in lowered position for ArmStates and PID to be accurate later
+		LogKitten.wtf("---RESET ARM ENCODER--- BE SURE THAT ARM IS IN AUTON INITIAL POSITION");
+		// RobotMap.Component.arm.encoder.reset();
+		RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
