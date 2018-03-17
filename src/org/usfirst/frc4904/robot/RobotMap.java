@@ -60,12 +60,12 @@ public class RobotMap {
 
 		public static class Pneumatics {
 			// TODO: Check if the order of these ports is correct
-			public static final PCMPort leftLifter = new PCMPort(0, 2, 3); // not deploy, deploy
+			public static final PCMPort leftLifter = new PCMPort(0, 2, 3); // not deploy, deploy // 0 is the PCM with the compressor
 			public static final PCMPort rightLifter = new PCMPort(1, 3, 2); // not deploy, deploy
 			public static final PCMPort leftLifterSupport = new PCMPort(0, 4, 5); // raise, no raise
 			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5); // raise, no raise
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
-			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6);
+			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6); // clasp, release
 		}
 	}
 
