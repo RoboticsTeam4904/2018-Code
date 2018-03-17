@@ -38,8 +38,8 @@ public class DefaultOperator extends Operator {
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
-		// RobotMap.HumanInput.Operator.joystick.button7.whenPressed(new SingleOp(() -> {
-		// RobotMap.Component.arm.encoder.reset();
+		// RobotMap.HumanInput.Operator.joystick.button1.whenReleased(new SingleOp(() -> { // TODO: change this
+		// RobotMap.Component.arm.encoder.resetViaOffset(); // TODO: change this
 		// }));
 		// intake and indexer
 		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(),
@@ -63,21 +63,19 @@ public class DefaultOperator extends Operator {
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		// Lifter
 		// button 12 + right stick: left lifter deploy
-		RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new RunIf(
-			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.HumanInput.Driver.xbox.rightStick::get));
+		RobotMap.HumanInput.Operator.joystick.button12.whenPressed(
+			new RunIf(new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.HumanInput.Driver.xbox.rightStick::get));
 		// button 11 + deployed: left lifter raise
-		RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new RunIf(
-			new SupportRaise(RobotMap.Component.lifterLeft),
-			() -> {
+		RobotMap.HumanInput.Operator.joystick.button11
+			.whenPressed(new RunIf(new SupportRaise(RobotMap.Component.lifterLeft), () -> {
 				return RobotMap.Component.lifterLeft.extender.isDeployed && RobotMap.HumanInput.Driver.xbox.rightStick.get();
 			}));
 		// button 10 + right stick: right lifter deploy
-		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(new RunIf(
-			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
+		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(
+			new RunIf(new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
 		// button 9 + deployed: right lifter raise
-		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new RunIf(
-			new SupportRaise(RobotMap.Component.lifterRight),
-			() -> {
+		RobotMap.HumanInput.Operator.joystick.button9
+			.whenPressed(new RunIf(new SupportRaise(RobotMap.Component.lifterRight), () -> {
 				return RobotMap.Component.lifterRight.extender.isDeployed && RobotMap.HumanInput.Driver.xbox.rightStick.get();
 			}));
 	}

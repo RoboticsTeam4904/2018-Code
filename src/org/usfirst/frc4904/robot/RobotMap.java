@@ -107,9 +107,9 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.01;
-			public static final double I = 0.00001;
-			public static final double D = -0.001;
+			public static final double P = 0.009;
+			public static final double I = 0.000001;
+			public static final double D = -0.0018;
 			public static final double F = 0.0;
 		}
 	}

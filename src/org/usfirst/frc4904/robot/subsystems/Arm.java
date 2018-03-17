@@ -16,7 +16,7 @@ public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_LOWER = 0.4;
 	private final double ENCODER_TICKS = 1024.0;
 	private final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS;
-	private static final double RESTING_ARM_ANGLE_DEG = 20.0;
+	private static final double RESTING_ARM_ANGLE_DEG = 20.0; // TODO: change this to 30.0
 	public final CANEncoder encoder;
 	public static final Util.Range motorAngleRange = new Util.Range(ArmState.ARM_POSITION_INTAKE.position,
 		ArmState.ARM_POSITION_SCALE.position);
