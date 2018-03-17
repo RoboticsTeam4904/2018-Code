@@ -12,12 +12,11 @@ import org.usfirst.frc4904.autonly.farsidescalestrategies.FarLeftScaleDistance;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarRightSwitchDistance;
-import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
-import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -33,8 +32,8 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
-			new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-		// new ChassisIdle(RobotMap.Component.chassis));
+			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+			new ChassisIdle(RobotMap.Component.chassis));
 		// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
 		// new Square());
