@@ -9,7 +9,6 @@ import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
-import org.usfirst.frc4904.robot.commands.ReleaseIntake;
 import org.usfirst.frc4904.robot.commands.SupportRaise;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunIf;
@@ -31,7 +30,10 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		// intake and indexer
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(), new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(),
+			new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
+		// RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new IndexerGrabberRelease()); // for hold to open
+		// RobotMap.HumanInput.Operator.joystick.button2.whenReleased(new IndexerGrabberClasp());
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
