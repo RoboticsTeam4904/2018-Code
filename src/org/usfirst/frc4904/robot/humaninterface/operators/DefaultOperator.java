@@ -57,16 +57,20 @@ public class DefaultOperator extends Operator {
 		// RobotMap.HumanInput.Operator.joystick.button12
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		// Lifter
-		RobotMap.HumanInput.Operator.joystick.button12.onlyWhileHeld(new RunIf(
+		// button 12 + right stick: left lifter deploy
+		RobotMap.HumanInput.Operator.joystick.button12.whenPressed(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterLeft), RobotMap.HumanInput.Driver.xbox.rightStick::get));
-		RobotMap.HumanInput.Operator.joystick.button11.onlyWhileHeld(new RunIf(
+		// button 11 + deployed: left lifter raise
+		RobotMap.HumanInput.Operator.joystick.button11.whenPressed(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterLeft),
 			() -> {
 				return RobotMap.Component.lifterLeft.extender.isDeployed;
 			}));
-		RobotMap.HumanInput.Operator.joystick.button10.onlyWhileHeld(new RunIf(
+		// button 10 + right stick: right lifter deploy
+		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(new RunIf(
 			new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
-		RobotMap.HumanInput.Operator.joystick.button9.onlyWhileHeld(new RunIf(
+		// button 9 + deployed: right lifter raise
+		RobotMap.HumanInput.Operator.joystick.button9.whenPressed(new RunIf(
 			new SupportRaise(RobotMap.Component.lifterRight),
 			() -> {
 				return RobotMap.Component.lifterRight.extender.isDeployed;
