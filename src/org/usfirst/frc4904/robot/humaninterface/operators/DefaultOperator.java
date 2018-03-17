@@ -3,6 +3,8 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
+import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
+import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
@@ -29,7 +31,7 @@ public class DefaultOperator extends Operator {
 	@Override
 	public void bindCommands() {
 		// intake and indexer
-		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new ReleaseIntake());
+		RobotMap.HumanInput.Operator.joystick.button2.whenPressed(new RunIfElse(new IndexerGrabberRelease(), new IndexerGrabberClasp(), RobotMap.Component.rollyBOI.grabber::isClasped));
 		RobotMap.HumanInput.Operator.joystick.button3.onlyWhileHeld(new IntakeSquared());
 		// RobotMap.HumanInput.Operator.joystick.button3.whenReleased(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());

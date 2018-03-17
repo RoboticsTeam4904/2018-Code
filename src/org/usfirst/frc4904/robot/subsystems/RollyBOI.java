@@ -33,6 +33,10 @@ public class RollyBOI {
 			super("RollyBOI Grabber");
 			this.grabber = grabber;
 		}
+		
+		public boolean isClasped(){
+			return this.grabber.get() == CLASPED;
+		}
 
 		public void set(boolean clasped) {
 			if (clasped) this.grabber.set(CLASPED);

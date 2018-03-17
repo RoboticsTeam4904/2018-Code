@@ -11,7 +11,6 @@ import org.usfirst.frc4904.autonly.farsidescalestrategies.FarLeftScaleDistance;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarRightSwitchDistance;
-import org.usfirst.frc4904.robot.commands.ReleaseIntake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
@@ -21,7 +20,6 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
