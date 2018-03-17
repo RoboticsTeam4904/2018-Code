@@ -53,8 +53,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x611;
-			public static final int rightEncoder = 0x610;
+			public static final int leftEncoder = 0x610;
+			public static final int rightEncoder = 0x611;
 			public static final int armEncoderPort = 0x612;
 		}
 
@@ -163,7 +163,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(-1 * Metrics.Wheel.INCHES_PER_TICK); // Encoder is mounted backwards
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -209,7 +209,9 @@ public class RobotMap {
 			Port.Pneumatics.leftLifterSupport.buildDoubleSolenoid());
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
+		// armEncoder.setDistancePerPulse(-1.0);
+		armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(25);
 		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
