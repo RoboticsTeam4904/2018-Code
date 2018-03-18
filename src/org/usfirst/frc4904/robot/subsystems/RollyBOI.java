@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class RollyBOI {
 	public static final double INTAKE_SPEED = 0.5;
-	public static final double OUTTAKE_SPEED = -1.0;
+	public static final double OUTTAKE_SPEED = -0.7;
 	public final Motor rollerLeft;
 	public final Motor rollerRight;
 	public final Grabber grabber;
