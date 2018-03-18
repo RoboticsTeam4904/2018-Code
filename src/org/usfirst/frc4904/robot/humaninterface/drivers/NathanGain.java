@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot.humaninterface.drivers;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisShift;
 import org.usfirst.frc4904.standard.humaninput.Driver;
 import org.usfirst.frc4904.standard.subsystems.chassis.SolenoidShifters;
@@ -28,6 +29,9 @@ public class NathanGain extends Driver {
 			.whenPressed(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.DOWN));
 		RobotMap.HumanInput.Driver.xbox.rb
 			.whenPressed(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.UP));
+		RobotMap.HumanInput.Driver.xbox.a.whenReleased(new SingleOp(() -> { // TODO: change this
+			RobotMap.Component.arm.encoder.resetViaOffset(6.0); // TODO: change this
+		}));
 	}
 
 	@Override

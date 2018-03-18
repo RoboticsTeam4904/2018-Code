@@ -107,9 +107,9 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.01;
-			public static final double I = 0.00001;
-			public static final double D = -0.001;
+			public static final double P = 0.009;
+			public static final double I = 0.000001;
+			public static final double D = -0.0018;
 			public static final double F = 0.0;
 		}
 	}
@@ -186,7 +186,7 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.chassisEncoders);
+			Component.leftWheelEncoder);// Component.chassisEncoders);
 		Component.drivePID.setAbsoluteTolerance(2.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
