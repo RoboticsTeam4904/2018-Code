@@ -226,6 +226,14 @@ public class RobotMap {
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
+		Component.mainSubsystems = new Subsystem[] {
+				Component.chassis,
+				// Component.crateIO,
+				// Component.rollyBOI,
+				Component.arm// ,
+				// Component.lifterRight,
+				// Component.lifterLeft
+		};
 	}
 
 	public static class PCMPort {
