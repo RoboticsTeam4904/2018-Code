@@ -74,6 +74,7 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+		public static final double ARM_ACCEL_CAP = 1.0;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
