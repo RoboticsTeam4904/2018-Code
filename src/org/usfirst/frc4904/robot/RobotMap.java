@@ -74,6 +74,7 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
+		public static final double ARM_ACCEL_CAP = 1.0;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
@@ -186,7 +187,7 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.leftWheelEncoder);// Component.chassisEncoders);
+			Component.chassisEncoders);
 		Component.drivePID.setAbsoluteTolerance(2.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
@@ -226,6 +227,14 @@ public class RobotMap {
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
 		HumanInput.Operator.joystick = new CustomJoystick(Port.HumanInput.joystick);
 		HumanInput.Operator.joystick.setDeadzone(HumanInterfaceConfig.STICK_LEFT_DEADZONE);
+		Component.mainSubsystems = new Subsystem[] {
+				Component.chassis,
+				// Component.crateIO,
+				// Component.rollyBOI,
+				Component.arm// ,
+				// Component.lifterRight,
+				// Component.lifterLeft
+		};
 	}
 
 	public static class PCMPort {
