@@ -60,9 +60,7 @@ public class RobotMap {
 
 		public static class Pneumatics {
 			// TODO: Check if the order of these ports is correct
-			public static final PCMPort leftLifter = new PCMPort(0, 2, 3); // not deploy, deploy // 0 is the PCM with the compressor
 			public static final PCMPort rightLifter = new PCMPort(1, 3, 2); // not deploy, deploy
-			public static final PCMPort leftLifterSupport = new PCMPort(0, 4, 5); // raise, no raise
 			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5); // raise, no raise
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6); // clasp, release
@@ -117,7 +115,6 @@ public class RobotMap {
 
 	public static class Component {
 		public static Arm arm;
-		public static Lifter lifterLeft;
 		public static Lifter lifterRight;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
@@ -205,9 +202,6 @@ public class RobotMap {
 		Component.lifterRight = new Lifter(
 			Port.Pneumatics.rightLifter.buildDoubleSolenoid(),
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
-		Component.lifterLeft = new Lifter(
-			Port.Pneumatics.leftLifter.buildDoubleSolenoid(),
-			Port.Pneumatics.leftLifterSupport.buildDoubleSolenoid());
 		/* Arm */
 		// Encoders
 		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
