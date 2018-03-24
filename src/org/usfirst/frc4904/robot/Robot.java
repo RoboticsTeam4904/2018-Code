@@ -16,6 +16,7 @@ import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,10 +30,10 @@ public class Robot extends CommandRobotBase {
 	public void initialize() {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
-		// autoChooser.addDefault(
-		// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-		// new ChassisIdle(RobotMap.Component.chassis));
-		// new ChassisTurn(RobotMap.Component.chassis, 120, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+		autoChooser.addDefault(
+			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+			// new ChassisIdle(RobotMap.Component.chassis));
+			new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
 		// new Square());
 		// new OuttakeSwitch(12));
@@ -45,7 +46,7 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject(new FarRightSwitchDistance());
 		autoChooser.addObject(new FarLeftScaleDistance());
 		autoChooser.addObject(new FarRightScaleDistance());
-		autoChooser.addDefault(new CrossBaselineTime());
+		// autoChooser.addDefault(new CrossBaselineTime());
 		// autoChooser.addDefault(new CrossBaselineDistance());
 		autoChooser.addObject(new CrossBaselineTime());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
@@ -62,6 +63,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("armPID/I", RobotMap.Component.armController.getI());
 		SmartDashboard.putNumber("armPID/D", RobotMap.Component.armController.getD());
 		SmartDashboard.putNumber("armPID/F", RobotMap.Component.armController.getF());
+		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
 		// streaming:
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
@@ -89,7 +91,7 @@ public class Robot extends CommandRobotBase {
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
-		RobotMap.Component.navx.reset(); // Set yaw to 0
+		// RobotMap.Component.navx.reset(); // Set yaw to 0
 	}
 
 	@Override
@@ -128,16 +130,18 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())); // + ", RIGHT, "
-		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
-		// + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
-		// + Double.toString(RobotMap.Component.navx.getYaw()));
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle()) + ", RIGHT, "
+			+ Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
+			+ Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
+			+ Double.toString(RobotMap.Component.navx.getYaw()));
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
+		RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
+		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
 	}
 
 	void putSBSubsystemSummary() {

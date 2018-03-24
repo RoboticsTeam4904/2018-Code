@@ -72,7 +72,7 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
-		public static final double ARM_ACCEL_CAP = 1.0;
+		public static double ARM_ACCEL_CAP = 0.55;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
@@ -99,10 +99,10 @@ public class RobotMap {
 		}
 
 		public static class Turn {
-			public static final double P = 0.0032;
+			public static final double P = 0.00254;
 			public static final double I = 0.0;
-			public static final double D = -0.0000025;
-			public static final double F = 0.000001;
+			public static final double D = 0.254;
+			public static final double F = 0.254;
 		}
 
 		public static class Arm {
@@ -180,6 +180,7 @@ public class RobotMap {
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
 		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		Component.chassisTurnMC.setDerivativeTolerance(0.01);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
