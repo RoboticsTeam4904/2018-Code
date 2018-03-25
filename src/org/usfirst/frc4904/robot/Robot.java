@@ -22,9 +22,18 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
+	
+	NetworkTable table; 
+	NetworkTableEntry yawEntry;
+	NetworkTableEntry rightEncoderEntry;
+	NetworkTableEntry leftEncoderEntry;
+	NetworkTableEntry accelerationEntry;
 
 	@Override
 	public void initialize() {
@@ -68,6 +77,15 @@ public class Robot extends CommandRobotBase {
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
+		NetworkTableInstance inst = NetworkTableInstance.getDefault();
+		NetworkTable table = inst.getTable("sensorData");
+		
+		// TODO: Correct names of entries
+		yawEntry = table.getEntry("yaw");
+		rightEncoderEntry = table.getEntry("rightEncoder");
+		leftEncoderEntry = table.getEntry("leftEncoder");
+		accelerationEntry = table.getEntry("acceleration");
+		
 	}
 
 	@Override
