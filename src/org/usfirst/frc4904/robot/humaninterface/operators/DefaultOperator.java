@@ -14,7 +14,7 @@ import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 import org.usfirst.frc4904.standard.commands.motor.MotorConstant;
-import org.usfirst.frc4904.standard.commands.motor.MotorControlAccelCap;
+import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.humaninput.Operator;
 
@@ -31,10 +31,14 @@ public class DefaultOperator extends Operator {
 	public void bindCommands() {
 		// arm
 		RobotMap.HumanInput.Operator.joystick.button1.onlyWhileHeld(new RunIfElse(
-			new MotorControlAccelCap(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-				Arm.ARM_SPEED_RAISE, RobotMap.Metrics.ARM_ACCEL_CAP),
-			new MotorControlAccelCap(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
-				Arm.ARM_SPEED_LOWER, RobotMap.Metrics.ARM_ACCEL_CAP),
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+				Arm.ARM_SPEED_RAISE),
+			new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+				Arm.ARM_SPEED_LOWER),
+			// new MotorControlAccelCap(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+			// Arm.ARM_SPEED_RAISE, RobotMap.Metrics.ARM_ACCEL_CAP),
+			// new MotorControlAccelCap(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick, CustomJoystick.Y_AXIS,
+			// Arm.ARM_SPEED_LOWER, RobotMap.Metrics.ARM_ACCEL_CAP),
 			() -> {
 				return RobotMap.HumanInput.Operator.joystick.getAxis(CustomJoystick.Y_AXIS) > 0;
 			}));
