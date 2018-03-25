@@ -18,22 +18,24 @@ import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
-	
-	NetworkTable table; 
+	NetworkTableInstance inst;
+	NetworkTable table;
 	NetworkTableEntry yawEntry;
 	NetworkTableEntry rightEncoderEntry;
 	NetworkTableEntry leftEncoderEntry;
-	NetworkTableEntry accelerationEntry;
+	NetworkTableEntry accelXEntry;
+	NetworkTableEntry accelYEntry;
+	NetworkTableEntry accelZEntry;
 
 	@Override
 	public void initialize() {
@@ -77,15 +79,15 @@ public class Robot extends CommandRobotBase {
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
-		NetworkTableInstance inst = NetworkTableInstance.getDefault();
-		NetworkTable table = inst.getTable("sensorData");
-		
+		inst = NetworkTableInstance.getDefault();
+		table = inst.getTable("sensorData");
 		// TODO: Correct names of entries
 		yawEntry = table.getEntry("yaw");
 		rightEncoderEntry = table.getEntry("rightEncoder");
 		leftEncoderEntry = table.getEntry("leftEncoder");
-		accelerationEntry = table.getEntry("acceleration");
-		
+		accelXEntry = table.getEntry("accelX");
+		accelYEntry = table.getEntry("accelY");
+		accelZEntry = table.getEntry("accelZ");
 	}
 
 	@Override
@@ -160,6 +162,13 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
 		RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
 		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
+		// Push values to network table
+		yawEntry.setNumber(RobotMap.Component.navx.getYaw());
+		accelXEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelX());
+		accelYEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelY());
+		accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
+		rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
+		leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
 	}
 
 	void putSBSubsystemSummary() {
