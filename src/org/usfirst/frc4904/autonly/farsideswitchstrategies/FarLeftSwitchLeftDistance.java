@@ -16,7 +16,7 @@ public class FarLeftSwitchLeftDistance extends FarSideSwitchStrategy {
 			new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// Do all the outtake stuff
 		addSequential(new RunIf(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH), () -> {
-			return RobotMap.gameField.ourSwitch.isRightOurs();
+			return RobotMap.gameField.ourSwitch.isLeftOurs();
 		}));
 	}
 }

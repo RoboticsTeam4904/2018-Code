@@ -15,7 +15,6 @@ import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -34,12 +33,13 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
-			new ChassisIdle(RobotMap.Component.chassis));
-		// new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
-		// new ChassisIdle(RobotMap.Component.chassis));
-		// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
-		// new Square());
+			// new ChassisIdle(RobotMap.Component.chassis));
+			// new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+			// new ChassisIdle(RobotMap.Component.chassis));
+			// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			// new ChassisMoveDistance(RobotMap.Component.chassis, 60, RobotMap.Component.drivePID));
+			// new Square());
+			new FarLeftSwitchDistance());
 		// new OuttakeSwitch(12));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
@@ -72,6 +72,8 @@ public class Robot extends CommandRobotBase {
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
+		RobotMap.Component.rightWheelEncoder.reset();
+		RobotMap.Component.rightWheelEncoder.resetViaOffset();
 	}
 
 	@Override
@@ -93,10 +95,11 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void autonomousInitialize() {
+		// Component.leftWheelEncoder.reset();
 		// TODO: Fix encoder resetting.
 		LogKitten.wtf("---RESET ARM ENCODER--- BE SURE THAT ARM IS IN AUTON INITIAL POSITION");
 		// RobotMap.Component.arm.encoder.reset();
-		// RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
+		RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
@@ -137,12 +140,12 @@ public class Robot extends CommandRobotBase {
 			SmartDashboard.getNumber("armPID/D", 0), SmartDashboard.getNumber("armPID/F", 0));
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
-		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
-		// SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle()) + ", LEFT, "
-		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
-			+ Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
-			+ Double.toString(RobotMap.Component.navx.getYaw()));
+		// SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
+		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
+			+ ", RIGHT, " + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance())
+			// + ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
+			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw()));
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();
