@@ -152,6 +152,11 @@ public class RobotMap {
 		}
 	}
 
+	// public static class NetworkTables {
+	// public static NetworkTable network_table;
+	// public static double yaw;
+	// public static double accel;
+	// }
 	public RobotMap() {
 		/* General */
 		Component.pdp = new PDP();
@@ -160,10 +165,10 @@ public class RobotMap {
 		/* Chassis */
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
-		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
+		// Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
 		Component.leftWheelEncoder.setDistancePerPulse(-Metrics.Wheel.INCHES_PER_TICK);
-		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
-		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
+		// Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		// Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
 		Component.leftWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.leftWheelAccelerationCap.enable();
@@ -185,7 +190,7 @@ public class RobotMap {
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.chassisEncoders);
+			Component.leftWheelEncoder);
 		Component.drivePID.setAbsoluteTolerance(2.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
@@ -230,6 +235,8 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
+		// NetworkTableInstance server_instance = NetworkTableInstance.getDefault();
+		// NetworkTables.network_table = server_instance.getTable("sensors");
 	}
 
 	public static class PCMPort {

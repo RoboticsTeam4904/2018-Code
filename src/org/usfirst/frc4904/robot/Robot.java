@@ -129,9 +129,9 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
-		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle()) + ", RIGHT, "
-			+ Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
+		// SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle()) + ", LEFT, "
+		// + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance()) + ", LEFT, "
 			+ Double.toString(RobotMap.Component.leftWheelEncoder.getDistance()) + ", NAVX: "
 			+ Double.toString(RobotMap.Component.navx.getYaw()));
 		// TODO: Fix arm resetting.
@@ -142,6 +142,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
 		RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
 		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
+		// RobotMap.network_table.getEntry("yaw").setDouble(RobotMap.Component.navx.getYaw());
 	}
 
 	void putSBSubsystemSummary() {
