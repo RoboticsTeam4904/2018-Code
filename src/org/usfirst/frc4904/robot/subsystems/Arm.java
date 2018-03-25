@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Arm extends PositionSensorMotor {
 	public static final double ARM_SPEED_RAISE = 0.8;
-	public static final double ARM_SPEED_LOWER = 0.55;
+	public static final double ARM_SPEED_LOWER = 0.7;
 	private final double ENCODER_TICKS = 1024.0;
 	private final double TICK_MULTIPLIER = 360.0 / ENCODER_TICKS;
 	private static final double RESTING_ARM_ANGLE_DEG = 20.0; // TODO: change this to 30.0

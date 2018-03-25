@@ -189,6 +189,7 @@ public class RobotMap {
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Component.chassis.turn_correction = 0.1;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
 			Component.rightWheelEncoder);
 		Component.drivePID.setAbsoluteTolerance(2.0);
