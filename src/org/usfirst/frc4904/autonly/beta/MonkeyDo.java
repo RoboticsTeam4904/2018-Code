@@ -9,23 +9,29 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.LogKitten;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MonkeyDo extends Command {
-	// private static String RECORD_FILE_PATH = "/home/lvuser/logs/monkey_see.csv";
 	private File recordFile;
 	private Timer timer;
 	private DoTask task;
 
 	public MonkeyDo() {
+		requires(RobotMap.Component.chassis); // TODO do this better
+		for (int i = 0; i < MonkeySee.MOTOR_LIST.length; i++) {
+			requires(MonkeySee.MOTOR_LIST[i]);
+		}
 		recordFile = new File(MonkeySee.RECORD_FILE_PATH);
 		timer = new Timer();
 		task = new DoTask(recordFile);
 	}
 
 	@Override
-	protected void initialize() {}
+	protected void initialize() {
+		timer.scheduleAtFixedRate(task, 20, 20);
+	}
 
 	@Override
 	protected boolean isFinished() {
