@@ -106,9 +106,9 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.009;
+			public static final double P = 0.005;
 			public static final double I = 0.000001;
-			public static final double D = -0.0018;
+			public static final double D = 0.000;
 			public static final double F = 0.0;
 		}
 	}
@@ -210,7 +210,7 @@ public class RobotMap {
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
 		// armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(25);

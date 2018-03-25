@@ -15,11 +15,14 @@ import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisIdle;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
+import org.usfirst.frc4904.standard.commands.motor.MotorControl;
+import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,9 +34,10 @@ public class Robot extends CommandRobotBase {
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
-			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-			// new ChassisIdle(RobotMap.Component.chassis));
-			new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			new ChassisIdle(RobotMap.Component.chassis));
+		// new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		// new ChassisIdle(RobotMap.Component.chassis));
+		// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// new ChassisMoveDistance(RobotMap.Component.chassis, 24, RobotMap.Component.drivePID));
 		// new Square());
 		// new OuttakeSwitch(12));
@@ -75,6 +79,11 @@ public class Robot extends CommandRobotBase {
 		// Command intakeRelease = new ReleaseIntake();
 		// intakeRelease.start(); // Flip out intake in the beginning of teleop
 		// RobotMap.Component.arm.encoder.reset();
+		Command arm_stay = new MotorControl(RobotMap.Component.arm, RobotMap.HumanInput.Operator.joystick,
+			CustomJoystick.Y_AXIS,
+			0.0);
+		arm_stay.start();
+		RobotMap.Component.arm.set(0.0);
 		teleopCommand = new ChassisMove(RobotMap.Component.chassis, driverChooser.getSelected());
 		teleopCommand.start();
 	}
@@ -87,7 +96,7 @@ public class Robot extends CommandRobotBase {
 		// TODO: Fix encoder resetting.
 		LogKitten.wtf("---RESET ARM ENCODER--- BE SURE THAT ARM IS IN AUTON INITIAL POSITION");
 		// RobotMap.Component.arm.encoder.reset();
-		RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
+		// RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
