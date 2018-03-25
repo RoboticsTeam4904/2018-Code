@@ -92,16 +92,16 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.057;
+			public static final double P = 0.0254;
 			public static final double I = 0.0000035;
 			public static final double D = -0.012;
 			public static final double F = 0.0;
 		}
 
 		public static class Turn {
-			public static final double P = 0.00254;
+			public static final double P = 0.00971;
 			public static final double I = 0.0;
-			public static final double D = 0.254;
+			public static final double D = 0.526;
 			public static final double F = 0.254;
 		}
 
@@ -192,6 +192,7 @@ public class RobotMap {
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
 			Component.rightWheelEncoder);
 		Component.drivePID.setAbsoluteTolerance(2.0);
+		Component.drivePID.setDerivativeTolerance(1.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));

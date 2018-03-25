@@ -14,7 +14,7 @@ public abstract class FarSideSwitchStrategy extends Strategy {
 	public static final double DISTANCE_APPROACH_SWITCH = AutonFieldMeasurements.WALL_SWITCH_DISTANCE
 		- RobotMap.Metrics.ROBOT_DISTANCE_FROM_CLOSE_WALL - RobotMap.Metrics.LENGTH / 2 + 5.0;
 	public static final double DISTANCE_TO_BEHIND_SWITCH = AutonFieldMeasurements.ALLIANCE_BEHIND_SWITCH_DISTANCE
-		+ DISTANCE_MARGIN_BEHIND_SWITCH;
+		+ DISTANCE_MARGIN_BEHIND_SWITCH - 3.0;
 	public static final double DISTANCE_CROSS_BEHIND_SWITCH = AutonFieldMeasurements.WALL_SWITCH_DISTANCE
 		- RobotMap.Metrics.ROBOT_DISTANCE_FROM_CLOSE_WALL + AutonFieldMeasurements.SWITCH_WIDTH
 		- AutonFieldMeasurements.SWITCH_PLATE_WIDTH / 2;
