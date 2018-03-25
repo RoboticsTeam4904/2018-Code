@@ -75,6 +75,8 @@ public class Robot extends CommandRobotBase {
 		}).start();
 		RobotMap.Component.rightWheelEncoder.reset();
 		RobotMap.Component.rightWheelEncoder.resetViaOffset();
+		RobotMap.Component.leftWheelEncoder.reset();
+		RobotMap.Component.leftWheelEncoder.resetViaOffset();
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class Robot extends CommandRobotBase {
 		LogKitten.wtf("---END RESET ARM ENCODER---");
 		RobotMap.gameField.update(DriverStation.getInstance().getAlliance(),
 			DriverStation.getInstance().getGameSpecificMessage());
-		// RobotMap.Component.navx.reset(); // Set yaw to 0
+		RobotMap.Component.navx.reset(); // Set yaw to 0 // WARNING: resetting the navx so that absolute turn works. Normal chassis turn will be sketchy (init angle set before resetting navx).
 	}
 
 	@Override
@@ -141,11 +143,11 @@ public class Robot extends CommandRobotBase {
 			SmartDashboard.getNumber("armPID/D", 0), SmartDashboard.getNumber("armPID/F", 0));
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
-		// SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
+		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
 			+ ", RIGHT, " + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance())
-			// + ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
+			+ ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
 			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw()));
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
