@@ -92,23 +92,23 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.057;
-			public static final double I = 0.0000035;
-			public static final double D = -0.012;
-			public static final double F = 0.0;
+			public static final double P = 0.0254;
+			public static final double I = 0.0;
+			public static final double D = -0.01;
+			public static final double F = 0.04904;
 		}
 
 		public static class Turn {
-			public static final double P = 0.00254;
+			public static final double P = 0.007;
 			public static final double I = 0.0;
-			public static final double D = 0.254;
+			public static final double D = 0.526;
 			public static final double F = 0.254;
 		}
 
 		public static class Arm {
-			public static final double P = 0.009;
-			public static final double I = 0.000001;
-			public static final double D = -0.0018;
+			public static final double P = 0.05026;
+			public static final double I = 0.000254;
+			public static final double D = -0.0005;
 			public static final double F = 0.0;
 		}
 	}
@@ -152,6 +152,11 @@ public class RobotMap {
 		}
 	}
 
+	// public static class NetworkTables {
+	// public static NetworkTable network_table;
+	// public static double yaw;
+	// public static double accel;
+	// }
 	public RobotMap() {
 		/* General */
 		Component.pdp = new PDP();
@@ -180,13 +185,15 @@ public class RobotMap {
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
 		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
-		Component.chassisTurnMC.setDerivativeTolerance(0.01);
+		Component.chassisTurnMC.setDerivativeTolerance(0.1);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Component.chassis.turn_correction = 0.017;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.chassisEncoders);
-		Component.drivePID.setAbsoluteTolerance(2.0);
+			Component.rightWheelEncoder);
+		Component.drivePID.setAbsoluteTolerance(5.0);
+		Component.drivePID.setDerivativeTolerance(4.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
@@ -205,11 +212,12 @@ public class RobotMap {
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
 		// armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
-		Component.armController.setIThreshold(25);
-		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
+		Component.armController.setIThreshold(10);
+		Component.armController.setAbsoluteTolerance(7); // Uhhhhh, is this in ticks?
+		Component.armController.setDerivativeTolerance(4.0);
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
@@ -230,6 +238,8 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
+		// NetworkTableInstance server_instance = NetworkTableInstance.getDefault();
+		// NetworkTables.network_table = server_instance.getTable("sensors");
 	}
 
 	public static class PCMPort {
