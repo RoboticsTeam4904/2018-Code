@@ -19,6 +19,9 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -27,6 +30,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
+	NetworkTableInstance inst;
+	NetworkTable table;
+	NetworkTableEntry yawEntry;
+	NetworkTableEntry rightEncoderEntry;
+	NetworkTableEntry leftEncoderEntry;
+	NetworkTableEntry accelXEntry;
+	NetworkTableEntry accelYEntry;
+	NetworkTableEntry accelZEntry;
 
 	@Override
 	public void initialize() {
@@ -74,6 +85,15 @@ public class Robot extends CommandRobotBase {
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
+		inst = NetworkTableInstance.getDefault();
+		table = inst.getTable("sensorData");
+		// TODO: Correct names of entries
+		yawEntry = table.getEntry("yaw");
+		rightEncoderEntry = table.getEntry("rightEncoder");
+		leftEncoderEntry = table.getEntry("leftEncoder");
+		accelXEntry = table.getEntry("accelX");
+		accelYEntry = table.getEntry("accelY");
+		accelZEntry = table.getEntry("accelZ");
 		RobotMap.Component.rightWheelEncoder.reset();
 		RobotMap.Component.rightWheelEncoder.resetViaOffset();
 		RobotMap.Component.leftWheelEncoder.reset();
@@ -156,9 +176,15 @@ public class Robot extends CommandRobotBase {
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
-		RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
+		// RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
 		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
-		// RobotMap.network_table.getEntry("yaw").setDouble(RobotMap.Component.navx.getYaw());
+		// Push values to network table
+		yawEntry.setNumber(RobotMap.Component.navx.getYaw());
+		accelXEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelX());
+		accelYEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelY());
+		accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
+		rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
+		leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
 	}
 
 	void putSBSubsystemSummary() {

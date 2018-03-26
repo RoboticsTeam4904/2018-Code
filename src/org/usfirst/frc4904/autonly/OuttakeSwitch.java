@@ -2,7 +2,9 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.IndexerOuttake;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -21,7 +23,7 @@ public class OuttakeSwitch extends CommandGroup {
 	 */
 	public OuttakeSwitch(double approach_dist) {
 		// Set arm to switch position
-		// addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		// Drive and approach switch
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist, RobotMap.Component.drivePID));
 		// Outtake cube
@@ -29,6 +31,6 @@ public class OuttakeSwitch extends CommandGroup {
 		// Drive back away from switch
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -approach_dist, RobotMap.Component.drivePID));
 		// Set arm to intake position
-		// addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
+		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
 }
