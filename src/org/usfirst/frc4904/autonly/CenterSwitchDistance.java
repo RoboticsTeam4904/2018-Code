@@ -36,7 +36,7 @@ public class CenterSwitchDistance extends Strategy {
 		// The following orients the robot to be perpendicular with the switch again. May not be necessary
 		addSequential(new ChassisTurnAbsolute(RobotMap.Component.chassis, 0, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
-		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH));
+		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH + 3.0));
 	}
 
 	@Override
