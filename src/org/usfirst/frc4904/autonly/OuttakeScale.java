@@ -2,9 +2,7 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.IndexerOuttake;
-import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -25,7 +23,7 @@ public class OuttakeScale extends CommandGroup {
 	 */
 	public OuttakeScale(double approach_dist) {
 		// Set arm to scale position
-		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+		// addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
 		// Back up towards scale
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist + APPROACH_DISTANCE_PAST_SCALE,
 			RobotMap.Component.drivePID));
@@ -35,6 +33,6 @@ public class OuttakeScale extends CommandGroup {
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -(approach_dist + APPROACH_DISTANCE_PAST_SCALE),
 			RobotMap.Component.drivePID));
 		// Set arm to intake position
-		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
+		// addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 	}
 }

@@ -5,7 +5,7 @@ import org.usfirst.frc4904.autonly.OuttakeScale;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
 
 public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
 	public FarLeftScaleLeftDistance() {
@@ -14,10 +14,10 @@ public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_CLOSE_SCALE, RobotMap.Component.drivePID));
 		// Turn left to face away from scale
 		addSequential(
-			new ChassisTurn(RobotMap.Component.chassis, ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
+			new ChassisTurnAbsolute(RobotMap.Component.chassis, ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.
-		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_FAR_SCALE), () -> {
+		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_SCALE), () -> {
 			return RobotMap.gameField.scale.isRightOurs();
 		}));
 	}
