@@ -14,7 +14,7 @@ public class CenterSwitchDistance extends Strategy {
 		/ 2.0;
 	private static final double y_distance = AutonFieldMeasurements.ALLIANCE_SWITCH_DISTANCE - DISTANCE_APPROACH_MID
 		- DISTANCE_APPROACH_SWITCH - RobotMap.Metrics.LENGTH / 2;
-	public static final double DISTANCE_MID_SWITCH = Math
+	public static final double DISTANCE_MID = Math
 		.sqrt(x_distance * x_distance + y_distance * y_distance);
 	public static final double DEGREES_TURN_LEFT = Math.toDegrees(Math
 		.atan(y_distance / x_distance));
@@ -32,16 +32,10 @@ public class CenterSwitchDistance extends Strategy {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
 		addSequential(
-			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_SWITCH, RobotMap.Component.drivePID));
+			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID, RobotMap.Component.drivePID));
 		// The following orients the robot to be perpendicular with the switch again. May not be necessary
-		addSequential(new RunIfElse(
-			new ChassisTurnAbsolute(RobotMap.Component.chassis, -DEGREES_TURN_LEFT, RobotMap.Component.navx,
-				RobotMap.Component.chassisTurnMC),
-			new ChassisTurnAbsolute(RobotMap.Component.chassis, -DEGREES_TURN_RIGHT, RobotMap.Component.navx,
-				RobotMap.Component.chassisTurnMC),
-			() -> {
-				return RobotMap.gameField.ourSwitch.isLeftOurs();
-			}));
+		addSequential(new ChassisTurnAbsolute(RobotMap.Component.chassis, 0, RobotMap.Component.navx,
+			RobotMap.Component.chassisTurnMC));
 		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH));
 	}
 
