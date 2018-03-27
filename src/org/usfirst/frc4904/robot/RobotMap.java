@@ -95,7 +95,7 @@ public class RobotMap {
 			public static final double P = 0.0254;
 			public static final double I = 0.0;
 			public static final double D = -0.01;
-			public static final double F = 0.04904;
+			public static final double F = 0.15;
 		}
 
 		public static class Turn {
@@ -192,8 +192,8 @@ public class RobotMap {
 		Component.chassis.turn_correction = 0.017;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
 			Component.rightWheelEncoder);
-		Component.drivePID.setAbsoluteTolerance(5.0);
-		Component.drivePID.setDerivativeTolerance(4.0);
+		Component.drivePID.setAbsoluteTolerance(2.5);
+		Component.drivePID.setDerivativeTolerance(3.0);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
