@@ -8,10 +8,12 @@ import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IndexerRollersRelease;
+import org.usfirst.frc4904.robot.commands.IntakeRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
 import org.usfirst.frc4904.robot.commands.SupportRaise;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
@@ -59,8 +61,12 @@ public class DefaultOperator extends Operator {
 		RobotMap.HumanInput.Operator.joystick.button4.onlyWhileHeld(new OuttakeSquared());
 		RobotMap.HumanInput.Operator.joystick.button5.onlyWhileHeld(new IndexerRollersIntake());
 		RobotMap.HumanInput.Operator.joystick.button6.onlyWhileHeld(new IndexerRollersOuttake());
-		RobotMap.HumanInput.Operator.joystick.button7.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerLeft, 0.5));
-		RobotMap.HumanInput.Operator.joystick.button8.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerRight, 0.5));
+		RobotMap.HumanInput.Operator.joystick.button7
+			.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerLeft, CrateIO.INTAKE_SPEED));
+		RobotMap.HumanInput.Operator.joystick.button8
+			.whileHeld(new MotorConstant(RobotMap.Component.crateIORollerRight, CrateIO.INTAKE_SPEED));
+		RobotMap.HumanInput.Operator.joystick.button11
+			.whileHeld(new IntakeRollersOuttake());
 		// RobotMap.HumanInput.Operator.joystick.button7
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_INTOOK, true));
 		// RobotMap.HumanInput.Operator.joystick.button8
@@ -70,7 +76,6 @@ public class DefaultOperator extends Operator {
 		// RobotMap.HumanInput.Operator.joystick.button12
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		// Lifter
-		// button 12 + right stick: left lifter deploy
 		// button 10 + right stick: right lifter deploy
 		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(
 			new RunIf(new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
