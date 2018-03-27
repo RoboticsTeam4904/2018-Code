@@ -22,7 +22,9 @@ public class Arm extends PositionSensorMotor {
 		ArmState.ARM_POSITION_SCALE.position);
 
 	public enum ArmState {
-		ARM_POSITION_INTAKE(0), ARM_POSITION_INTOOK(5), ARM_POSITION_SWITCH(45), ARM_POSITION_SCALE(125); // TODO: need to be tweaked a lot
+		ARM_POSITION_INTAKE(10)
+		/** change this to 0 when we get the counterbalance */
+		,ARM_POSITION_INTOOK(5), ARM_POSITION_SWITCH(45), ARM_POSITION_SCALE(125); // TODO: need to be tweaked a lot
 		public final double position;
 
 		private ArmState(double position) {

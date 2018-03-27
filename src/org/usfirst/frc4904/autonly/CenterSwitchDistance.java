@@ -20,10 +20,10 @@ public class CenterSwitchDistance extends Strategy {
 		.sqrt(x_distance_right * x_distance_right + y_distance * y_distance);
 	public static final double DISTANCE_MID_LEFT = Math
 		.sqrt(x_distance_left * x_distance_left + y_distance * y_distance);
+	public static final double DEGREES_TURN_RIGHT = -Math.toDegrees(Math
+		.atan(y_distance / x_distance_right)) + 5;
 	public static final double DEGREES_TURN_LEFT = Math.toDegrees(Math
 		.atan(y_distance / x_distance_left));
-	public static final double DEGREES_TURN_RIGHT = Math.toDegrees(Math
-		.atan(y_distance / x_distance_right));
 
 	public CenterSwitchDistance() {
 		addSequential(
