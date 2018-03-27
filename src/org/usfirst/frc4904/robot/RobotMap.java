@@ -94,8 +94,8 @@ public class RobotMap {
 		public static class Drive {
 			public static final double P = 0.0254;
 			public static final double I = 0.0;
-			public static final double D = -0.01;
-			public static final double F = 0.15;
+			public static final double D = -0.02;
+			public static final double F = 0.254;
 		}
 
 		public static class Turn {
@@ -106,10 +106,10 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.05026;
-			public static final double I = 0.000254;
-			public static final double D = -0.0005;
-			public static final double F = 0.0;
+			public static final double P = 0.016;
+			public static final double I = 0.000003;
+			public static final double D = 0.0;
+			public static final double F = 0.003;
 		}
 	}
 
@@ -216,7 +216,7 @@ public class RobotMap {
 		// armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(10);
-		Component.armController.setAbsoluteTolerance(7); // Uhhhhh, is this in ticks?
+		Component.armController.setAbsoluteTolerance(4); // Uhhhhh, is this in ticks?
 		Component.armController.setDerivativeTolerance(4.0);
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);

@@ -12,13 +12,18 @@ public class CenterSwitchDistance extends Strategy {
 		- RobotMap.Metrics.LENGTH / 2;
 	private static final double x_distance = (AutonFieldMeasurements.SWITCH_WIDTH - AutonFieldMeasurements.SWITCH_PLATE_WIDTH)
 		/ 2.0;
+	private static final double x_distance_right = x_distance - 7.5;
+	private static final double x_distance_left = x_distance + 7.5;
 	private static final double y_distance = AutonFieldMeasurements.ALLIANCE_SWITCH_DISTANCE - DISTANCE_APPROACH_MID
 		- DISTANCE_APPROACH_SWITCH - RobotMap.Metrics.LENGTH / 2;
-	public static final double DISTANCE_MID = Math
-		.sqrt(x_distance * x_distance + y_distance * y_distance);
+	public static final double DISTANCE_MID_RIGHT = Math
+		.sqrt(x_distance_right * x_distance_right + y_distance * y_distance);
+	public static final double DISTANCE_MID_LEFT = Math
+		.sqrt(x_distance_left * x_distance_left + y_distance * y_distance);
 	public static final double DEGREES_TURN_LEFT = Math.toDegrees(Math
-		.atan(y_distance / x_distance));
-	public static final double DEGREES_TURN_RIGHT = -DEGREES_TURN_LEFT;
+		.atan(y_distance / x_distance_left));
+	public static final double DEGREES_TURN_RIGHT = Math.toDegrees(Math
+		.atan(y_distance / x_distance_right));
 
 	public CenterSwitchDistance() {
 		addSequential(
@@ -31,12 +36,16 @@ public class CenterSwitchDistance extends Strategy {
 			() -> {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
-		addSequential(
-			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID, RobotMap.Component.drivePID));
+		addSequential(new RunIfElse(
+			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_LEFT, RobotMap.Component.drivePID),
+			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_RIGHT, RobotMap.Component.drivePID),
+			() -> {
+				return RobotMap.gameField.ourSwitch.isLeftOurs();
+			}));
 		// The following orients the robot to be perpendicular with the switch again. May not be necessary
 		addSequential(new ChassisTurnAbsolute(RobotMap.Component.chassis, 0, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
-		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH + 3.0));
+		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH - 2.0));
 	}
 
 	@Override

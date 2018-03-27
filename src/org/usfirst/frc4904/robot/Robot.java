@@ -16,15 +16,6 @@ import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
-import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
->>>>>>> b354293861d5ed2d661c84d3980af5364a34654a
-=======
-import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
->>>>>>> b354293861d5ed2d661c84d3980af5364a34654a
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
@@ -56,27 +47,12 @@ public class Robot extends CommandRobotBase {
 			// new ChassisIdle(RobotMap.Component.chassis));
 			// new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 			// new ChassisIdle(RobotMap.Component.chassis));
-<<<<<<< HEAD
-<<<<<<< HEAD
 			// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-			new ChassisMoveDistance(RobotMap.Component.chassis, 205, RobotMap.Component.drivePID));
-		// new Square());
-		// new FarLeftSwitchDistance());
-		// new FarLeftScaleDistance());
-		// new CenterSwitchDistance());
-=======
-=======
->>>>>>> b354293861d5ed2d661c84d3980af5364a34654a
-//			 new ChassisTurn(RobotMap.Component.chassis, 30, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-			 new ChassisMoveDistance(RobotMap.Component.chassis, 12, RobotMap.Component.drivePID));
+			// new ChassisMoveDistance(RobotMap.Component.chassis, 205, RobotMap.Component.drivePID));
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
-//			new CenterSwitchDistance());
-<<<<<<< HEAD
->>>>>>> b354293861d5ed2d661c84d3980af5364a34654a
-=======
->>>>>>> b354293861d5ed2d661c84d3980af5364a34654a
+			new CenterSwitchDistance());
 		// new OuttakeSwitch(12));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
