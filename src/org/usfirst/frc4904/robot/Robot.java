@@ -138,6 +138,7 @@ public class Robot extends CommandRobotBase {
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
+		putSBSubsystemSummary();
 	}
 
 	void putSBSubsystemSummary() {
