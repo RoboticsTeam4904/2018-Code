@@ -185,6 +185,7 @@ public class Robot extends CommandRobotBase {
 		accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
 		rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
 		leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
+		putSBSubsystemSummary();
 	}
 
 	void putSBSubsystemSummary() {
