@@ -154,14 +154,30 @@ public class RobotMap {
 
 	public static class NetworkTables {
 		public static NetworkTableInstance inst;
-		public static NetworkTable visionTable;
-		public static NetworkTable cubeTable;
-		public static NetworkTableEntry cubeAngleEntry;
-		public static NetworkTableEntry cubeDistanceEntry;
-		public static NetworkTable localizationTable;
-		public static NetworkTableEntry distObstFrontEntry;
-		public static NetworkTableEntry ourXEntry;
-		public static NetworkTableEntry ourYEntry;
+		public static NetworkTable table;
+
+		public static class Sensors {
+			public static NetworkTable table;
+			public static NetworkTableEntry yawEntry;
+			public static NetworkTableEntry rightEncoderEntry;
+			public static NetworkTableEntry leftEncoderEntry;
+			public static NetworkTableEntry accelXEntry;
+			public static NetworkTableEntry accelYEntry;
+			public static NetworkTableEntry accelZEntry;
+		}
+
+		public static class Cubes {
+			public static NetworkTable table;
+			public static NetworkTableEntry angleEntry;
+			public static NetworkTableEntry distanceEntry;
+		}
+
+		public static class Localization {
+			public static NetworkTable table;
+			public static NetworkTableEntry distObstFrontEntry;
+			public static NetworkTableEntry ourXEntry;
+			public static NetworkTableEntry ourYEntry;
+		}
 	}
 
 	public static class HumanInput {
@@ -257,14 +273,22 @@ public class RobotMap {
 		};
 		/* NetworkTables */
 		NetworkTables.inst = NetworkTableInstance.getDefault();
-		NetworkTables.visionTable = NetworkTables.inst.getTable("vision");
-		NetworkTables.cubeTable = NetworkTables.visionTable.getSubTable("cubes");
-		NetworkTables.cubeAngleEntry = NetworkTables.cubeTable.getEntry("relangle");
-		NetworkTables.cubeDistanceEntry = NetworkTables.cubeTable.getEntry("distance");
-		NetworkTables.localizationTable = NetworkTables.visionTable.getSubTable("localization");
-		NetworkTables.distObstFrontEntry = NetworkTables.localizationTable.getEntry("frontObsticalDist");
-		NetworkTables.ourXEntry = NetworkTables.localizationTable.getEntry("x");
-		NetworkTables.ourYEntry = NetworkTables.localizationTable.getEntry("y");
+		NetworkTables.table = NetworkTables.inst.getTable("vision");
+		NetworkTables.Sensors.table = NetworkTables.inst.getTable("sensorData");
+		NetworkTables.Sensors.yawEntry = NetworkTables.Sensors.table.getEntry("yaw");
+		NetworkTables.Sensors.rightEncoderEntry = NetworkTables.Sensors.table.getEntry("rightEncoder");
+		NetworkTables.Sensors.leftEncoderEntry = NetworkTables.Sensors.table.getEntry("leftEncoder");
+		NetworkTables.Sensors.accelXEntry = NetworkTables.Sensors.table.getEntry("accelX");
+		NetworkTables.Sensors.accelYEntry = NetworkTables.Sensors.table.getEntry("accelY");
+		NetworkTables.Sensors.accelZEntry = NetworkTables.Sensors.table.getEntry("accelZ");
+		NetworkTables.Cubes.table = NetworkTables.table.getSubTable("cubes");
+		NetworkTables.Cubes.angleEntry = NetworkTables.Cubes.table.getEntry("relangle");
+		NetworkTables.Cubes.distanceEntry = NetworkTables.Cubes.table.getEntry("distance");
+		NetworkTables.Localization.table = NetworkTables.table.getSubTable("localization");
+		NetworkTables.Localization.distObstFrontEntry = NetworkTables.Localization.table
+			.getEntry("frontObsticalDist");
+		NetworkTables.Localization.ourXEntry = NetworkTables.Localization.table.getEntry("x");
+		NetworkTables.Localization.ourYEntry = NetworkTables.Localization.table.getEntry("y");
 	}
 
 	public static class PCMPort {
