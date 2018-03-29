@@ -3,12 +3,12 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
-import org.usfirst.frc4904.autonly.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.LeftSideTime;
-import org.usfirst.frc4904.autonly.LeftSwitchOverScale;
-import org.usfirst.frc4904.autonly.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.RightSideTime;
-import org.usfirst.frc4904.autonly.RightSwitchOverScale;
+import org.usfirst.frc4904.autonly.farsidepriorities.LeftScaleOverSwitch;
+import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
+import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
+import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
