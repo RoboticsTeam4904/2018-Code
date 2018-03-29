@@ -99,14 +99,14 @@ public class RobotMap {
 		public static class Drive {
 			public static final double P = 0.04;
 			public static final double I = 0.0;
-			public static final double D = -0.013;
+			public static final double D = -0.006;
 			public static final double F = 0.01;
 			public static final double tolerance = 4.5;
 			public static final double dTolerance = 3.0;
 		}
 
 		public static class Turn {
-			public static final double P = 0.004;
+			public static final double P = 0.003;
 			public static final double I = 0.0;
 			public static final double D = -0.05;
 			public static final double F = 0.2;
@@ -115,10 +115,10 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.009;
-			public static final double I = 0.000001;
-			public static final double D = -0.0018;
-			public static final double F = 0.0;
+			public static final double P = 0.007;
+			public static final double I = 0.000005;
+			public static final double D = -0.0004;
+			public static final double F = 0.0001;
 			public static final double tolerance = 4.0;
 			public static final double dTolerance = 3.0;
 		}
@@ -236,7 +236,7 @@ public class RobotMap {
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.rightWheelEncoder);
+			Component.leftWheelEncoder);
 		Component.drivePID.setAbsoluteTolerance(PID.Drive.tolerance);
 		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
 		/* Arm */
