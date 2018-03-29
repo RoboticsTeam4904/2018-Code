@@ -1,6 +1,7 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.test;
 
 
+import org.usfirst.frc4904.autonly.Strategy;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.SingleOp;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;

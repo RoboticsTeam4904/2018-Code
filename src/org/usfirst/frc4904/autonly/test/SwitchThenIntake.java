@@ -1,4 +1,4 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.test;
 
 
 import org.usfirst.frc4904.robot.commands.ArmMove;
