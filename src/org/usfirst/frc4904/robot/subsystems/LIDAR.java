@@ -19,7 +19,7 @@ public class LIDAR implements PIDSensor {
 	}
 
 	public LIDAR() {
-		this(-5.0);
+		this(-45.0);
 	}
 
 	/**

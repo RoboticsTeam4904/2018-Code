@@ -9,7 +9,6 @@ import org.usfirst.frc4904.autonly.farsidepriorities.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
-import org.usfirst.frc4904.autonly.test.SwitchThenIntake;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
@@ -37,11 +36,13 @@ public class Robot extends CommandRobotBase {
 			// new ChassisIdle(RobotMap.Component.chassis));
 			// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 			// new ChassisMoveDistance(RobotMap.Component.chassis, 120, RobotMap.Component.drivePID));
+			// new ChassisMoveDistance(RobotMap.Component.chassis, 72, RobotMap.Component.drivePID));
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
 			// new CenterSwitchDistance());
-			new SwitchThenIntake());
+			new CrossBaselineTime());
+		// new SwitchThenIntake());
 		// new OuttakeSwitch(12));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
@@ -149,12 +150,12 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		/*
-		 * LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
-		 * + ", RIGHT, " + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance())
-		 * + ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
-		 * + ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw()));
-		 */
+		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
+		// + ", RIGHT, " + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance())
+		// + ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
+			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw())
+			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getPitch())
+			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getRoll()));
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();
