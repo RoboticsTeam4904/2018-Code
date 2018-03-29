@@ -16,7 +16,7 @@ public class FarRightScaleRightDistance extends FarSideScaleStrategy {
 		addSequential(new ChassisTurn(RobotMap.Component.chassis, -ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.
-		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_FAR_SCALE), () -> {
+		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_SCALE), () -> {
 			return RobotMap.gameField.scale.isRightOurs();
 		}));
 	}
