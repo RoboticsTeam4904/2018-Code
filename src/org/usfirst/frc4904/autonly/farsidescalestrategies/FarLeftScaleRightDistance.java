@@ -10,10 +10,10 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
 
 public class FarLeftScaleRightDistance extends FarSideScaleStrategy {
 	public FarLeftScaleRightDistance() {
-		// Move forwards past scale
+		// Move backwards past scale
 		addSequential(
 			new ChassisMoveDistance(RobotMap.Component.chassis, -DISTANCE_TO_BEHIND_SWITCH, RobotMap.Component.drivePID));
-		// Turn right
+		// Turn left
 		addSequential(
 			new ChassisTurn(RobotMap.Component.chassis, 109, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 		// Cross behind switch

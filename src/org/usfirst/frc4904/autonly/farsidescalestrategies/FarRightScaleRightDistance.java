@@ -9,10 +9,10 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 
 public class FarRightScaleRightDistance extends FarSideScaleStrategy {
 	public FarRightScaleRightDistance() {
-		// Move forward to scale (line up to its side, in the exact middle of the field between the two alliance driver stations)
+		// Move backwards towards scale
 		addSequential(
 			new ChassisMoveDistance(RobotMap.Component.chassis, -DISTANCE_CLOSE_SCALE, RobotMap.Component.drivePID));
-		// Turn right to face away from scale
+		// Turn left to face away from scale
 		addSequential(new ChassisTurn(RobotMap.Component.chassis, -ANGLE_TO_CLOSE_SCALE, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.

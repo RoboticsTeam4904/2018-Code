@@ -11,8 +11,8 @@ public class FarRightScaleLeftDistance extends FarSideScaleStrategy {
 	public FarRightScaleLeftDistance() {
 		// Move forwards past scale
 		addSequential(
-			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_TO_BEHIND_SWITCH, RobotMap.Component.drivePID));
-		// Turn left
+			new ChassisMoveDistance(RobotMap.Component.chassis, -DISTANCE_TO_BEHIND_SWITCH, RobotMap.Component.drivePID));
+		// Turn right (to face the left)
 		addSequential(
 			new ChassisTurnAbsolute(RobotMap.Component.chassis, -90, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
@@ -21,7 +21,7 @@ public class FarRightScaleLeftDistance extends FarSideScaleStrategy {
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_CROSS_BEHIND_SWITCH, RobotMap.Component.drivePID));
 		// Turn left to face away from scale
 		addSequential(
-			new ChassisTurnAbsolute(RobotMap.Component.chassis, -90 - ANGLE_TO_FAR_SCALE, RobotMap.Component.navx,
+			new ChassisTurnAbsolute(RobotMap.Component.chassis, -90 + ANGLE_TO_FAR_SCALE, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.
 		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_FAR_SCALE), () -> {
