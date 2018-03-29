@@ -72,7 +72,8 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
-		public static double ARM_ACCEL_CAP = 0.55;
+		public static final double ARM_ACCEL_CAP = 0.55;
+		public static double TURN_CORRECTION = 0.0;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
@@ -96,6 +97,8 @@ public class RobotMap {
 			public static final double I = 0.0;
 			public static final double D = -0.013;
 			public static final double F = 0.01;
+			public static final double tolerance = 4.5;
+			public static final double dTolerance = 3.0;
 		}
 
 		public static class Turn {
@@ -103,6 +106,8 @@ public class RobotMap {
 			public static final double I = 0.0;
 			public static final double D = -0.05;
 			public static final double F = 0.2;
+			public static final double tolerance = 1.0;
+			public static final double dTolerance = 0.1;
 		}
 
 		public static class Arm {
@@ -110,6 +115,8 @@ public class RobotMap {
 			public static final double I = 0.00001;
 			public static final double D = 0.0;
 			public static final double F = 0.0;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 4.0;
 		}
 	}
 
@@ -152,11 +159,6 @@ public class RobotMap {
 		}
 	}
 
-	// public static class NetworkTables {
-	// public static NetworkTable network_table;
-	// public static double yaw;
-	// public static double accel;
-	// }
 	public RobotMap() {
 		/* General */
 		Component.pdp = new PDP();
@@ -184,16 +186,31 @@ public class RobotMap {
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
-		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
-		Component.chassisTurnMC.setDerivativeTolerance(0.1);
+		Component.chassisTurnMC.setAbsoluteTolerance(PID.Turn.tolerance);
+		Component.chassisTurnMC.setDerivativeTolerance(PID.Turn.dTolerance);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
-		Component.chassis.turn_correction = 0.0;
+		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
 			Component.rightWheelEncoder);
-		Component.drivePID.setAbsoluteTolerance(4.5);
-		Component.drivePID.setDerivativeTolerance(3.0);
+		Component.drivePID.setAbsoluteTolerance(PID.Drive.tolerance);
+		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
+		/* Arm */
+		// Encoders
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
+		// armEncoder.reset();
+		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
+		Component.armController.setIThreshold(13);
+		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
+		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
+		// Motors
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		// General
+		Component.arm = new Arm(Component.armController, armEncoder,
+			armA, armB);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
@@ -210,21 +227,6 @@ public class RobotMap {
 		Component.lifterRight = new Lifter(
 			Port.Pneumatics.rightLifter.buildDoubleSolenoid(),
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
-		/* Arm */
-		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
-		// armEncoder.reset();
-		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
-		Component.armController.setIThreshold(10);
-		Component.armController.setAbsoluteTolerance(4); // Uhhhhh, is this in ticks?
-		Component.armController.setDerivativeTolerance(4.0);
-		// Motors
-		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
-		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
-		armB.setInverted(true);
-		// General
-		Component.arm = new Arm(Component.armController, armEncoder,
-			armA, armB);
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
@@ -238,8 +240,6 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
-		// NetworkTableInstance server_instance = NetworkTableInstance.getDefault();
-		// NetworkTables.network_table = server_instance.getTable("sensors");
 	}
 
 	public static class PCMPort {

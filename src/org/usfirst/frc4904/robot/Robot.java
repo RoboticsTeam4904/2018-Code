@@ -2,6 +2,7 @@ package org.usfirst.frc4904.robot;
 
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
+import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
 import org.usfirst.frc4904.autonly.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.LeftSideDistance;
@@ -73,8 +74,7 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject(new LeftSwitchOverScale());
 		autoChooser.addObject(new RightScaleOverSwitch());
 		autoChooser.addObject(new RightSwitchOverScale());
-		// autoChooser.addDefault(new CrossBaselineTime());
-		// autoChooser.addDefault(new CrossBaselineDistance());
+		autoChooser.addDefault(new CrossBaselineDistance());
 		autoChooser.addObject(new CrossBaselineTime());
 		SmartDashboard.putString("Most Recent CAN Success", "never");
 		SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
@@ -91,6 +91,7 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("armPID/D", RobotMap.Component.armController.getD());
 		SmartDashboard.putNumber("armPID/F", RobotMap.Component.armController.getF());
 		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
+		SmartDashboard.putNumber("turn_correction", RobotMap.Component.chassis.turn_correction);
 		// streaming:
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
@@ -188,8 +189,8 @@ public class Robot extends CommandRobotBase {
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
-		// RobotMap.Metrics.ARM_ACCEL_CAP = SmartDashboard.getNumber("arm_accel_cap", 0);
-		SmartDashboard.putNumber("arm_accel_cap", RobotMap.Metrics.ARM_ACCEL_CAP);
+		RobotMap.Component.chassis.turn_correction = SmartDashboard.getNumber("turn_correction", 0.0);
+		SmartDashboard.putNumber("turn_correction", RobotMap.Component.chassis.turn_correction);
 		// Push values to network table
 		yawEntry.setNumber(RobotMap.Component.navx.getYaw());
 		accelXEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelX());
