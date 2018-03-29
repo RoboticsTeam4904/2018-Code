@@ -29,9 +29,13 @@ public class NathanGain extends Driver {
 			.whenPressed(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.DOWN));
 		RobotMap.HumanInput.Driver.xbox.rb
 			.whenPressed(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.UP));
-		RobotMap.HumanInput.Driver.xbox.a.whenReleased(new SingleOp(() -> { // TODO: change this
+		RobotMap.HumanInput.Driver.xbox.x.whenReleased(new SingleOp(() -> { // TODO: change this
 			RobotMap.Component.arm.encoder.resetViaOffset(6.0); // TODO: change this
 		}));
+		RobotMap.HumanInput.Driver.xbox.a
+			.whileHeld(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.UP));
+		RobotMap.HumanInput.Driver.xbox.a
+			.whenReleased(new ChassisShift(RobotMap.Component.chassis.getShifter(), SolenoidShifters.ShiftState.DOWN));
 	}
 
 	@Override

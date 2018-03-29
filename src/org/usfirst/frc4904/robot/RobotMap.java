@@ -53,16 +53,14 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x610;
-			public static final int rightEncoder = 0x611;
+			public static final int leftEncoder = 0x611;
+			public static final int rightEncoder = 0x610;
 			public static final int armEncoderPort = 0x612;
 		}
 
 		public static class Pneumatics {
 			// TODO: Check if the order of these ports is correct
-			public static final PCMPort leftLifter = new PCMPort(0, 2, 3); // not deploy, deploy // 0 is the PCM with the compressor
 			public static final PCMPort rightLifter = new PCMPort(1, 3, 2); // not deploy, deploy
-			public static final PCMPort leftLifterSupport = new PCMPort(0, 4, 5); // raise, no raise
 			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5); // raise, no raise
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6); // clasp, release
@@ -74,7 +72,8 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
-		public static final double ARM_ACCEL_CAP = 1.0;
+		public static final double ARM_ACCEL_CAP = 0.55;
+		public static double TURN_CORRECTION = 0.0;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
@@ -94,30 +93,35 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.057;
-			public static final double I = 0.0000035;
-			public static final double D = -0.012;
-			public static final double F = 0.0;
+			public static final double P = 0.035;
+			public static final double I = 0.0;
+			public static final double D = -0.013;
+			public static final double F = 0.01;
+			public static final double tolerance = 4.5;
+			public static final double dTolerance = 3.0;
 		}
 
 		public static class Turn {
-			public static final double P = 0.0032;
+			public static final double P = 0.004;
 			public static final double I = 0.0;
-			public static final double D = -0.0000025;
-			public static final double F = 0.000001;
+			public static final double D = -0.05;
+			public static final double F = 0.2;
+			public static final double tolerance = 1.0;
+			public static final double dTolerance = 0.1;
 		}
 
 		public static class Arm {
-			public static final double P = 0.009;
-			public static final double I = 0.000001;
-			public static final double D = -0.0018;
+			public static final double P = 0.016;
+			public static final double I = 0.00001;
+			public static final double D = 0.0;
 			public static final double F = 0.0;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 4.0;
 		}
 	}
 
 	public static class Component {
 		public static Arm arm;
-		public static Lifter lifterLeft;
 		public static Lifter lifterRight;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
@@ -164,7 +168,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder.setDistancePerPulse(-Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -182,13 +186,31 @@ public class RobotMap {
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
-		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		Component.chassisTurnMC.setAbsoluteTolerance(PID.Turn.tolerance);
+		Component.chassisTurnMC.setDerivativeTolerance(PID.Turn.dTolerance);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.chassisEncoders);
-		Component.drivePID.setAbsoluteTolerance(2.0);
+			Component.rightWheelEncoder);
+		Component.drivePID.setAbsoluteTolerance(PID.Drive.tolerance);
+		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
+		/* Arm */
+		// Encoders
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
+		// armEncoder.reset();
+		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
+		Component.armController.setIThreshold(13);
+		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
+		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
+		// Motors
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		// General
+		Component.arm = new Arm(Component.armController, armEncoder,
+			armA, armB);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
@@ -205,23 +227,6 @@ public class RobotMap {
 		Component.lifterRight = new Lifter(
 			Port.Pneumatics.rightLifter.buildDoubleSolenoid(),
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
-		Component.lifterLeft = new Lifter(
-			Port.Pneumatics.leftLifter.buildDoubleSolenoid(),
-			Port.Pneumatics.leftLifterSupport.buildDoubleSolenoid());
-		/* Arm */
-		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
-		// armEncoder.reset();
-		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
-		Component.armController.setIThreshold(25);
-		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
-		// Motors
-		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
-		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
-		armB.setInverted(true);
-		// General
-		Component.arm = new Arm(Component.armController, armEncoder,
-			armA, armB);
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
