@@ -6,6 +6,7 @@ import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.LIDAR;
 import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -121,6 +122,15 @@ public class RobotMap {
 			public static final double tolerance = 4.0;
 			public static final double dTolerance = 3.0;
 		}
+
+		public static class LIDAR {
+			public static final double P = 0.0001;
+			public static final double I = 0.0;
+			public static final double D = -0.0018;
+			public static final double F = 0.0;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 3.0;
+		}
 	}
 
 	public static class Component {
@@ -144,9 +154,11 @@ public class RobotMap {
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
+		public static LIDAR lidar;
 		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
 		public static CustomPIDController armController;
+		public static CustomPIDController lidarPID;
 		public static NavX navx;
 		public static Subsystem[] mainSubsystems;
 		public static CANSensor intakeSwitch;
@@ -235,6 +247,12 @@ public class RobotMap {
 		Component.armController.setIThreshold(13);
 		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
 		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
+		// LIDAR
+		Component.lidar = new LIDAR();
+		Component.lidarPID = new CustomPIDController(PID.LIDAR.P, PID.LIDAR.I, PID.LIDAR.D, PID.LIDAR.F,
+			Component.lidar);
+		Component.lidarPID.setAbsoluteTolerance(PID.LIDAR.tolerance);
+		Component.lidarPID.setDerivativeTolerance(PID.LIDAR.dTolerance);
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);

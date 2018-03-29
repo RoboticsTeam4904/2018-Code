@@ -54,4 +54,26 @@ public class OuttakeSwitch extends CommandGroup {
 	public OuttakeSwitch(double approach_dist) {
 		this(approach_dist, false);
 	}
+
+	public OuttakeSwitch(boolean arm_set) {
+		// Set arm to switch position. If it's already there, just keep it there in parallel to the rest
+		if (arm_set) {
+			addParallel(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		} else {
+			addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		}
+		addParallel(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		// Drive and approach switch
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, 0, RobotMap.Component.lidarPID));
+		// Outtake cube
+		addSequential(new RunFor(new IndexerOuttake(AutonConfig.AUTON_OUTTAKE_SPEED), 2));
+		// Drive back away from switch
+		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, -20, RobotMap.Component.drivePID));
+		// Set arm to intake position
+		addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
+	}
+
+	public OuttakeSwitch() {
+		this(false);
+	}
 }
