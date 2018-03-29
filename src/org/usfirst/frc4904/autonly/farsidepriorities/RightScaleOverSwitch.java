@@ -10,7 +10,7 @@ import org.usfirst.frc4904.standard.commands.RunIfElse;
 public class RightScaleOverSwitch extends RunIfElse {
 	public RightScaleOverSwitch() {
 		super(new FarRightScaleRightDistance(),
-			new RunIfElse(new FarRightSwitchRightDistance(), new CrossBaselineDistance(),
+			new RunIfElse(new FarRightSwitchRightDistance(), new CrossBaselineDistance(false),
 				RobotMap.gameField.ourSwitch::isRightOurs),
 			RobotMap.gameField.scale::isRightOurs);
 	}
