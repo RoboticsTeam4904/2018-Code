@@ -22,6 +22,9 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -149,6 +152,18 @@ public class RobotMap {
 		public static CANSensor intakeSwitch;
 	}
 
+	public static class NetworkTables {
+		public static NetworkTableInstance inst;
+		public static NetworkTable visionTable;
+		public static NetworkTable cubeTable;
+		public static NetworkTableEntry cubeAngleEntry;
+		public static NetworkTableEntry cubeDistanceEntry;
+		public static NetworkTable localizationTable;
+		public static NetworkTableEntry distObstFrontEntry;
+		public static NetworkTableEntry ourXEntry;
+		public static NetworkTableEntry ourYEntry;
+	}
+
 	public static class HumanInput {
 		public static class Driver {
 			public static CustomXbox xbox;
@@ -240,6 +255,16 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
+		/* NetworkTables */
+		NetworkTables.inst = NetworkTableInstance.getDefault();
+		NetworkTables.visionTable = NetworkTables.inst.getTable("vision");
+		NetworkTables.cubeTable = NetworkTables.visionTable.getSubTable("cubes");
+		NetworkTables.cubeAngleEntry = NetworkTables.cubeTable.getEntry("relangle");
+		NetworkTables.cubeDistanceEntry = NetworkTables.cubeTable.getEntry("distance");
+		NetworkTables.localizationTable = NetworkTables.visionTable.getSubTable("localization");
+		NetworkTables.distObstFrontEntry = NetworkTables.localizationTable.getEntry("frontObsticalDist");
+		NetworkTables.ourXEntry = NetworkTables.localizationTable.getEntry("x");
+		NetworkTables.ourYEntry = NetworkTables.localizationTable.getEntry("y");
 	}
 
 	public static class PCMPort {

@@ -27,7 +27,6 @@ import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,7 +35,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends CommandRobotBase {
 	private RobotMap map = new RobotMap();
-	NetworkTableInstance inst;
 	NetworkTable table;
 	NetworkTableEntry yawEntry;
 	NetworkTableEntry rightEncoderEntry;
@@ -44,6 +42,7 @@ public class Robot extends CommandRobotBase {
 	NetworkTableEntry accelXEntry;
 	NetworkTableEntry accelYEntry;
 	NetworkTableEntry accelZEntry;
+
 
 	@Override
 	public void initialize() {
@@ -96,8 +95,7 @@ public class Robot extends CommandRobotBase {
 		new Thread(() -> {
 			CameraServer.getInstance().startAutomaticCapture();
 		}).start();
-		inst = NetworkTableInstance.getDefault();
-		table = inst.getTable("sensorData");
+		table = RobotMap.NetworkTables.inst.getTable("sensorData");
 		// TODO: Correct names of entries
 		yawEntry = table.getEntry("yaw");
 		rightEncoderEntry = table.getEntry("rightEncoder");
