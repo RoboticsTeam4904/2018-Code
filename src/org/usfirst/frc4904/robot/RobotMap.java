@@ -53,8 +53,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x611;
-			public static final int rightEncoder = 0x610;
+			public static final int leftEncoder = 0x610;
+			public static final int rightEncoder = 0x611;
 			public static final int armEncoderPort = 0x612;
 		}
 
@@ -93,7 +93,7 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.035;
+			public static final double P = 0.04;
 			public static final double I = 0.0;
 			public static final double D = -0.013;
 			public static final double F = 0.01;
@@ -111,12 +111,12 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.016;
-			public static final double I = 0.00001;
-			public static final double D = 0.0;
+			public static final double P = 0.009;
+			public static final double I = 0.000001;
+			public static final double D = -0.0018;
 			public static final double F = 0.0;
 			public static final double tolerance = 4.0;
-			public static final double dTolerance = 4.0;
+			public static final double dTolerance = 3.0;
 		}
 	}
 
@@ -168,7 +168,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(-Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -198,7 +198,7 @@ public class RobotMap {
 		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
 		// armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(13);
