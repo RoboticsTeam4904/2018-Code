@@ -2,7 +2,6 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,7 +15,7 @@ public class VisionCubeIntake extends CommandGroup {
 		addSequential(
 			new ChassisTurnAbsolute(RobotMap.Component.chassis, cubeAngle, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
-		addParallel(new IntakeSquared());
+		// addParallel(new IntakeSquared());
 		// TODO: DO NOT UNCOMMENT THE FOLLOWING WITHOUT FULL CHECKS TO THE REST OF THE CODE
 		// addSequential(
 		// new ChassisMoveDistance(RobotMap.Component.chassis, cubeDist, RobotMap.Component.drivePID));
