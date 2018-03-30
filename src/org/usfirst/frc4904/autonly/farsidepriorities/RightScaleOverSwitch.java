@@ -3,7 +3,7 @@ package org.usfirst.frc4904.autonly.farsidepriorities;
 
 import org.usfirst.frc4904.autonly.CrossBaselineDistance;
 import org.usfirst.frc4904.autonly.Strategy;
-import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleLeftDistance;
+import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleRightDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarRightSwitchRightDistance;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.LogKitten;
@@ -20,7 +20,7 @@ public class RightScaleOverSwitch extends Strategy {
 			() -> {
 				return RobotMap.gameField.scale.isRightOurs();
 			}));
-		addSequential(new RunIfElse(new FarRightScaleLeftDistance(),
+		addSequential(new RunIfElse(new FarRightScaleRightDistance(),
 			new RunIfElse(new FarRightSwitchRightDistance(), new CrossBaselineDistance(true),
 				() -> {
 					return RobotMap.gameField.ourSwitch.isRightOurs();

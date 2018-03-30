@@ -1,11 +1,13 @@
 package org.usfirst.frc4904.autonly;
 
 
+import org.usfirst.frc4904.autonly.sideswitchnoturn.SideSwitchTime;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.commands.IndexerOuttake;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunFor;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisConstant;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -34,6 +36,8 @@ public class OuttakeSwitch extends CommandGroup {
 		}
 		// Drive and approach switch
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist, RobotMap.Component.drivePID));
+		addParallel(new ChassisConstant(RobotMap.Component.chassis, 0, SideSwitchTime.RAM_SWITCH_SPEED, 0,
+			SideSwitchTime.TIME_RAM_SWITCH));
 		// Outtake cube
 		addSequential(new RunFor(new IndexerOuttake(AutonConfig.AUTON_OUTTAKE_SPEED), 2));
 		// Drive back away from switch

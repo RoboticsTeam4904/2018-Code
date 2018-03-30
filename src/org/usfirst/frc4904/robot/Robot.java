@@ -8,7 +8,6 @@ import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleRightDistance;
-import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchLeftDistance;
 import org.usfirst.frc4904.autonly.sideswitchnoturn.LeftSideTime;
 import org.usfirst.frc4904.autonly.sideswitchnoturn.RightSideTime;
 import org.usfirst.frc4904.autonly.test.SwitchThenIntake;
@@ -46,12 +45,12 @@ public class Robot extends CommandRobotBase {
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
-			// new CenterSwitchDistance());
-			// new CrossBaselineTime());
-			// new SwitchThenIntake());
-			// new TurnThenReset(90));
-			// new OuttakeSwitch(12));
-			new FarLeftSwitchLeftDistance());
+			new CenterSwitchDistance());
+		// new CrossBaselineTime());
+		// new SwitchThenIntake());
+		// new TurnThenReset(90));
+		// new OuttakeSwitch(12));
+		// new FarLeftSwitchLeftDistance());
 		autoChooser.addObject("Scale", new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
 		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
@@ -175,6 +174,14 @@ public class Robot extends CommandRobotBase {
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
+		SmartDashboard.putNumberArray("Cube angles",
+			RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {3600000}));
+		SmartDashboard.putNumber("Closest cube angle",
+			RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {0})[0]);
+		SmartDashboard.putNumberArray("Cube distances",
+			RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0}));
+		SmartDashboard.putNumber("Closest cube distance",
+			RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0})[0]);
 		RobotMap.Component.chassis.turn_correction = SmartDashboard.getNumber("turn_correction", 0.0);
 		SmartDashboard.putNumber("turn_correction", RobotMap.Component.chassis.turn_correction);
 		// Push values to network table
@@ -184,6 +191,7 @@ public class Robot extends CommandRobotBase {
 		RobotMap.NetworkTables.Sensors.accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
 		RobotMap.NetworkTables.Sensors.rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
 		RobotMap.NetworkTables.Sensors.leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
+		putSBSubsystemSummary();
 	}
 
 	void putSBSubsystemSummary() {

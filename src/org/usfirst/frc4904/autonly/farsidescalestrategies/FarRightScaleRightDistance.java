@@ -12,9 +12,9 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 
 public class FarRightScaleRightDistance extends FarSideScaleStrategy {
 	public FarRightScaleRightDistance() {
-		if (AutonConfig.EARLY_ARM_RAISE) {
-			addParallel(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SCALE, 2.5));
-		}
+		addParallel(new RunIf(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SCALE, 2.5), () -> {
+			return AutonConfig.EARLY_ARM_RAISE;
+		}));
 		// Move backwards towards scale
 		addSequential(
 			new ChassisMoveDistance(RobotMap.Component.chassis, -DISTANCE_CLOSE_SCALE, RobotMap.Component.drivePID));
