@@ -3,16 +3,19 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
-import org.usfirst.frc4904.autonly.LeftSideTime;
-import org.usfirst.frc4904.autonly.RightSideTime;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleRightDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchLeftDistance;
+import org.usfirst.frc4904.autonly.sideswitchnoturn.LeftSideTime;
+import org.usfirst.frc4904.autonly.sideswitchnoturn.RightSideTime;
+import org.usfirst.frc4904.autonly.test.SwitchThenIntake;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
+import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
@@ -49,6 +52,10 @@ public class Robot extends CommandRobotBase {
 			// new TurnThenReset(90));
 			// new OuttakeSwitch(12));
 			new FarLeftSwitchLeftDistance());
+		autoChooser.addObject("Scale", new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
+		autoChooser.addObject(new SwitchThenIntake());
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
 		autoChooser.addObject(new FarRightScaleRightDistance());
@@ -113,7 +120,7 @@ public class Robot extends CommandRobotBase {
 	public void autonomousInitialize() {
 		// Component.leftWheelEncoder.reset();
 		// TODO: Fix encoder resetting.
-		LogKitten.wtf("---RESET ARM ENCODER--- BE SURE THAT ARM IS IN AUTON INITIAL POSITION");
+		// LogKitten.wtf("---RESET ARM ENCODER--- BE SURE THAT ARM IS IN AUTON INITIAL POSITION");
 		// RobotMap.Component.arm.encoder.reset();
 		RobotMap.Component.arm.encoder.resetViaOffset(8.0); // WARNING: Reseting arm encoder to 8 degrees above rest (where we start in auton). Arm HAS to be in lowered position for ArmStates and PID to be accurate later and so it doesn't flip out
 		LogKitten.wtf("---END RESET ARM ENCODER---");
@@ -158,12 +165,10 @@ public class Robot extends CommandRobotBase {
 		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
-		LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
+		// LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
 		// + ", RIGHT, " + Double.toString(RobotMap.Component.rightWheelEncoder.getDistance())
 		// + ", LEFT, " + Double.toString(RobotMap.Component.leftWheelEncoder.getDistance())
-			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw())
-			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getPitch())
-			+ ", NAVX: " + Double.toString(RobotMap.Component.navx.getRoll()));
+		// + ", NAVX: " + Double.toString(RobotMap.Component.navx.getYaw()));
 		// TODO: Fix arm resetting.
 		// if (SmartDashboard.getBoolean("ShouldResetArmEncoder", false)) {
 		// RobotMap.Component.arm.encoder.reset();

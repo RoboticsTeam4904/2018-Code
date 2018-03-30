@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SwitchThenIntake extends CommandGroup {
 	public SwitchThenIntake() {
-		addSequential(new ArmMove(Arm.ArmState.ARM_POSITION_SWITCH, true));
+		addSequential(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		addSequential(new ArmMove(Arm.ArmState.ARM_POSITION_INTAKE, true));
 	}
 }

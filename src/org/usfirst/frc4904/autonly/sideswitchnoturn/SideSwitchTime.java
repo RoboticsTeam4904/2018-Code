@@ -1,4 +1,6 @@
-package org.usfirst.frc4904.autonly;
+package org.usfirst.frc4904.autonly.sideswitchnoturn;
+
+import org.usfirst.frc4904.autonly.Strategy;
 
 public abstract class SideSwitchTime extends Strategy {
 	public static final double TIME_APPROACH_SWITCH = 4;

@@ -32,7 +32,6 @@ public class OuttakeSwitch extends CommandGroup {
 		} else {
 			addSequential(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		}
-		addParallel(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		// Drive and approach switch
 		addSequential(new ChassisMoveDistance(RobotMap.Component.chassis, approach_dist, RobotMap.Component.drivePID));
 		// Outtake cube
