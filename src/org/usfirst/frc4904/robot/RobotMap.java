@@ -299,7 +299,8 @@ public class RobotMap {
 		NetworkTables.Sensors.accelXEntry = NetworkTables.Sensors.table.getEntry("accelX");
 		NetworkTables.Sensors.accelYEntry = NetworkTables.Sensors.table.getEntry("accelY");
 		NetworkTables.Sensors.accelZEntry = NetworkTables.Sensors.table.getEntry("accelZ");
-		NetworkTables.Cubes.table = NetworkTables.table.getSubTable("cubes");
+		NetworkTable pose = NetworkTables.inst.getTable("pose");
+		NetworkTables.Cubes.table = pose.getSubTable("cubes");
 		NetworkTables.Cubes.angleEntry = NetworkTables.Cubes.table.getEntry("relangle");
 		NetworkTables.Cubes.distanceEntry = NetworkTables.Cubes.table.getEntry("distance");
 		NetworkTables.Localization.table = NetworkTables.table.getSubTable("localization");
