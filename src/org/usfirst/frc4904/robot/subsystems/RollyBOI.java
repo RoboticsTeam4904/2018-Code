@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class RollyBOI {
 	public static final double INTAKE_SPEED = 0.5;
-	public static final double OUTTAKE_SPEED = -0.7;
+	public static final double OUTTAKE_SPEED = -1.0;
+	public static final double RELEASE_SPEED = -0.35;
 	public final Motor rollerLeft;
 	public final Motor rollerRight;
 	public final Grabber grabber;
@@ -33,14 +34,17 @@ public class RollyBOI {
 			super("RollyBOI Grabber");
 			this.grabber = grabber;
 		}
-		
-		public boolean isClasped(){
+
+		public boolean isClasped() {
 			return this.grabber.get() == CLASPED;
 		}
 
 		public void set(boolean clasped) {
-			if (clasped) this.grabber.set(CLASPED);
-			else this.grabber.set(RELEASED);
+			if (clasped) {
+				this.grabber.set(CLASPED);
+			} else {
+				this.grabber.set(RELEASED);
+			}
 		}
 
 		@Override

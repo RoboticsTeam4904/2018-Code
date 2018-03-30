@@ -6,6 +6,7 @@ import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.LIDAR;
 import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -22,6 +23,9 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -60,9 +64,7 @@ public class RobotMap {
 
 		public static class Pneumatics {
 			// TODO: Check if the order of these ports is correct
-			public static final PCMPort leftLifter = new PCMPort(0, 2, 3); // not deploy, deploy // 0 is the PCM with the compressor
 			public static final PCMPort rightLifter = new PCMPort(1, 3, 2); // not deploy, deploy
-			public static final PCMPort leftLifterSupport = new PCMPort(0, 4, 5); // raise, no raise
 			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5); // raise, no raise
 			public static final PCMPort shifter = new PCMPort(1, 0, 1);
 			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6); // clasp, release
@@ -74,7 +76,8 @@ public class RobotMap {
 		public static final double WHEEL_CIRCUMFERENCE_INCHES = Metrics.WHEEL_DIAMETER_INCHES * Math.PI;
 		public static final double WHEEL_DISTANCE_FRONT_BACK = 27.373;
 		public static final double WHEEL_DISTANCE_SIDE_SIDE = 24.5;
-		public static final double ARM_ACCEL_CAP = 1.0;
+		public static final double ARM_ACCEL_CAP = 0.55;
+		public static double TURN_CORRECTION = 0.0;
 
 		public static class Wheel {
 			public static final double TICKS_PER_REVOLUTION = 1024;
@@ -94,30 +97,44 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.057;
-			public static final double I = 0.0000035;
-			public static final double D = -0.012;
-			public static final double F = 0.0;
+			public static final double P = 0.04;
+			public static final double I = 0.0;
+			public static final double D = -0.006;
+			public static final double F = 0.01;
+			public static final double tolerance = 4.5;
+			public static final double dTolerance = 3.0;
 		}
 
 		public static class Turn {
-			public static final double P = 0.0032;
+			public static final double P = 0.003;
 			public static final double I = 0.0;
-			public static final double D = -0.0000025;
-			public static final double F = 0.000001;
+			public static final double D = -0.05;
+			public static final double F = 0.2;
+			public static final double tolerance = 1.0;
+			public static final double dTolerance = 0.1;
 		}
 
 		public static class Arm {
-			public static final double P = 0.009;
-			public static final double I = 0.000001;
+			public static final double P = 0.007;
+			public static final double I = 0.000007;
+			public static final double D = -0.0004;
+			public static final double F = 0.0001;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 3.0;
+		}
+
+		public static class LIDAR {
+			public static final double P = 0.0001;
+			public static final double I = 0.0;
 			public static final double D = -0.0018;
 			public static final double F = 0.0;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 3.0;
 		}
 	}
 
 	public static class Component {
 		public static Arm arm;
-		public static Lifter lifterLeft;
 		public static Lifter lifterRight;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
@@ -137,12 +154,42 @@ public class RobotMap {
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
+		public static LIDAR lidar;
 		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
 		public static CustomPIDController armController;
+		public static CustomPIDController lidarPID;
 		public static NavX navx;
 		public static Subsystem[] mainSubsystems;
 		public static CANSensor intakeSwitch;
+	}
+
+	public static class NetworkTables {
+		public static NetworkTableInstance inst;
+		public static NetworkTable table;
+
+		public static class Sensors {
+			public static NetworkTable table;
+			public static NetworkTableEntry yawEntry;
+			public static NetworkTableEntry rightEncoderEntry;
+			public static NetworkTableEntry leftEncoderEntry;
+			public static NetworkTableEntry accelXEntry;
+			public static NetworkTableEntry accelYEntry;
+			public static NetworkTableEntry accelZEntry;
+		}
+
+		public static class Cubes {
+			public static NetworkTable table;
+			public static NetworkTableEntry angleEntry;
+			public static NetworkTableEntry distanceEntry;
+		}
+
+		public static class Localization {
+			public static NetworkTable table;
+			public static NetworkTableEntry distObstFrontEntry;
+			public static NetworkTableEntry ourXEntry;
+			public static NetworkTableEntry ourYEntry;
+		}
 	}
 
 	public static class HumanInput {
@@ -182,13 +229,37 @@ public class RobotMap {
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
 		Component.chassisTurnMC.setInputRange(-180, 180);
 		Component.chassisTurnMC.setContinuous(true);
-		Component.chassisTurnMC.setAbsoluteTolerance(1.0);
+		Component.chassisTurnMC.setAbsoluteTolerance(PID.Turn.tolerance);
+		Component.chassisTurnMC.setDerivativeTolerance(PID.Turn.dTolerance);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
+		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.chassisEncoders);
-		Component.drivePID.setAbsoluteTolerance(2.0);
+			Component.leftWheelEncoder);
+		Component.drivePID.setAbsoluteTolerance(PID.Drive.tolerance);
+		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
+		/* Arm */
+		// Encoders
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
+		// armEncoder.reset();
+		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
+		Component.armController.setIThreshold(13);
+		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
+		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
+		// LIDAR
+		// Component.lidar = new LIDAR();
+		// Component.lidarPID = new CustomPIDController(PID.LIDAR.P, PID.LIDAR.I, PID.LIDAR.D, PID.LIDAR.F,
+		// Component.lidar);
+		// Component.lidarPID.setAbsoluteTolerance(PID.LIDAR.tolerance);
+		// Component.lidarPID.setDerivativeTolerance(PID.LIDAR.dTolerance);
+		// Motors
+		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
+		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
+		armB.setInverted(true);
+		// General
+		Component.arm = new Arm(Component.armController, armEncoder,
+			armA, armB);
 		/* CrateIO */
 		Component.crateIORollerLeft = new Motor("CrateIORollerLeft", new CANTalonSRX(Port.CANMotor.crateIORollerMotorLeft));
 		Component.crateIORollerRight = new Motor("CrateIORollerRight", new CANTalonSRX(Port.CANMotor.crateIORollerMotorRight));
@@ -205,23 +276,6 @@ public class RobotMap {
 		Component.lifterRight = new Lifter(
 			Port.Pneumatics.rightLifter.buildDoubleSolenoid(),
 			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
-		Component.lifterLeft = new Lifter(
-			Port.Pneumatics.leftLifter.buildDoubleSolenoid(),
-			Port.Pneumatics.leftLifterSupport.buildDoubleSolenoid());
-		/* Arm */
-		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
-		// armEncoder.reset();
-		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
-		Component.armController.setIThreshold(25);
-		Component.armController.setAbsoluteTolerance(20); // Uhhhhh, is this in ticks? pls not 20 degrees.
-		// Motors
-		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
-		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
-		armB.setInverted(true);
-		// General
-		Component.arm = new Arm(Component.armController, armEncoder,
-			armA, armB);
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
@@ -235,6 +289,24 @@ public class RobotMap {
 				// Component.lifterRight,
 				// Component.lifterLeft
 		};
+		/* NetworkTables */
+		NetworkTables.inst = NetworkTableInstance.getDefault();
+		NetworkTables.table = NetworkTables.inst.getTable("vision");
+		NetworkTables.Sensors.table = NetworkTables.inst.getTable("sensorData");
+		NetworkTables.Sensors.yawEntry = NetworkTables.Sensors.table.getEntry("yaw");
+		NetworkTables.Sensors.rightEncoderEntry = NetworkTables.Sensors.table.getEntry("rightEncoder");
+		NetworkTables.Sensors.leftEncoderEntry = NetworkTables.Sensors.table.getEntry("leftEncoder");
+		NetworkTables.Sensors.accelXEntry = NetworkTables.Sensors.table.getEntry("accelX");
+		NetworkTables.Sensors.accelYEntry = NetworkTables.Sensors.table.getEntry("accelY");
+		NetworkTables.Sensors.accelZEntry = NetworkTables.Sensors.table.getEntry("accelZ");
+		NetworkTables.Cubes.table = NetworkTables.table.getSubTable("cubes");
+		NetworkTables.Cubes.angleEntry = NetworkTables.Cubes.table.getEntry("relangle");
+		NetworkTables.Cubes.distanceEntry = NetworkTables.Cubes.table.getEntry("distance");
+		NetworkTables.Localization.table = NetworkTables.table.getSubTable("localization");
+		NetworkTables.Localization.distObstFrontEntry = NetworkTables.Localization.table
+			.getEntry("frontObsticalDist");
+		NetworkTables.Localization.ourXEntry = NetworkTables.Localization.table.getEntry("x");
+		NetworkTables.Localization.ourYEntry = NetworkTables.Localization.table.getEntry("y");
 	}
 
 	public static class PCMPort {
