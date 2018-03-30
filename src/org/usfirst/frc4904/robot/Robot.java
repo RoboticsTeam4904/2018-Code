@@ -33,6 +33,8 @@ public class Robot extends CommandRobotBase {
 
 	@Override
 	public void initialize() {
+		/* Pathing Start */
+		/* Pathing End */
 		driverChooser.addDefault(new NathanGain());
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(

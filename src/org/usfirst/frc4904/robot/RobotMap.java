@@ -202,6 +202,23 @@ public class RobotMap {
 		}
 	}
 
+	public static class Pathing {
+		public static class QuinticSpline {
+			public static int initPosX;
+			public static int initPosY;
+			public static int finPosX;
+			public static int finPosY;
+			public static int initVelX;
+			public static int initVelY;
+			public static int finVelX;
+			public static int finVelY;
+			public static int initAccX;
+			public static int initAccY;
+			public static int finAccX;
+			public static int finAccY;
+		}
+	}
+
 	public RobotMap() {
 		/* General */
 		Component.pdp = new PDP();
@@ -307,6 +324,7 @@ public class RobotMap {
 			.getEntry("frontObsticalDist");
 		NetworkTables.Localization.ourXEntry = NetworkTables.Localization.table.getEntry("x");
 		NetworkTables.Localization.ourYEntry = NetworkTables.Localization.table.getEntry("y");
+		/* Pathing */
 	}
 
 	public static class PCMPort {
