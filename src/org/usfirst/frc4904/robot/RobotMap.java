@@ -6,6 +6,7 @@ import org.usfirst.frc4904.robot.humaninterface.HumanInterfaceConfig;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
+import org.usfirst.frc4904.robot.subsystems.LIDAR;
 import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -56,8 +57,8 @@ public class RobotMap {
 		}
 
 		public static class CAN {
-			public static final int leftEncoder = 0x611;
-			public static final int rightEncoder = 0x610;
+			public static final int leftEncoder = 0x610;
+			public static final int rightEncoder = 0x611;
 			public static final int armEncoderPort = 0x612;
 		}
 
@@ -96,16 +97,16 @@ public class RobotMap {
 
 	public static class PID {
 		public static class Drive {
-			public static final double P = 0.035;
+			public static final double P = 0.04;
 			public static final double I = 0.0;
-			public static final double D = -0.013;
+			public static final double D = -0.006;
 			public static final double F = 0.01;
 			public static final double tolerance = 4.5;
 			public static final double dTolerance = 3.0;
 		}
 
 		public static class Turn {
-			public static final double P = 0.004;
+			public static final double P = 0.003;
 			public static final double I = 0.0;
 			public static final double D = -0.05;
 			public static final double F = 0.2;
@@ -114,12 +115,21 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.016;
-			public static final double I = 0.00001;
-			public static final double D = 0.0;
+			public static final double P = 0.007;
+			public static final double I = 0.000007;
+			public static final double D = -0.0004;
+			public static final double F = 0.0001;
+			public static final double tolerance = 4.0;
+			public static final double dTolerance = 3.0;
+		}
+
+		public static class LIDAR {
+			public static final double P = 0.0001;
+			public static final double I = 0.0;
+			public static final double D = -0.0018;
 			public static final double F = 0.0;
 			public static final double tolerance = 4.0;
-			public static final double dTolerance = 4.0;
+			public static final double dTolerance = 3.0;
 		}
 	}
 
@@ -144,9 +154,11 @@ public class RobotMap {
 		public static CANEncoder leftWheelEncoder;
 		public static CANEncoder rightWheelEncoder;
 		public static EncoderPair chassisEncoders;
+		public static LIDAR lidar;
 		public static CustomPIDController chassisTurnMC;
 		public static CustomPIDController drivePID;
 		public static CustomPIDController armController;
+		public static CustomPIDController lidarPID;
 		public static NavX navx;
 		public static Subsystem[] mainSubsystems;
 		public static CANSensor intakeSwitch;
@@ -199,7 +211,7 @@ public class RobotMap {
 		// Wheel Encoders
 		Component.leftWheelEncoder = new CANEncoder("LeftEncoder", Port.CAN.leftEncoder);
 		Component.rightWheelEncoder = new CANEncoder("RightEncoder", Port.CAN.rightEncoder);
-		Component.leftWheelEncoder.setDistancePerPulse(-Metrics.Wheel.INCHES_PER_TICK);
+		Component.leftWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.rightWheelEncoder.setDistancePerPulse(Metrics.Wheel.INCHES_PER_TICK);
 		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		// Acceleration Caps
@@ -224,17 +236,23 @@ public class RobotMap {
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
-			Component.rightWheelEncoder);
+			Component.leftWheelEncoder);
 		Component.drivePID.setAbsoluteTolerance(PID.Drive.tolerance);
 		Component.drivePID.setDerivativeTolerance(PID.Drive.dTolerance);
 		/* Arm */
 		// Encoders
-		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort);
+		CANEncoder armEncoder = new CANEncoder("ArmEncoder", Port.CAN.armEncoderPort, true);
 		// armEncoder.reset();
 		Component.armController = new CustomPIDController(PID.Arm.P, PID.Arm.I, PID.Arm.D, PID.Arm.F, armEncoder);
 		Component.armController.setIThreshold(13);
 		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
 		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
+		// LIDAR
+		Component.lidar = new LIDAR();
+		Component.lidarPID = new CustomPIDController(PID.LIDAR.P, PID.LIDAR.I, PID.LIDAR.D, PID.LIDAR.F,
+			Component.lidar);
+		Component.lidarPID.setAbsoluteTolerance(PID.LIDAR.tolerance);
+		Component.lidarPID.setDerivativeTolerance(PID.LIDAR.dTolerance);
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);

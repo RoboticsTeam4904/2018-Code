@@ -2,6 +2,8 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
@@ -21,7 +23,7 @@ public class CenterSwitchDistance extends Strategy {
 	public static final double DISTANCE_MID_LEFT = Math
 		.sqrt(x_distance_left * x_distance_left + y_distance * y_distance);
 	public static final double DEGREES_TURN_RIGHT = -Math.toDegrees(Math
-		.atan(y_distance / x_distance_right)) + 9;
+		.atan(y_distance / x_distance_right)) + 16;
 	public static final double DEGREES_TURN_LEFT = Math.toDegrees(Math
 		.atan(y_distance / x_distance_left));
 
@@ -36,6 +38,9 @@ public class CenterSwitchDistance extends Strategy {
 			() -> {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
+		addParallel(new RunIf(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SWITCH, 0.4), () -> {
+			return AutonConfig.EARLY_ARM_RAISE;
+		}));
 		addSequential(new RunIfElse(
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_LEFT, RobotMap.Component.drivePID),
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_RIGHT, RobotMap.Component.drivePID),
@@ -45,7 +50,7 @@ public class CenterSwitchDistance extends Strategy {
 		// The following orients the robot to be perpendicular with the switch again. May not be necessary
 		addSequential(new ChassisTurnAbsolute(RobotMap.Component.chassis, 0, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
-		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH - 2.0));
+		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH - 2.0, AutonConfig.EARLY_ARM_RAISE));
 		addSequential(new SafeVisionCubeIntake());
 	}
 
