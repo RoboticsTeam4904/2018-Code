@@ -17,6 +17,7 @@ public class VisionCubeIntake extends CommandGroup {
 			new ChassisTurnAbsolute(RobotMap.Component.chassis, cubeAngle, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
 		addParallel(new IntakeSquared());
+		// TODO: DO NOT UNCOMMENT THE FOLLOWING WITHOUT FULL CHECKS TO THE REST OF THE CODE
 		// addSequential(
 		// new ChassisMoveDistance(RobotMap.Component.chassis, cubeDist, RobotMap.Component.drivePID));
 	}
