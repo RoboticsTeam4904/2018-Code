@@ -10,7 +10,7 @@ public abstract class FarSideSwitchStrategy extends Strategy {
 		- RobotMap.Metrics.LENGTH) / 2;
 	// real words yes definitely
 	public static final double DISTANCE_CLOSE_SWITCH = AutonFieldMeasurements.ALLIANCE_MIDDLE_SWITCH_DISTANCE
-		- RobotMap.Metrics.LENGTH / 2 - 2.0;
+		- RobotMap.Metrics.LENGTH / 2 - 1.0;
 	public static final double DISTANCE_APPROACH_SWITCH = AutonFieldMeasurements.WALL_SWITCH_DISTANCE
 		- RobotMap.Metrics.ROBOT_DISTANCE_FROM_CLOSE_WALL - RobotMap.Metrics.LENGTH / 2 - 5.0;
 	public static final double DISTANCE_TO_BEHIND_SWITCH = AutonFieldMeasurements.ALLIANCE_BEHIND_SWITCH_DISTANCE

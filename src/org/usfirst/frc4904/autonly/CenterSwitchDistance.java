@@ -3,6 +3,7 @@ package org.usfirst.frc4904.autonly;
 
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.robot.subsystems.Arm;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
@@ -37,9 +38,9 @@ public class CenterSwitchDistance extends Strategy {
 			() -> {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
-		if (AutonConfig.EARLY_ARM_RAISE) {
-			addParallel(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SWITCH, 0.4));
-		}
+		addParallel(new RunIf(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SWITCH, 0.4), () -> {
+			return AutonConfig.EARLY_ARM_RAISE;
+		}));
 		addSequential(new RunIfElse(
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_LEFT, RobotMap.Component.drivePID),
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_MID_RIGHT, RobotMap.Component.drivePID),

@@ -19,9 +19,9 @@ public class FarRightScaleLeftDistance extends FarSideScaleStrategy {
 		addSequential(
 			new ChassisTurnAbsolute(RobotMap.Component.chassis, -90, RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
-		if (AutonConfig.EARLY_ARM_RAISE) {
-			addParallel(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SCALE, 1.8));
-		}
+		addParallel(new RunIf(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SCALE, 1.8), () -> {
+			return AutonConfig.EARLY_ARM_RAISE;
+		}));
 		// Cross behind switch
 		addSequential(
 			new ChassisMoveDistance(RobotMap.Component.chassis, DISTANCE_CROSS_BEHIND_SWITCH, RobotMap.Component.drivePID));
