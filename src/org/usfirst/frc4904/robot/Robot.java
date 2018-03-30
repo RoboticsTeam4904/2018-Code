@@ -184,6 +184,7 @@ public class Robot extends CommandRobotBase {
 		RobotMap.NetworkTables.Sensors.accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
 		RobotMap.NetworkTables.Sensors.rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
 		RobotMap.NetworkTables.Sensors.leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
+		putSBSubsystemSummary();
 	}
 
 	void putSBSubsystemSummary() {
