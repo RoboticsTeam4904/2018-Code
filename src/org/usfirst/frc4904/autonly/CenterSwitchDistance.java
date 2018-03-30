@@ -46,6 +46,7 @@ public class CenterSwitchDistance extends Strategy {
 		addSequential(new ChassisTurnAbsolute(RobotMap.Component.chassis, 0, RobotMap.Component.navx,
 			RobotMap.Component.chassisTurnMC));
 		addSequential(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH - 2.0));
+		addSequential(new SafeVisionCubeIntake());
 	}
 
 	@Override

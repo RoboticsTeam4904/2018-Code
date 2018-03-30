@@ -2,6 +2,7 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.commands.RunFor;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunWhile;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
@@ -9,6 +10,7 @@ import org.usfirst.frc4904.standard.commands.chassis.ChassisTurnAbsolute;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SafeVisionCubeIntake extends CommandGroup {
+	private static float TIME_ATTEMPT_INTAKE = 5;
 	public SafeVisionCubeIntake() {
 		addSequential(new RunIf(new ChassisMoveDistance(RobotMap.Component.chassis,
 			-0.25,
@@ -20,6 +22,6 @@ public class SafeVisionCubeIntake extends CommandGroup {
 			RobotMap.Component.chassisTurnMC), () -> {
 				return RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {4.0})[0] < 3;
 			}));
-		addSequential(new VisionCubeIntake());
+		addSequential(new RunFor(new VisionCubeIntake(), TIME_ATTEMPT_INTAKE));
 	}
 }
