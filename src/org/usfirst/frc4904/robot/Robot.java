@@ -9,12 +9,14 @@ import org.usfirst.frc4904.autonly.farsidepriorities.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
+import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleRightDistance;
 import org.usfirst.frc4904.autonly.farsideswitchstrategies.FarLeftSwitchLeftDistance;
 import org.usfirst.frc4904.robot.humaninterface.drivers.NathanGain;
 import org.usfirst.frc4904.robot.humaninterface.operators.DefaultOperator;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.sensors.CANSensor;
@@ -49,6 +51,9 @@ public class Robot extends CommandRobotBase {
 			new FarLeftSwitchLeftDistance());
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
+		autoChooser.addObject(new FarRightScaleRightDistance());
+		autoChooser.addObject(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx,
+			RobotMap.Component.chassisTurnMC));
 		// autoChooser.addObject(new LeftSideDistance());
 		// autoChooser.addObject(new RightSideDistance());
 		autoChooser.addObject(new CenterSwitchDistance());
