@@ -11,7 +11,7 @@ public class DelayedArmSet extends CommandGroup {
 
 	public DelayedArmSet(ArmState state, double delay) {
 		addSequential(new WaitCommand(delay));
-		addSequential(new ArmSet(state));
+		addParallel(new ArmSet(state));
 	}
 
 	public DelayedArmSet(ArmState state) {

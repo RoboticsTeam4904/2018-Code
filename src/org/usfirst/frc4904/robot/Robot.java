@@ -39,14 +39,14 @@ public class Robot extends CommandRobotBase {
 			// new ChassisIdle(RobotMap.Component.chassis));
 			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
 			// new ChassisIdle(RobotMap.Component.chassis));
-			// new ChassisTurn(RobotMap.Component.chassis, 90, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			// new ChassisTurn(RobotMap.Component.chassis, 55, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 			// new ChassisMoveDistance(RobotMap.Component.chassis, 120, RobotMap.Component.drivePID));
 			// new ChassisMoveDistance(RobotMap.Component.chassis, 72, RobotMap.Component.drivePID));
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
-			new CenterSwitchDistance());
-		// new CrossBaselineTime());
+			// new CenterSwitchDistance());
+			new CrossBaselineTime());
 		// new SwitchThenIntake());
 		// new TurnThenReset(90));
 		// new OuttakeSwitch(12));
