@@ -174,6 +174,14 @@ public class Robot extends CommandRobotBase {
 		// SmartDashboard.putBoolean("ShouldResetArmEncoder", false);
 		// }
 		SmartDashboard.putStringArray("Sensor Status", CANSensor.getSensorStatuses());
+		SmartDashboard.putNumberArray("Cube angles",
+			RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {3600000}));
+		SmartDashboard.putNumber("Closest cube angle",
+			RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {0})[0]);
+		SmartDashboard.putNumberArray("Cube distances",
+			RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0}));
+		SmartDashboard.putNumber("Closest cube distance",
+			RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0})[0]);
 		RobotMap.Component.chassis.turn_correction = SmartDashboard.getNumber("turn_correction", 0.0);
 		SmartDashboard.putNumber("turn_correction", RobotMap.Component.chassis.turn_correction);
 		// Push values to network table
