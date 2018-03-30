@@ -20,8 +20,6 @@ public class FarLeftScaleLeftDistance extends FarSideScaleStrategy {
 		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_SCALE), () -> {
 			return RobotMap.gameField.scale.isLeftOurs();
 		}));
-		addSequential(new RunIf(new SafeVisionCubeIntake(), () -> {
-			return RobotMap.gameField.scale.isLeftOurs();
-		}));
+		addSequential(new SafeVisionCubeIntake());
 	}
 }

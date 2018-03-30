@@ -20,8 +20,6 @@ public class FarRightSwitchRightDistance extends FarSideSwitchStrategy {
 		addSequential(new RunIf(new OuttakeSwitch(DISTANCE_APPROACH_SWITCH), () -> {
 			return RobotMap.gameField.ourSwitch.isRightOurs();
 		}));
-		addSequential(new RunIf(new SafeVisionCubeIntake(), () -> {
-			return RobotMap.gameField.ourSwitch.isRightOurs();
-		}));
+		addSequential(new SafeVisionCubeIntake());
 	}
 }
