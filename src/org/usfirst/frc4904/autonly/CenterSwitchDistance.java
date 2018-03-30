@@ -2,6 +2,7 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.robot.commands.ArmSet;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
@@ -38,7 +39,7 @@ public class CenterSwitchDistance extends Strategy {
 			() -> {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
-		addParallel(new RunIf(new DelayedArmSet(Arm.ArmState.ARM_POSITION_SWITCH, 0.4), () -> {
+		addParallel(new RunIf(new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH), () -> {
 			return AutonConfig.EARLY_ARM_RAISE;
 		}));
 		addSequential(new RunIfElse(

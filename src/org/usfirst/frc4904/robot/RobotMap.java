@@ -248,11 +248,11 @@ public class RobotMap {
 		Component.armController.setAbsoluteTolerance(PID.Arm.tolerance);
 		Component.armController.setDerivativeTolerance(PID.Arm.dTolerance);
 		// LIDAR
-		Component.lidar = new LIDAR();
-		Component.lidarPID = new CustomPIDController(PID.LIDAR.P, PID.LIDAR.I, PID.LIDAR.D, PID.LIDAR.F,
-			Component.lidar);
-		Component.lidarPID.setAbsoluteTolerance(PID.LIDAR.tolerance);
-		Component.lidarPID.setDerivativeTolerance(PID.LIDAR.dTolerance);
+		// Component.lidar = new LIDAR();
+		// Component.lidarPID = new CustomPIDController(PID.LIDAR.P, PID.LIDAR.I, PID.LIDAR.D, PID.LIDAR.F,
+		// Component.lidar);
+		// Component.lidarPID.setAbsoluteTolerance(PID.LIDAR.tolerance);
+		// Component.lidarPID.setDerivativeTolerance(PID.LIDAR.dTolerance);
 		// Motors
 		CANTalonSRX armA = new CANTalonSRX(Port.CANMotor.armMotorA);
 		CANTalonSRX armB = new CANTalonSRX(Port.CANMotor.armMotorB);
