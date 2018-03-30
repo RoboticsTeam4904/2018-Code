@@ -11,6 +11,5 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar" sourcepath="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc-sources.jar"/>
-    <classpathentry kind="var" path="USERLIBS_DIR/motioncontrol-1.1.0.jar" sourcepath="USERLIBS_DIR/motioncontrol-1.1.0-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
