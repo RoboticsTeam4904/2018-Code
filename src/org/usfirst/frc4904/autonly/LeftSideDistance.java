@@ -4,6 +4,7 @@ package org.usfirst.frc4904.autonly;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.LogKitten.KittenLevel;
 import org.usfirst.frc4904.standard.commands.KittenCommand;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 
 public class LeftSideDistance extends Strategy {
@@ -17,6 +18,9 @@ public class LeftSideDistance extends Strategy {
 			new CrossBaselineDistance(), () -> {
 				return RobotMap.gameField.ourSwitch.isLeftOurs();
 			}));
+		addSequential(new RunIf(new SafeVisionCubeIntake(), () -> {
+			return RobotMap.gameField.ourSwitch.isLeftOurs();
+		}));
 	}
 
 	@Override

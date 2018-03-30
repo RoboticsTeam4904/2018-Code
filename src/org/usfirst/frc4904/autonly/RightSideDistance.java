@@ -2,6 +2,7 @@ package org.usfirst.frc4904.autonly;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
+import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.RunIfElse;
 
 public class RightSideDistance extends Strategy {
@@ -13,6 +14,9 @@ public class RightSideDistance extends Strategy {
 			new CrossBaselineDistance(), () -> {
 				return RobotMap.gameField.ourSwitch.isRightOurs();
 			}));
+		addSequential(new RunIf(new SafeVisionCubeIntake(), () -> {
+			return RobotMap.gameField.ourSwitch.isRightOurs();
+		}));
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package org.usfirst.frc4904.autonly.farsidescalestrategies;
 
 
 import org.usfirst.frc4904.autonly.OuttakeScale;
+import org.usfirst.frc4904.autonly.SafeVisionCubeIntake;
 import org.usfirst.frc4904.robot.RobotMap;
 import org.usfirst.frc4904.standard.commands.RunIf;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
@@ -25,6 +26,9 @@ public class FarRightScaleLeftDistance extends FarSideScaleStrategy {
 				RobotMap.Component.chassisTurnMC));
 		// Lift arm, drive, outtake to scale, and reset robot position.
 		addSequential(new RunIf(new OuttakeScale(DISTANCE_APPROACH_FAR_SCALE), () -> {
+			return RobotMap.gameField.scale.isLeftOurs();
+		}));
+		addSequential(new RunIf(new SafeVisionCubeIntake(), () -> {
 			return RobotMap.gameField.scale.isLeftOurs();
 		}));
 	}
