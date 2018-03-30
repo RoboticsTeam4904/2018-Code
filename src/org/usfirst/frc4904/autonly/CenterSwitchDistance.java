@@ -22,7 +22,7 @@ public class CenterSwitchDistance extends Strategy {
 	public static final double DISTANCE_MID_LEFT = Math
 		.sqrt(x_distance_left * x_distance_left + y_distance * y_distance);
 	public static final double DEGREES_TURN_RIGHT = -Math.toDegrees(Math
-		.atan(y_distance / x_distance_right)) + 9;
+		.atan(y_distance / x_distance_right)) + 16;
 	public static final double DEGREES_TURN_LEFT = Math.toDegrees(Math
 		.atan(y_distance / x_distance_left));
 
