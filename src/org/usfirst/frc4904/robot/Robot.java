@@ -3,6 +3,7 @@ package org.usfirst.frc4904.robot;
 
 import org.usfirst.frc4904.autonly.CenterSwitchDistance;
 import org.usfirst.frc4904.autonly.CrossBaselineTime;
+import org.usfirst.frc4904.autonly.VisionCubeIntake;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
@@ -113,7 +114,8 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void teleopExecute() {}
+	public void teleopExecute() {
+	}
 
 	@Override
 	public void autonomousInitialize() {
@@ -129,7 +131,10 @@ public class Robot extends CommandRobotBase {
 	}
 
 	@Override
-	public void autonomousExecute() {}
+	public void autonomousExecute() {
+		Command vision_rotate = new VisionCubeIntake();
+		vision_rotate.start();
+	}
 
 	@Override
 	public void disabledInitialize() {}

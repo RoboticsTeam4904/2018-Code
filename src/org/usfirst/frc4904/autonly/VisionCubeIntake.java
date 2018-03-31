@@ -10,10 +10,11 @@ public class VisionCubeIntake extends CommandGroup {
 	double cubeDist;
 
 	public VisionCubeIntake() {
-		cubeAngle = RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {3600000})[0];
-		cubeDist = RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0})[0];
+		// cubeAngle = RobotMap.NetworkTables.Cubes.angleEntry.getDoubleArray(new double[] {3600000})[0];
 		addSequential(
-			new ChassisTurnAbsolute(RobotMap.Component.chassis, cubeAngle, RobotMap.Component.navx,
+			new ChassisTurnAbsolute(RobotMap.Component.chassis,
+				RobotMap.NetworkTables.Cubes.distanceEntry.getDoubleArray(new double[] {0})[0],
+				RobotMap.Component.navx,
 				RobotMap.Component.chassisTurnMC));
 		// addParallel(new IntakeSquared());
 		// TODO: DO NOT UNCOMMENT THE FOLLOWING WITHOUT FULL CHECKS TO THE REST OF THE CODE
