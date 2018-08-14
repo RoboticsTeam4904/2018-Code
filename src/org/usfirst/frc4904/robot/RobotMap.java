@@ -22,10 +22,10 @@ import org.usfirst.frc4904.standard.subsystems.chassis.TankDriveShifting;
 import org.usfirst.frc4904.standard.subsystems.motor.Motor;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.AccelerationCap;
 import org.usfirst.frc4904.standard.subsystems.motor.speedmodifiers.EnableableModifier;
+import org.usfirst.frc4904.standard.custom.PCMPort;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -274,7 +274,7 @@ public class RobotMap {
 				Component.chassis,
 				// Component.crateIO,
 				// Component.rollyBOI,
-				Component.arm// ,
+				Component.arm
 		};
 		/* NetworkTables */
 		NetworkTables.inst = NetworkTableInstance.getDefault();
@@ -294,31 +294,5 @@ public class RobotMap {
 			.getEntry("frontObsticalDist");
 		NetworkTables.Localization.ourXEntry = NetworkTables.Localization.table.getEntry("x");
 		NetworkTables.Localization.ourYEntry = NetworkTables.Localization.table.getEntry("y");
-	}
-
-	public static class PCMPort {
-		public int pcmID;
-		public int forward;
-		public int reverse;
-
-		/**
-		 * Defines a piston based on two ports and a PCM number
-		 * 
-		 * @param pcmID
-		 *        The ID of the PCM attached to the piston. Usually 0 or 1.
-		 * @param forward
-		 *        The forward port of the piston.
-		 * @param reverse
-		 *        The reverse port of the piston.
-		 */
-		public PCMPort(int pcmID, int forward, int reverse) { // First variable PCM number, second forward, third reverse.
-			this.pcmID = pcmID;
-			this.forward = forward;
-			this.reverse = reverse;
-		}
-
-		public DoubleSolenoid buildDoubleSolenoid() {
-			return new DoubleSolenoid(pcmID, forward, reverse);
-		}
 	}
 }
