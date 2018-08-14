@@ -7,7 +7,6 @@ import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.Arm.DiscBrake;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.robot.subsystems.LIDAR;
-import org.usfirst.frc4904.robot.subsystems.Lifter;
 import org.usfirst.frc4904.robot.subsystems.RollyBOI;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
 import org.usfirst.frc4904.standard.custom.controllers.CustomXbox;
@@ -28,7 +27,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class RobotMap {
@@ -47,13 +45,10 @@ public class RobotMap {
 			public static final int crateIORollerMotorRight = 7;
 			public static final int rollyBOIRollerMotorLeft = 11;
 			public static final int rollyBOIRollerMotorRight = 3;
-		}
-
-		public static class PWM {
-			public static final int leftDriveA = 2;
-			public static final int leftDriveB = 3;
-			public static final int rightDriveA = 0;
-			public static final int rightDriveB = 1;
+			public static final int leftDriveA = 4;
+			public static final int leftDriveB = 5;
+			public static final int rightDriveA = 15;
+			public static final int rightDriveB = 16;
 		}
 
 		public static class CAN {
@@ -63,11 +58,9 @@ public class RobotMap {
 		}
 
 		public static class Pneumatics {
-			// TODO: Check if the order of these ports is correct
-			public static final PCMPort rightLifter = new PCMPort(1, 3, 2); // not deploy, deploy
-			public static final PCMPort rightLifterSupport = new PCMPort(1, 4, 5); // raise, no raise
-			public static final PCMPort shifter = new PCMPort(1, 0, 1);
-			public static final PCMPort rollyBOIGrabber = new PCMPort(0, 7, 6); // clasp, release
+//			// TODO: Check if the order of these ports is correct
+			public static final PCMPort shifter = new PCMPort(1, 0, 1); 
+			public static final PCMPort rollyBOIGrabber = new PCMPort(1, 7, 6); // clasp, release
 		}
 	}
 
@@ -135,7 +128,6 @@ public class RobotMap {
 
 	public static class Component {
 		public static Arm arm;
-		public static Lifter lifterRight;
 		public static PDP pdp;
 		public static Motor crateIORollerLeft;
 		public static Motor crateIORollerRight;
@@ -220,10 +212,10 @@ public class RobotMap {
 		Component.rightWheelAccelerationCap = new EnableableModifier(new AccelerationCap(Component.pdp));
 		Component.rightWheelAccelerationCap.enable();
 		// Wheels
-		Component.leftWheel = new Motor("LeftWheel", Component.leftWheelAccelerationCap,
-			new VictorSP(Port.PWM.leftDriveA), new VictorSP(Port.PWM.leftDriveB));
+		Component.leftWheel = new Motor("LeftWheel", true, Component.leftWheelAccelerationCap,
+			new CANTalonSRX(Port.CANMotor.leftDriveA), new CANTalonSRX(Port.CANMotor.leftDriveB));
 		Component.rightWheel = new Motor("RightWheel", Component.rightWheelAccelerationCap,
-			new VictorSP(Port.PWM.rightDriveA), new VictorSP(Port.PWM.rightDriveB));
+			new CANTalonSRX(Port.CANMotor.rightDriveA), new CANTalonSRX(Port.CANMotor.rightDriveB));
 		// Motion Controllers
 		Component.chassisTurnMC = new CustomPIDController(PID.Turn.P, PID.Turn.I, PID.Turn.D, PID.Turn.F, Component.navx);
 		Component.chassisTurnMC.setMinimumNominalOutput(0.24);
@@ -233,6 +225,7 @@ public class RobotMap {
 		Component.chassisTurnMC.setDerivativeTolerance(PID.Turn.dTolerance);
 		// General Chassis
 		Component.shifter = new SolenoidShifters(Port.Pneumatics.shifter.buildDoubleSolenoid());
+		Component.chassisEncoders = new EncoderPair(Component.leftWheelEncoder, Component.rightWheelEncoder);
 		Component.chassis = new TankDriveShifting("2018-Chassis", Component.leftWheel, Component.rightWheel, Component.shifter);
 		Component.chassis.turn_correction = Metrics.TURN_CORRECTION;
 		Component.drivePID = new CustomPIDController(PID.Drive.P, PID.Drive.I, PID.Drive.D, PID.Drive.F,
@@ -272,10 +265,6 @@ public class RobotMap {
 		Component.rollyBOIGrabber = new RollyBOI.Grabber(Port.Pneumatics.rollyBOIGrabber.buildDoubleSolenoid());
 		Component.rollyBOI = new RollyBOI(Component.rollyBOIRollerLeft, Component.rollyBOIRollerRight,
 			Component.rollyBOIGrabber);
-		/* Lifters */
-		Component.lifterRight = new Lifter(
-			Port.Pneumatics.rightLifter.buildDoubleSolenoid(),
-			Port.Pneumatics.rightLifterSupport.buildDoubleSolenoid());
 		/* Controllers */
 		HumanInput.Driver.xbox = new CustomXbox(Port.HumanInput.xboxController);
 		HumanInput.Driver.xbox.setDeadZone(HumanInterfaceConfig.XBOX_DEADZONE);
@@ -286,8 +275,6 @@ public class RobotMap {
 				// Component.crateIO,
 				// Component.rollyBOI,
 				Component.arm// ,
-				// Component.lifterRight,
-				// Component.lifterLeft
 		};
 		/* NetworkTables */
 		NetworkTables.inst = NetworkTableInstance.getDefault();

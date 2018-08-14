@@ -2,7 +2,6 @@ package org.usfirst.frc4904.robot.humaninterface.operators;
 
 
 import org.usfirst.frc4904.robot.RobotMap;
-import org.usfirst.frc4904.robot.commands.ExtenderDeploy;
 import org.usfirst.frc4904.robot.commands.IndexerGrabberClasp;
 import org.usfirst.frc4904.robot.commands.IndexerGrabberRelease;
 import org.usfirst.frc4904.robot.commands.IndexerRollersIntake;
@@ -11,7 +10,6 @@ import org.usfirst.frc4904.robot.commands.IndexerRollersRelease;
 import org.usfirst.frc4904.robot.commands.IntakeRollersOuttake;
 import org.usfirst.frc4904.robot.commands.IntakeSquared;
 import org.usfirst.frc4904.robot.commands.OuttakeSquared;
-import org.usfirst.frc4904.robot.commands.SupportRaise;
 import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.robot.subsystems.CrateIO;
 import org.usfirst.frc4904.standard.commands.RunFor;
@@ -77,12 +75,5 @@ public class DefaultOperator extends Operator {
 		// .onlyWhileHeld(new ArmMove(Arm.ArmState.ARM_POSITION_SCALE, true));
 		// Lifter
 		// button 10 + right stick: right lifter deploy
-		RobotMap.HumanInput.Operator.joystick.button10.whenPressed(
-			new RunIf(new ExtenderDeploy(RobotMap.Component.lifterRight), RobotMap.HumanInput.Driver.xbox.rightStick::get));
-		// button 9 + deployed: right lifter raise
-		RobotMap.HumanInput.Operator.joystick.button9
-			.whenPressed(new RunIf(new SupportRaise(RobotMap.Component.lifterRight), () -> {
-				return RobotMap.Component.lifterRight.extender.isDeployed && RobotMap.HumanInput.Driver.xbox.rightStick.get();
-			}));
 	}
 }
