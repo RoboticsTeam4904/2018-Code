@@ -18,6 +18,7 @@ import org.usfirst.frc4904.robot.subsystems.Arm;
 import org.usfirst.frc4904.standard.CommandRobotBase;
 import org.usfirst.frc4904.standard.LogKitten;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisMove;
+import org.usfirst.frc4904.standard.commands.chassis.ChassisMoveDistance;
 import org.usfirst.frc4904.standard.commands.chassis.ChassisTurn;
 import org.usfirst.frc4904.standard.commands.motor.MotorControl;
 import org.usfirst.frc4904.standard.custom.controllers.CustomJoystick;
@@ -55,6 +56,7 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 		autoChooser.addObject(new SwitchThenIntake());
+		autoChooser.addObject(new ChassisMoveDistance(RobotMap.Component.chassis, 9, RobotMap.Component.drivePID));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
 		autoChooser.addObject(new FarRightScaleRightDistance());
