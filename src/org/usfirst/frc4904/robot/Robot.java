@@ -38,16 +38,16 @@ public class Robot extends CommandRobotBase {
 		operatorChooser.addDefault(new DefaultOperator());
 		autoChooser.addDefault(
 			// new ChassisIdle(RobotMap.Component.chassis));
-			// new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+//			 new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 			// new ChassisIdle(RobotMap.Component.chassis));
-			// new ChassisTurn(RobotMap.Component.chassis, 55, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+			 new ChassisTurn(RobotMap.Component.chassis, 15, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
 			// new ChassisMoveDistance(RobotMap.Component.chassis, 120, RobotMap.Component.drivePID));
-			// new ChassisMoveDistance(RobotMap.Component.chassis, 72, RobotMap.Component.drivePID));
+//			 new ChassisMoveDistance(RobotMap.Component.chassis, 72, RobotMap.Component.drivePID));
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
 			// new CenterSwitchDistance());
-			new CrossBaselineTime());
+//			new CrossBaselineTime());
 		// new SwitchThenIntake());
 		// new TurnThenReset(90));
 		// new OuttakeSwitch(12));
@@ -56,7 +56,7 @@ public class Robot extends CommandRobotBase {
 		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
 		autoChooser.addObject(new SwitchThenIntake());
-		autoChooser.addObject(new ChassisMoveDistance(RobotMap.Component.chassis, 9, RobotMap.Component.drivePID));
+		autoChooser.addObject(new ChassisMoveDistance(RobotMap.Component.chassis, 15, RobotMap.Component.drivePID));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
 		autoChooser.addObject(new FarRightScaleRightDistance());
@@ -163,7 +163,9 @@ public class Robot extends CommandRobotBase {
 			SmartDashboard.getNumber("armPID/I", 0),
 			SmartDashboard.getNumber("armPID/D", 0), SmartDashboard.getNumber("armPID/F", 0));
 		SmartDashboard.putNumber("armEncoder, 0x612", RobotMap.Component.arm.getTrueAngle());
-		SmartDashboard.putNumber("navx", RobotMap.Component.navx.getYaw());
+		SmartDashboard.putNumber("navxyaw", RobotMap.Component.navx.getYaw());
+		SmartDashboard.putNumber("navxroll", RobotMap.Component.navx.getRoll());
+		SmartDashboard.putNumber("navxpitch", RobotMap.Component.navx.getPitch());
 		SmartDashboard.putNumber("leftEncoder, 0x610", RobotMap.Component.leftWheelEncoder.getDistance());
 		SmartDashboard.putNumber("rightEncoder, 0x611", RobotMap.Component.rightWheelEncoder.getDistance());
 		// LogKitten.wtf("ARM" + Double.toString(RobotMap.Component.arm.getTrueAngle())
