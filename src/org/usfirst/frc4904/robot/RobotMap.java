@@ -28,6 +28,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.I2C;
+
 
 public class RobotMap {
 	public static Field gameField;
@@ -99,7 +101,7 @@ public class RobotMap {
 		}
 
 		public static class Turn {
-			public static final double P = 0.003;
+			public static final double P = 0.0015;
 			public static final double I = 0.0;
 			public static final double D = -0.05;
 			public static final double F = 0.2;
@@ -197,7 +199,7 @@ public class RobotMap {
 	public RobotMap() {
 		/* General */
 		Component.pdp = new PDP();
-		Component.navx = new NavX(SerialPort.Port.kMXP);
+		Component.navx = new NavX(I2C.Port.kMXP); //SerialPort.Port.kMXP);
 		gameField = new Field();
 		/* Chassis */
 		// Wheel Encoders

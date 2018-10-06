@@ -8,7 +8,9 @@ import org.usfirst.frc4904.autonly.farsidepriorities.LeftSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightScaleOverSwitch;
 import org.usfirst.frc4904.autonly.farsidepriorities.RightSwitchOverScale;
 import org.usfirst.frc4904.autonly.farsidescalestrategies.FarRightScaleRightDistance;
+import org.usfirst.frc4904.autonly.sideswitchnoturn.LeftSideDistance;
 import org.usfirst.frc4904.autonly.sideswitchnoturn.LeftSideTime;
+import org.usfirst.frc4904.autonly.sideswitchnoturn.RightSideDistance;
 import org.usfirst.frc4904.autonly.sideswitchnoturn.RightSideTime;
 import org.usfirst.frc4904.autonly.test.SwitchThenIntake;
 import org.usfirst.frc4904.robot.commands.ArmSet;
@@ -40,30 +42,30 @@ public class Robot extends CommandRobotBase {
 			// new ChassisIdle(RobotMap.Component.chassis));
 //			 new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
 			// new ChassisIdle(RobotMap.Component.chassis));
-			 new ChassisTurn(RobotMap.Component.chassis, 15, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
-			// new ChassisMoveDistance(RobotMap.Component.chassis, 120, RobotMap.Component.drivePID));
+//			 new ChassisTurn(RobotMap.Component.chassis, 15, RobotMap.Component.navx, RobotMap.Component.chassisTurnMC));
+//			 new ChassisMoveDistance(RobotMap.Component.chassis, 120, RobotMap.Component.drivePID));
 //			 new ChassisMoveDistance(RobotMap.Component.chassis, 72, RobotMap.Component.drivePID));
 			// new Square());
 			// new FarLeftSwitchDistance());
 			// new FarLeftScaleDistance());
 			// new CenterSwitchDistance());
-//			new CrossBaselineTime());
+			new CrossBaselineTime());
 		// new SwitchThenIntake());
 		// new TurnThenReset(90));
 		// new OuttakeSwitch(12));
 		// new FarLeftSwitchLeftDistance());
-		autoChooser.addObject("Scale", new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
-		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
-		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
-		autoChooser.addObject(new SwitchThenIntake());
+//		autoChooser.addObject("Scale", new ArmSet(Arm.ArmState.ARM_POSITION_SCALE));
+//		autoChooser.addObject("Switch", new ArmSet(Arm.ArmState.ARM_POSITION_SWITCH));
+//		autoChooser.addObject("Intake", new ArmSet(Arm.ArmState.ARM_POSITION_INTAKE));
+//		autoChooser.addObject(new SwitchThenIntake());
 		autoChooser.addObject(new ChassisMoveDistance(RobotMap.Component.chassis, 15, RobotMap.Component.drivePID));
 		autoChooser.addObject(new LeftSideTime());
 		autoChooser.addObject(new RightSideTime());
-		autoChooser.addObject(new FarRightScaleRightDistance());
-		autoChooser.addObject(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx,
-			RobotMap.Component.chassisTurnMC));
-		// autoChooser.addObject(new LeftSideDistance());
-		// autoChooser.addObject(new RightSideDistance());
+//		autoChooser.addObject(new FarRightScaleRightDistance());
+//		autoChooser.addObject(new ChassisTurn(RobotMap.Component.chassis, -90, RobotMap.Component.navx,
+//			RobotMap.Component.chassisTurnMC));
+		 autoChooser.addObject(new LeftSideDistance());
+		 autoChooser.addObject(new RightSideDistance());
 		autoChooser.addObject(new CenterSwitchDistance());
 		// autoChooser.addObject(new FarLeftSwitchDistance());
 		// autoChooser.addObject(new FarRightSwitchDistance());
@@ -189,13 +191,16 @@ public class Robot extends CommandRobotBase {
 		RobotMap.Component.chassis.turn_correction = SmartDashboard.getNumber("turn_correction", 0.0);
 		SmartDashboard.putNumber("turn_correction", RobotMap.Component.chassis.turn_correction);
 		// Push values to network table
-		RobotMap.NetworkTables.Sensors.yawEntry.setNumber(RobotMap.Component.navx.getYaw());
-		RobotMap.NetworkTables.Sensors.accelXEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelX());
-		RobotMap.NetworkTables.Sensors.accelYEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelY());
-		RobotMap.NetworkTables.Sensors.accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
+		// RobotMap.NetworkTables.Sensors.yawEntry.setNumber(RobotMap.Component.navx.getYaw());
+//		RobotMap.NetworkTables.Sensors.accelXEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelX());
+//		RobotMap.NetworkTables.Sensors.accelYEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelY());
+//		RobotMap.NetworkTables.Sensors.accelZEntry.setNumber(RobotMap.Component.navx.getWorldLinearAccelZ());
 		RobotMap.NetworkTables.Sensors.rightEncoderEntry.setDouble(RobotMap.Component.rightWheelEncoder.getDistance());
 		RobotMap.NetworkTables.Sensors.leftEncoderEntry.setDouble(RobotMap.Component.leftWheelEncoder.getDistance());
 		putSBSubsystemSummary();
+		displayChoosers();
+
+	    LogKitten.e(Double.toString(RobotMap.Component.navx.getUpdateCount()));
 	}
 
 	void putSBSubsystemSummary() {

@@ -10,7 +10,7 @@ import org.usfirst.frc4904.standard.subsystems.motor.Motor;
  * of it.
  */
 public class CrateIO {
-	public static final double INTAKE_SPEED = 0.5;
+	public static final double INTAKE_SPEED = 0.9;
 	public static final double OUTTAKE_SPEED = -0.5;
 	public final Motor rollerLeft;
 	public final Motor rollerRight;
