@@ -101,7 +101,7 @@ public class RobotMap {
 		}
 
 		public static class Turn {
-			public static final double P = 0.0015;
+			public static final double P = 0.002;
 			public static final double I = 0.0;
 			public static final double D = -0.05;
 			public static final double F = 0.2;
@@ -110,12 +110,12 @@ public class RobotMap {
 		}
 
 		public static class Arm {
-			public static final double P = 0.010;
+			public static final double P = 0.012;
 			public static final double I = 0.000005;
 			public static final double D = -0.0004;
 			public static final double F = 0.007;
-			public static final double tolerance = 4.0;
-			public static final double dTolerance = 3.0;
+			public static final double tolerance = 15.0;
+			public static final double dTolerance = 10.0;
 		}
 
 		public static class LIDAR {
